@@ -6,22 +6,21 @@ import { withTheme } from 'grommet/components/hocs';
 import doc from './doc';
 import { StyledCard, StyledCardContent, StyledFlipCard } from './StyledCard';
 
-export const CardActions = ({ children, ...rest }) => (
-  <Box justifySelf='end' align='center' gap='small' pad='small' border='top' flex={false} fill='horizontal' direction='row' {...rest}>
+export const CardActions = ({ children, pad = 'small', ...rest }) => (
+  <Box justifySelf='end' align='center' pad={pad} gap='small' border='top' flex={false} fill='horizontal' direction='row' {...rest}>
     {children}
   </Box>
 );
 
 export const CardTitle = ({
-  children, color, size, textAlign, truncate, level = 3, strong = true, margin = 'none', responsive, ...rest
+  children, color, textAlign, truncate, level = 4, pad = 'small', strong = false, responsive, ...rest
 }) => (
-  <Box responsive={responsive} direction='row' fill={true} border='bottom' gap='small' pad='small' flex={false} {...rest} >
+  <Box responsive={responsive} direction='row' fill={true} pad={pad} border='bottom' gap='small' flex={false} {...rest} >
     {typeof children !== 'string' ? children : (
       <Heading
         level={level}
-        margin={margin}
+        margin='none'
         color={color}
-        size={size}
         textAlign={textAlign}
         truncate={truncate}
         responsive={responsive}
@@ -32,8 +31,8 @@ export const CardTitle = ({
   </Box>
 );
 
-export const CardContent = ({ children, ...rest }) => (
-  <Box overflow='scroll' justifySelf='stretch' fill='horizontal' {...rest} >
+export const CardContent = ({ children, pad = 'small', ...rest }) => (
+  <Box overflow='scroll' justifySelf='stretch' pad={pad} fill='horizontal' {...rest} >
     {children}
   </Box>
 );
@@ -42,11 +41,9 @@ class Card extends Component {
   static defaultProps = {
     title: undefined,
     subTitle: undefined,
-    margin: 'small',
     align: 'center',
     border: 'all',
     elevation: 'small',
-    pad: 'small',
     round: 'xsmall',
     flex: false,
     gap: 'small',

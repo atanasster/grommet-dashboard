@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Anchor } from 'grommet';
 import { Github } from 'grommet-icons';
 import { Value, Spinning } from 'grommet-controls';
-import { Card, CardTitle, CardActions } from './Card';
+import { Card, CardTitle, CardActions, CardContent } from './Card';
 import { colorFromIndex } from '../utils/colors';
 
 class NPMStats extends React.Component {
@@ -12,21 +12,23 @@ class NPMStats extends React.Component {
     let content;
     if (pckg.stats) {
       content = (
-        <Box justify='between' fill={true} pad='small' >
+        <Box justify='between' fill={true} >
           <CardTitle>
-            <Box direction='row' fill={true} justify='between'>
+            <Box direction='row' fill={true} justify='between' >
               <Value size='medium' value={pckg.stats.evaluation.popularity.downloadsCount.toFixed(0)} label='downloads' />
               <Value size='medium' value={pckg.stats.evaluation.popularity.dependentsCount.toFixed(0)} label='dependents' />
               <Value size='medium' value={pckg.stats.evaluation.popularity.communityInterest.toFixed(0)} label='interest' />
             </Box>
           </CardTitle>
-          <Box align='center' justify='center' >
-            <Box direction='row' align='center' pad={{ vertical: 'large' }}>
-              <Value size='xlarge' value={pckg.stats.collected.metadata.name} label={pckg.stats.collected.metadata.version} />
+          <CardContent>
+            <Box align='center' justify='center' basis='small' >
+              <Box direction='row' align='center' pad={{ vertical: 'large' }}>
+                <Value size='xlarge' value={pckg.stats.collected.metadata.name} label={pckg.stats.collected.metadata.version} />
+              </Box>
             </Box>
-          </Box>
+          </CardContent>
           <CardActions>
-            <Box direction='row' pad={{ top: 'small' }} fill={true} align='center'>
+            <Box direction='row' fill={true} align='center'>
               <Anchor
                 icon={<Github />}
                 href={pckg.stats.collected.metadata.repository.url.split('+')[1]}
@@ -46,16 +48,14 @@ class NPMStats extends React.Component {
       );
     } else {
       content = (
-        <Box fill={true} align='center' justify='center'>
+        <Box basis='small' fill={true} align='center' justify='center'>
           <Spinning />
         </Box>
       );
     }
     return (
-      <Card>
-        <Box background={colorFromIndex(index)} fill={true}>
-          {content}
-        </Box>
+      <Card background={colorFromIndex(index)} fill='horizontal'>
+        {content}
       </Card>
     );
   }

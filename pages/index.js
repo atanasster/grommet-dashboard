@@ -32,8 +32,8 @@ class Home extends React.Component {
           <Grid columns='medium' gap='medium' justify='between'>
             <DonutChart pName='downloadsCount' title='Downloads' />
             <DonutChart pName='dependentsCount' title='Dependents' />
-            <DonutChart pName='communityInterest' title='Interest' />
-            <DonutChart pName='downloadsAcceleration' title='Acceleration' />
+            <DonutChart pName='communityInterest' title='Community interest' />
+            <DonutChart pName='downloadsAcceleration' title='Downloads acceleration' />
           </Grid>
         </Box>
       </Page>

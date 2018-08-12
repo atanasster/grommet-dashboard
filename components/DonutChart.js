@@ -4,7 +4,7 @@ import { Box } from 'grommet';
 import { colorForName } from 'grommet/utils/colors';
 import { withTheme } from 'grommet/components/hocs';
 import { Doughnut } from 'react-chartjs-2';
-import { Card, CardTitle } from './Card';
+import { Card, CardTitle, CardContent } from './Card';
 import connect from '../redux';
 import { colorFromIndex } from '../utils/colors';
 
@@ -50,7 +50,9 @@ class DonutChart extends React.Component {
           <CardTitle>
             {title}
           </CardTitle>
-          <Doughnut data={data} />
+          <CardContent>
+            <Doughnut data={data} />
+          </CardContent>
         </Card>
       </Box>
     );
