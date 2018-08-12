@@ -9,25 +9,39 @@ import { colorFromIndex } from '../utils/colors';
 class NPMStats extends React.Component {
   render() {
     const { pckg, index } = this.props;
-    let content;
-    if (pckg.stats) {
-      content = (
-        <Box justify='between' fill={true} >
-          <CardTitle>
-            <Box direction='row' fill={true} justify='between' >
-              <Value size='medium' value={pckg.stats.evaluation.popularity.downloadsCount.toFixed(0)} label='downloads' />
-              <Value size='medium' value={pckg.stats.evaluation.popularity.dependentsCount.toFixed(0)} label='dependents' />
-              <Value size='medium' value={pckg.stats.evaluation.popularity.communityInterest.toFixed(0)} label='interest' />
+    const content = (
+      <Box justify='between' fill={true} >
+        <CardTitle>
+          {pckg.stats ? (
+            <Box direction='row' fill={true} justify='between'>
+              <Value
+                size='medium'
+                value={pckg.stats.evaluation.popularity.downloadsCount.toFixed(0)}
+                label='downloads'
+              />
+              <Value
+                size='medium'
+                value={pckg.stats.evaluation.popularity.dependentsCount.toFixed(0)}
+                label='dependents'
+              />
+              <Value
+                size='medium'
+                value={pckg.stats.evaluation.popularity.communityInterest.toFixed(0)}
+                label='interest'
+              />
             </Box>
-          </CardTitle>
-          <CardContent>
-            <Box align='center' justify='center' basis='small' >
-              <Box direction='row' align='center' pad={{ vertical: 'large' }}>
-                <Value size='xlarge' value={pckg.stats.collected.metadata.name} label={pckg.stats.collected.metadata.version} />
-              </Box>
+            ) : pckg.name
+            }
+        </CardTitle>
+        <CardContent>
+          <Box align='center' justify='center' basis='small' >
+            <Box direction='row' align='center' pad={{ vertical: 'large' }}>
+              <Value size='xlarge' value={pckg.name} label={pckg.stats ? pckg.stats.collected.metadata.version : ''} />
             </Box>
-          </CardContent>
-          <CardActions>
+          </Box>
+        </CardContent>
+        <CardActions>
+          { pckg.stats ? (
             <Box direction='row' fill={true} align='center'>
               <Anchor
                 icon={<Github />}
@@ -43,18 +57,13 @@ class NPMStats extends React.Component {
               </Box>
                 )}
             </Box>
-          </CardActions>
-        </Box>
-      );
-    } else {
-      content = (
-        <Box basis='small' fill={true} align='center' justify='center'>
-          <Spinning />
-        </Box>
-      );
-    }
+            ) : <Value size='medium' value={<Spinning />} label='loading' />
+          }
+        </CardActions>
+      </Box>
+    );
     return (
-      <Card background={colorFromIndex(index)} fill='horizontal'>
+      <Card background={colorFromIndex(index)} fill='horizontal' flex={true}>
         {content}
       </Card>
     );
