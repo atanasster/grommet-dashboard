@@ -8,7 +8,6 @@ import * as ActionTypes from './constants';
 const defaultTheme = 'light';
 
 const baseSpacing = 16;
-const baseSize = 22;
 
 const lightTheme = {
   global: {
@@ -69,24 +68,6 @@ const lightTheme = {
         medium: `${baseSpacing / 2}px`, // 12
         large: `${baseSpacing}px`, // 24
         xlarge: `${baseSpacing * 2}px`, // 48
-      },
-    },
-    size: {
-      xxsmall: `${baseSize * 2}px`, // 48
-      xsmall: `${baseSize * 4}px`, // 96
-      small: `${baseSize * 8}px`, // 192
-      medium: `${baseSize * 16}px`, // 384
-      large: `${baseSize * 32}px`, // 768
-      xlarge: `${baseSize * 48}px`, // 1152
-      full: '100%',
-      narrow: {
-        xxsmall: `${baseSize}px`, // 24
-        xsmall: `${baseSize * 2}px`, // 48
-        small: `${baseSize * 4}px`, // 96
-        medium: `${baseSize * 8}px`, // 192
-        large: `${baseSize * 16}px`, // 384
-        xlarge: `${baseSize * 32}px`, // 768
-        full: '100%',
       },
     },
   },

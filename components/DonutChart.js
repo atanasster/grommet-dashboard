@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Box } from 'grommet';
 import { colorForName } from 'grommet/utils/colors';
 import { withTheme } from 'grommet/components/hocs';
 import { Doughnut } from 'react-chartjs-2';
@@ -25,12 +26,14 @@ class DonutChart extends React.Component {
     });
     return (
       <Card>
-        <CardTitle>
-          {title}
-        </CardTitle>
-        <CardContent >
-          <Doughnut data={data} />
-        </CardContent>
+        <Box fill='horizontal' basis='324px'>
+          <CardTitle>
+            {title}
+          </CardTitle>
+          <CardContent>
+            <Doughnut data={data} />
+          </CardContent>
+        </Box>
       </Card>
     );
   }
