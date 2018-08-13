@@ -161,7 +161,7 @@ class Page extends React.Component {
                   </Box>
                 </Box>
                ) }
-              <Box flex={true} background='light-1' pad={{ horizontal: !navMenu.responsive && 'xlarge', vertical: 'large' }}>
+              <Box flex={true} background='light-1' pad={{ horizontal: navMenu.responsive ? 'small' : 'xlarge', vertical: 'large' }}>
                 {children}
               </Box>
               {footer && (

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from 'grommet';
 import { colorForName } from 'grommet/utils/colors';
 import { withTheme } from 'grommet/components/hocs';
 import { Doughnut } from 'react-chartjs-2';
@@ -24,37 +23,15 @@ class DonutChart extends React.Component {
         data.datasets[0].backgroundColor.push(colorForName(colorFromIndex(index), theme));
       }
     });
-    /* data = {
-      labels: [
-        'Red',
-        'Green',
-        'Yellow',
-      ],
-      datasets: [{
-        data: [300, 50, 100],
-        backgroundColor: [
-          '#FF6384',
-          '#36A2EB',
-          '#FFCE56',
-        ],
-        hoverBackgroundColor: [
-          '#FF6384',
-          '#36A2EB',
-          '#FFCE56',
-        ],
-      }],
-    }; */
     return (
-      <Box basis='small'>
-        <Card>
-          <CardTitle>
-            {title}
-          </CardTitle>
-          <CardContent>
-            <Doughnut data={data} />
-          </CardContent>
-        </Card>
-      </Box>
+      <Card>
+        <CardTitle>
+          {title}
+        </CardTitle>
+        <CardContent >
+          <Doughnut data={data} />
+        </CardContent>
+      </Card>
     );
   }
 }
