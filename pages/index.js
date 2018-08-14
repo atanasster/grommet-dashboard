@@ -7,6 +7,7 @@ import { npmRetrieveStats } from '../redux/npm/actions';
 import NPMStats from '../components/NPMStats';
 import DonutChart from '../components/DonutChart';
 import LineChart from '../components/LineChart';
+import DistributionCard from '../components/Distribution';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -28,11 +29,11 @@ class Home extends React.Component {
         </Box>
         <Box gap='medium'>
           <LineChart />
+          <DistributionCard pName='downloadsCount' title='Downloads' />
           <Grid columns='medium' gap='medium' justify='between'>
             {packages.map((pckg, index) => <NPMStats key={`npm-stats-${pckg.name}`} pckg={pckg} index={index} />)}
           </Grid>
           <Grid columns='medium' gap='medium' justify='between'>
-            <DonutChart pName='downloadsCount' title='Downloads' />
             <DonutChart pName='dependentsCount' title='Dependents' />
             <DonutChart pName='communityInterest' title='Community interest' />
             <DonutChart pName='downloadsAcceleration' title='Downloads acceleration' />

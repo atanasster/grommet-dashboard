@@ -48,8 +48,6 @@ class LineChart extends React.Component {
 
     packages.forEach((npm, index) => {
       if (npm[interval]) {
-        console.log(npm[interval]);
-        console.log(npm.history.downloads);
         data.datasets.push({
           label: npm.name,
           data: npm[interval].map(d => ({ x: d.day, y: d.downloads })),
