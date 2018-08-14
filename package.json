@@ -30,6 +30,7 @@
     "grommet": "https://github.com/grommet/grommet/tarball/NEXT-stable",
     "grommet-controls": "^0.31.13",
     "grommet-icons": "https://github.com/grommet/grommet-icons/tarball/stable",
+    "moment": "^2.22.2",
     "next": "^6.1.1",
     "npm": "^5.7.1",
     "react": "16.4.1",

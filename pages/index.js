@@ -2,10 +2,11 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { Box, Grid, Heading } from 'grommet';
 import Page from '../components/Page';
-import NPMStats from '../components/NPMStats';
-import DonutChart from '../components/DonutChart';
 import connect from '../redux';
 import { npmRetrieveStats } from '../redux/npm/actions';
+import NPMStats from '../components/NPMStats';
+import DonutChart from '../components/DonutChart';
+import LineChart from '../components/LineChart';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -26,6 +27,7 @@ class Home extends React.Component {
           </Box>
         </Box>
         <Box gap='medium'>
+          <LineChart />
           <Grid columns='medium' gap='medium' justify='between'>
             {packages.map((pckg, index) => <NPMStats key={`npm-stats-${pckg.name}`} pckg={pckg} index={index} />)}
           </Grid>

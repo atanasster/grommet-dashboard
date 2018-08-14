@@ -15,6 +15,10 @@ const lightTheme = {
       'brand': '#ffffff',
       'border-light': 'rgba(0, 0, 0, 0.10)',
       'border-dark': 'rgba(255, 255, 255, 0.10)',
+      'accent-1': '#FD6FFF',
+      'accent-2': '#61EC9F',
+      'accent-3': '#60EBE1',
+      'accent-4': '#FFCA58',
     },
     font: {
       family: "'Montserrat', sans-serif;",
@@ -81,6 +85,14 @@ const lightTheme = {
   },
   heading: {
     font: false,
+  },
+  select: {
+    icons: {
+      color: {
+        dark: '#ffffff',
+        light: '#000000',
+      },
+    },
   },
   icon: {
     size: {
