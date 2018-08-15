@@ -12,6 +12,8 @@ const initialState = {
   ],
   stats: {},
   history: {},
+  search: '',
+  searchResults: '',
 };
 
 // group download dates from a sorted array by period
@@ -69,6 +71,13 @@ export default function reduce(state = initialState, action) {
               history: action.data,
               [action.interval]: groupDates(action.data.downloads, action.interval),
             } : p)),
+      };
+    case ActionTypes.NPM_RETRIEVE_SEARCH:
+      console.log(action.data);
+      return {
+        ...state,
+        search: action.search,
+        searchResults: Array.isArray(action.data) ? [...action.data] : undefined,
       };
     default:
       return state;

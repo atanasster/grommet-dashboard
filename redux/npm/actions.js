@@ -40,3 +40,21 @@ export const npmRetrieveHistory = (packageName, period, interval) => (dispatch) 
 export const npmRemovePackage = packageName => (
   { type: ActionTypes.NPM_REMOVE_PACKAGE, packageName }
 );
+
+export const npmSearchRequest = search => (dispatch) => {
+  if (search && search.length > 1) {
+    fetch(`https://api.npms.io/v2/search?q=${search}`)
+      .then(response => response.json())
+      .then(data => dispatch({
+        type: ActionTypes.NPM_RETRIEVE_SEARCH,
+        data: data.results,
+        search,
+      }));
+  } else {
+    dispatch({
+      type: ActionTypes.NPM_RETRIEVE_SEARCH,
+      data: [],
+      search,
+    });
+  }
+};
