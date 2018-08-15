@@ -31,7 +31,13 @@ class DonutChart extends React.Component {
             {title}
           </CardTitle>
           <CardContent>
-            <Doughnut data={data} />
+            <Doughnut
+              data={data}
+              height={324}
+              options={{
+                maintainAspectRatio: false,
+              }}
+            />
           </CardContent>
         </Box>
       </Card>

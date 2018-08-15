@@ -51,6 +51,7 @@ class Card extends Component {
     backContent: undefined,
     flipped: false,
     flipOnHover: true,
+    background: 'brand',
     flipDuration: 0.3,
   };
 

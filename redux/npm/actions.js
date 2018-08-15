@@ -19,7 +19,7 @@ export const npmRetrieveHistory = (packageName, period, interval) => (dispatch) 
     case '6 months':
       startDate.subtract(6, 'month');
       break;
-    case '2 year':
+    case '2 years':
       startDate.subtract(2, 'year');
       break;
     default:

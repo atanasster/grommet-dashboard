@@ -12,7 +12,7 @@ import { colorFromIndex } from '../utils/colors';
 class LineChart extends React.Component {
   state = {
     interval: 'weekly',
-    period: '1 year',
+    period: '6 months',
   };
 
   loadData = (period, interval) => {
