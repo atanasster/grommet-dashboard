@@ -21,26 +21,24 @@ const groupDates = (dates, period) => {
   if (!dates || dates.length === 0 || period === 'daily') {
     return [...dates];
   }
-  let lastPeriod = { day: null, downloads: 0 };
+  const p = {
+    weekly: 'week',
+    monthly: 'month',
+    yearly: 'year',
+  };
+  let firstDay = dates[dates.length - 1].day;
+  while (firstDay > dates[0].day) {
+    firstDay = moment(firstDay).subtract(1, p[period]).format('YYYY-MM-DD');
+  }
+  let lastPeriod = { day: moment(firstDay).add(1, p[period]).format('YYYY-MM-DD'), downloads: 0 };
   dates.forEach((date) => {
-    const startPeriod = moment(date.day, 'YYYY-MM-DD');
-    let ts;
-    if (period === 'weekly') {
-      ts = startPeriod.startOf('week').format('YYYY-MM-DD');
-    } else if (period === 'monthly') {
-      ts = startPeriod.startOf('month').format('YYYY-MM-DD');
-    } else if (period === 'yearly') {
-      ts = startPeriod.startOf('year').format('YYYY-MM-DD');
-    } else {
-      throw new Error('invalid period');
-    }
-    if (ts !== lastPeriod.day) {
+    if (date.day > lastPeriod.day) {
       lastPeriod = {
-        day: ts,
+        day: moment(lastPeriod.day).add(1, p[period]).format('YYYY-MM-DD'),
         downloads: date.downloads,
       };
       groupedDates.push(lastPeriod);
-    } else {
+    } else if (date.day >= firstDay) {
       lastPeriod.downloads += date.downloads;
     }
   });

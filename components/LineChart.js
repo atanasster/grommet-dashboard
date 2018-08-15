@@ -42,7 +42,6 @@ class LineChart extends React.Component {
     const { packages, theme } = this.props;
     const { interval, period } = this.state;
     const data = {
-      labels: [],
       datasets: [],
     };
 
@@ -86,11 +85,15 @@ class LineChart extends React.Component {
                   xAxes: [{
                     type: 'time',
                     time: {
-                      tooltipFormat: 'll',
+                      tooltipFormat: 'llll',
+                      unit: 'day',
+                      displayFormats: {
+                        'day': 'll',
+                      },
                     },
                     ticks: {
                       source: 'data',
-
+                      autoSkip: interval === 'daily' ? true : undefined,
                     },
                     scaleLabel: {
                       display: true,

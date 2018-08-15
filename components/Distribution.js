@@ -24,7 +24,6 @@ class DistributionCard extends Component {
         });
       }
     });
-    console.log(data);
     return (
       <Card>
         <Box fill='horizontal' basis='324px'>
