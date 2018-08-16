@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeContext } from 'grommet';
+import ThemeContext from 'grommet/contexts/ThemeContext';
 import { deepMerge } from 'grommet/utils/object';
 import { normalizeColor } from 'grommet/utils/colors';
 
