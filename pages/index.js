@@ -4,7 +4,7 @@ import { Box, Grid, Heading } from 'grommet';
 import Page from '../components/Page';
 import connect from '../redux';
 import { npmRetrieveStats } from '../redux/npm/actions';
-import SearchInput from '../components/SearchInput';
+import PackageSelector from '../components/PackageSelector';
 import NPMStats from '../components/NPMStats';
 import DonutChart from '../components/charts/DonutChart';
 import LineChart from '../components/charts/LineChart';
@@ -20,7 +20,7 @@ class Home extends React.Component {
     return (
       <Page title='Home'>
         <Box>
-          <SearchInput onChange={s => alert(s)} />
+          <PackageSelector />
           <Box direction='row' gap='xlarge' margin={{ bottom: 'large' }}>
             <Box basis='medium' overflow='hidden'>
               <Heading level={3}>

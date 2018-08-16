@@ -7,7 +7,7 @@ export const npmRetrieveStats = packageName => (dispatch) => {
     .then(data => dispatch({ type: ActionTypes.NPM_RETRIEVE_STATS, packageName, data }));
 };
 
-export const npmRetrieveHistory = (packageName, period, interval) => (dispatch) => {
+export const npmRetrieveHistory = (packageName, period) => (dispatch) => {
   const startDate = moment();
   switch (period) {
     case '1 month':
@@ -32,7 +32,6 @@ export const npmRetrieveHistory = (packageName, period, interval) => (dispatch) 
       type: ActionTypes.NPM_RETRIEVE_HISTORY,
       packageName,
       data,
-      interval,
     }));
 };
 
@@ -40,6 +39,35 @@ export const npmRetrieveHistory = (packageName, period, interval) => (dispatch) 
 export const npmRemovePackage = packageName => (
   { type: ActionTypes.NPM_REMOVE_PACKAGE, packageName }
 );
+
+export const npmAddPackage = packageName => (dispatch, getState) => {
+  dispatch({ type: ActionTypes.NPM_ADD_PACKAGE, packageName });
+  const { period } = getState().npm;
+  dispatch(npmRetrieveStats(packageName));
+  dispatch(npmRetrieveHistory(packageName, period));
+};
+
+export const npmChangePeriod = period => (dispatch, getState) => {
+  const { packages } = getState().npm;
+  dispatch({
+    type: ActionTypes.NPM_CHANGE_PERIOD,
+    period,
+  });
+  packages.forEach((p) => {
+    dispatch(npmRetrieveHistory(p.name, period));
+  });
+};
+
+export const npmChangeInterval = interval => (dispatch, getState) => {
+  const { packages, period } = getState().npm;
+  dispatch({
+    type: ActionTypes.NPM_CHANGE_INTERVAL,
+    interval,
+  });
+  packages.forEach((p) => {
+    dispatch(npmRetrieveHistory(p.name, period));
+  });
+};
 
 export const npmSearchRequest = search => (dispatch) => {
   if (search && search.length > 1) {
@@ -58,3 +86,8 @@ export const npmSearchRequest = search => (dispatch) => {
     });
   }
 };
+
+export const npmUpdateSearch = search => ({ type: ActionTypes.NPM_UPDATE_SEARCH, search });
+
+
+export const npmClearSearch = () => ({ type: ActionTypes.NPM_CLEAR_SEARCH });

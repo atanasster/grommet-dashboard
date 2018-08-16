@@ -6,44 +6,30 @@ import { withTheme } from 'grommet/components/hocs';
 import { Line } from 'react-chartjs-2';
 import { Card, CardTitle, CardContent } from '../Card/index';
 import connect from '../../redux/index';
-import { npmRetrieveHistory } from '../../redux/npm/actions';
+import { npmRetrieveHistory, npmChangePeriod, npmChangeInterval } from '../../redux/npm/actions';
 import { colorFromIndex } from '../../utils/colors';
 import withChartTheme from './ThemedChart';
 
 const ThemedLine = withChartTheme(Line);
 
 class LineChart extends React.Component {
-  state = {
-    interval: 'weekly',
-    period: '6 months',
-  };
-
-  loadData = (period, interval) => {
-    const { packages } = this.props;
-    packages.forEach(p => this.props.npmRetrieveHistory(p.name, period, interval));
-  };
-
   componentDidMount() {
-    const { interval, period } = this.state;
-
-    this.loadData(period, interval);
+    const { packages, period } = this.props;
+    packages.forEach(p => this.props.npmRetrieveHistory(p.name, period));
   }
 
   onChangeInterval = (interval) => {
-    const { period } = this.state;
-    this.setState({ interval });
-    this.loadData(period, interval);
+    this.props.npmChangeInterval(interval);
   };
 
   onChangePeriod = (period) => {
-    const { interval } = this.state;
-    this.setState({ period });
-    this.loadData(period, interval);
+    this.props.npmChangePeriod(period);
   };
 
   render() {
-    const { packages, theme } = this.props;
-    const { interval, period } = this.state;
+    const {
+      packages, theme, interval, period,
+    } = this.props;
     const data = {
       datasets: [],
     };
@@ -120,10 +106,13 @@ class LineChart extends React.Component {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ npmRetrieveHistory }, dispatch);
+  bindActionCreators({ npmRetrieveHistory, npmChangePeriod, npmChangeInterval }, dispatch);
 
 const mapStateToProps = state => ({
   packages: state.npm.packages,
+  interval: state.npm.interval,
+  period: state.npm.period,
+
 });
 
 

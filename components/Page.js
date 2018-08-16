@@ -55,7 +55,7 @@ class Page extends React.Component {
       children, title: pageTitle, description, nav, themes: { themes }, navMenu, footer,
     } = this.props;
     const { theme = 'light' } = this.state;
-    const keywords = ['grommet', 'grommet 2', 'react', 'next-js', 'next.js', 'ui library'];
+    const keywords = ['grommet', 'grommet 2', 'react', 'next-js', 'next.js', 'dashboard', 'npm'];
     if (pageTitle) {
       keywords.push(pageTitle);
     }

@@ -1,26 +1,29 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { Box, Text, Paragraph, TextInput } from 'grommet';
+import { Box, Text, Paragraph } from 'grommet';
 import { Tags } from 'grommet-controls';
 import { withTheme } from 'grommet/components/hocs';
-import { npmSearchRequest } from '../redux/npm/actions';
+import TextInput from './TextInput/TextInput';
+import { npmUpdateSearch, npmSearchRequest, npmClearSearch, npmRemovePackage, npmAddPackage } from '../redux/npm/actions';
 import connect from '../redux';
 
-class SearchInput extends React.Component {
+class PackageSelector extends React.Component {
   onSearch = ({ target }) => {
-    const { npmSearchRequest: search } = this.props;
+    this.props.npmUpdateSearch(target.value);
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
     this.timeout = setTimeout(() => {
-      search(target.value);
+      this.props.npmSearchRequest(target.value);
     }, 600);
   };
 
   onSelect = ({ suggestion }) => {
     const { onChange } = this.props;
     const selected = suggestion.value;
+    this.props.npmClearSearch();
+    this.props.npmAddPackage(selected);
     if (onChange) {
       onChange(selected);
     }
@@ -58,38 +61,50 @@ class SearchInput extends React.Component {
   };
 
   render() {
-    const { packages } = this.props;
+    const { packages, search } = this.props;
     return (
-      <Box>
-        <TextInput
-          defaultValue=''
-          placeholder='search'
-          suggestions={this.createSuggestions()}
-          onChange={this.onSearch}
-          onSelect={this.onSelect}
+      <Box gap='medium'>
+        <Box direction='row'>
+          <Box basis='medium'>
+            <TextInput
+              value={search}
+              placeholder='search'
+              suggestions={this.createSuggestions()}
+              onChange={this.onSearch}
+              onSelect={this.onSelect}
+            />
+          </Box>
+        </Box>
+        <Tags
+          pad={{ vertical: 'small' }}
+          value={packages.map(p => p.name)}
+          onChange={({ option }) => this.props.npmRemovePackage(option)}
+          tagProps={{ size: 'large', pad: 'small' }}
         />
-        <Tags value={packages.map(p => p.name)} size='large' />
       </Box>
     );
   }
 }
 
-SearchInput.defaultProps = {
+PackageSelector.defaultProps = {
   onChange: undefined,
 };
 
-SearchInput.propTypes = {
+PackageSelector.propTypes = {
   onChange: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ npmSearchRequest }, dispatch);
+  bindActionCreators({
+    npmUpdateSearch, npmClearSearch, npmRemovePackage, npmAddPackage, npmSearchRequest,
+  }, dispatch);
 
 const mapStateToProps = state => ({
   searchResults: state.npm.searchResults,
   packages: state.npm.packages,
+  search: state.npm.search,
 });
 
 
-export default withTheme(connect(mapStateToProps, mapDispatchToProps)(SearchInput));
+export default withTheme(connect(mapStateToProps, mapDispatchToProps)(PackageSelector));
 
