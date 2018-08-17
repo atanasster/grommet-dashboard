@@ -44,6 +44,12 @@ class NPMStats extends React.Component {
           </CardActions>
         </Box>
       );
+    } else if (pckg.error) {
+      content = (
+        <Box fill={true} align='center' direction='row' justify='center' flex='grow'>
+          <Value value={pckg.name} label={pckg.error} />
+        </Box>
+      );
     } else {
       content = (
         <Box fill={true} align='center' direction='row' justify='center' gap='medium' flex='grow'>

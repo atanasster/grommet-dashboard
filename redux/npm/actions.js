@@ -1,40 +1,62 @@
 import moment from 'moment';
+import 'isomorphic-unfetch';
 import * as ActionTypes from './constants';
 
-export const npmRetrieveStats = packageName => (dispatch) => {
-  fetch(`https://api.npms.io/v2/package/${packageName}`)
-    .then(response => response.json())
-    .then(data => dispatch({ type: ActionTypes.NPM_RETRIEVE_STATS, packageName, data }));
-};
-
-export const npmRetrieveHistory = (packageName, period) => (dispatch) => {
-  const startDate = moment();
-  switch (period) {
-    case '1 month':
-      startDate.subtract(1, 'month');
-      break;
-    case '3 months':
-      startDate.subtract(3, 'month');
-      break;
-    case '6 months':
-      startDate.subtract(6, 'month');
-      break;
-    case '2 years':
-      startDate.subtract(2, 'year');
-      break;
-    default:
-      startDate.subtract(1, 'year');
-      break;
+const npmRetrieveStats = npmPackage => (dispatch) => {
+  if (npmPackage && npmPackage.stats === undefined) {
+    fetch(`https://api.npms.io/v2/package/${npmPackage.name}`)
+      .then(response => response.json())
+      .then(data => dispatch({
+        type: ActionTypes.NPM_RETRIEVE_STATS,
+        packageName: npmPackage.name,
+        data,
+      }));
   }
-  fetch(`https://api.npmjs.org/downloads/range/${startDate.format('YYYY-MM-DD')}:${moment().format('YYYY-MM-DD')}/${packageName}`)
-    .then(response => response.json())
-    .then(data => dispatch({
-      type: ActionTypes.NPM_RETRIEVE_HISTORY,
-      packageName,
-      data,
-    }));
 };
 
+const npmRetrieveHistory = (npmPackage, period) => (dispatch, getState) => {
+  const startDate = moment();
+  const { period: oldPeriod, interval } = getState().npm;
+  if (oldPeriod !== period || !npmPackage.history || !npmPackage[interval]) {
+    switch (period) {
+      case '1 month':
+        startDate.subtract(1, 'month');
+        break;
+      case '3 months':
+        startDate.subtract(3, 'month');
+        break;
+      case '6 months':
+        startDate.subtract(6, 'month');
+        break;
+      case '2 years':
+        startDate.subtract(2, 'year');
+        break;
+      default:
+        startDate.subtract(1, 'year');
+        break;
+    }
+    fetch(`https://api.npmjs.org/downloads/range/${startDate.format('YYYY-MM-DD')}:${moment().format('YYYY-MM-DD')}/${npmPackage.name}`)
+      .then(response => response.json())
+      .then(data => dispatch({
+        type: ActionTypes.NPM_RETRIEVE_HISTORY,
+        packageName: npmPackage.name,
+        data,
+      }));
+  }
+};
+
+const packagesGetAllData = () => (dispatch, getState) => {
+  const { period, packages } = getState().npm;
+  packages.forEach((npmPackage) => {
+    dispatch(npmRetrieveStats(npmPackage));
+    dispatch(npmRetrieveHistory(npmPackage, period));
+  });
+};
+
+export const npmSetPackages = packageNames => (dispatch) => {
+  dispatch({ type: ActionTypes.NPM_SET_PACKAGES, packages: packageNames });
+  dispatch(packagesGetAllData());
+};
 
 export const npmRemovePackage = packageName => (
   { type: ActionTypes.NPM_REMOVE_PACKAGE, packageName }
@@ -42,31 +64,26 @@ export const npmRemovePackage = packageName => (
 
 export const npmAddPackage = packageName => (dispatch, getState) => {
   dispatch({ type: ActionTypes.NPM_ADD_PACKAGE, packageName });
-  const { period } = getState().npm;
-  dispatch(npmRetrieveStats(packageName));
-  dispatch(npmRetrieveHistory(packageName, period));
+  const { period, packages } = getState().npm;
+  const npmPackage = packages.find(p => p.name === packageName);
+  dispatch(npmRetrieveStats(npmPackage));
+  dispatch(npmRetrieveHistory(npmPackage, period));
 };
 
-export const npmChangePeriod = period => (dispatch, getState) => {
-  const { packages } = getState().npm;
+export const npmChangePeriod = period => (dispatch) => {
   dispatch({
     type: ActionTypes.NPM_CHANGE_PERIOD,
     period,
   });
-  packages.forEach((p) => {
-    dispatch(npmRetrieveHistory(p.name, period));
-  });
+  dispatch(packagesGetAllData());
 };
 
-export const npmChangeInterval = interval => (dispatch, getState) => {
-  const { packages, period } = getState().npm;
+export const npmChangeInterval = interval => (dispatch) => {
   dispatch({
     type: ActionTypes.NPM_CHANGE_INTERVAL,
     interval,
   });
-  packages.forEach((p) => {
-    dispatch(npmRetrieveHistory(p.name, period));
-  });
+  dispatch(packagesGetAllData());
 };
 
 export const npmSearchRequest = search => (dispatch) => {

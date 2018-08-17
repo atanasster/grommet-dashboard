@@ -1,9 +1,7 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { Box, Grid, Heading } from 'grommet';
 import Page from '../components/Page';
 import connect from '../redux';
-import { npmRetrieveStats } from '../redux/npm/actions';
 import PackageSelector from '../components/PackageSelector';
 import NPMStats from '../components/NPMStats';
 import DonutChart from '../components/charts/DonutChart';
@@ -11,10 +9,6 @@ import LineChart from '../components/charts/LineChart';
 import DistributionCard from '../components/Distribution';
 
 class Home extends React.Component {
-  componentDidMount() {
-    const { packages } = this.props;
-    packages.forEach(p => this.props.npmRetrieveStats(p.name));
-  }
   render() {
     const { packages } = this.props;
     return (
@@ -46,12 +40,9 @@ class Home extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ npmRetrieveStats }, dispatch);
-
 const mapStateToProps = state => ({
   packages: state.npm.packages,
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

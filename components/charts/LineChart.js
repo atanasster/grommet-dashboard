@@ -6,18 +6,13 @@ import { withTheme } from 'grommet/components/hocs';
 import { Line } from 'react-chartjs-2';
 import { Card, CardTitle, CardContent } from '../Card/index';
 import connect from '../../redux/index';
-import { npmRetrieveHistory, npmChangePeriod, npmChangeInterval } from '../../redux/npm/actions';
+import { npmChangePeriod, npmChangeInterval } from '../../redux/npm/actions';
 import { colorFromIndex } from '../../utils/colors';
 import withChartTheme from './ThemedChart';
 
 const ThemedLine = withChartTheme(Line);
 
 class LineChart extends React.Component {
-  componentDidMount() {
-    const { packages, period } = this.props;
-    packages.forEach(p => this.props.npmRetrieveHistory(p.name, period));
-  }
-
   onChangeInterval = (interval) => {
     this.props.npmChangeInterval(interval);
   };
@@ -106,7 +101,7 @@ class LineChart extends React.Component {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ npmRetrieveHistory, npmChangePeriod, npmChangeInterval }, dispatch);
+  bindActionCreators({ npmChangePeriod, npmChangeInterval }, dispatch);
 
 const mapStateToProps = state => ({
   packages: state.npm.packages,

@@ -21,8 +21,8 @@ class DonutChart extends React.Component {
       datasets: [{ data: [], backgroundColor: [], hoverBackgroundColor: [] }],
     };
     packages.forEach((npm, index) => {
-      data.labels.push(npm.name);
       if (npm.stats) {
+        data.labels.push(npm.name);
         data.datasets[0].data.push(npm.stats.evaluation.popularity[pName].toFixed(0));
         data.datasets[0].backgroundColor.push(colorForName(colorFromIndex(index), theme));
       }
@@ -52,6 +52,8 @@ DonutChart.propTypes = {
   pName: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
+
+
 const mapStateToProps = state => ({
   packages: state.npm.packages,
 });

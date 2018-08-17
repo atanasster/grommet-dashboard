@@ -1,17 +1,18 @@
 import moment from 'moment';
 import * as ActionTypes from './constants';
 
+/*
+const defaultPackages = [
+  'material-ui',
+  'semantic-ui-react',
+  'react-bootstrap',
+  'antd',
+  'office-ui-fabric-react',
+  'grommet',
+];
+*/
 const initialState = {
-  packages: [
-    { name: 'material-ui' },
-    { name: 'semantic-ui-react' },
-    { name: 'react-bootstrap' },
-    { name: 'antd' },
-    { name: 'office-ui-fabric-react' },
-    { name: 'grommet' },
-  ],
-  stats: {},
-  history: {},
+  packages: [],
   search: '',
   searchResults: '',
   interval: 'weekly',
@@ -22,7 +23,10 @@ const initialState = {
 // dates are objects in format { day, downloads }
 const groupDates = (dates, period) => {
   const groupedDates = [];
-  if (!dates || dates.length === 0 || period === 'daily') {
+  if (!dates) {
+    return dates;
+  }
+  if (dates.length === 0 || period === 'daily') {
     return [...dates];
   }
   const p = {
@@ -51,12 +55,24 @@ const groupDates = (dates, period) => {
 
 export default function reduce(state = initialState, action) {
   switch (action.type) {
+    case ActionTypes.NPM_SET_PACKAGES:
+      return {
+        ...state,
+        packages: Array.isArray(action.packages) ?
+          action.packages.map(p => (
+            { ...{ name: p }, ...state.packages.find(npmPackage => npmPackage.name === p) }
+          )) : [],
+      };
     case ActionTypes.NPM_RETRIEVE_STATS:
       return {
         ...state,
         packages:
           state.packages.map(p =>
-            (p.name === action.packageName ? { ...p, stats: action.data } : p)),
+            (p.name === action.packageName ? {
+              ...p,
+              stats: action.data && action.data.evaluation ? action.data : undefined,
+              error: action.data && action.data.message ? action.data.message : undefined,
+            } : p)),
       };
     case ActionTypes.NPM_REMOVE_PACKAGE:
       return {
@@ -86,7 +102,7 @@ export default function reduce(state = initialState, action) {
           state.packages.map(p =>
             (p.name === action.packageName ? {
               ...p,
-              history: action.data,
+              history: action.data && !action.data.error ? action.data : [],
               [state.interval]: groupDates(action.data.downloads, state.interval),
             } : p)),
       };

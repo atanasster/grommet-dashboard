@@ -32,7 +32,10 @@ class DistributionCard extends Component {
           </CardTitle>
           <CardContent fill={true} flex={true}>
 
-            <Distribution values={data} style={{ height: '100%' }}>
+            <Distribution
+              values={data.sort((a, b) => (b.value - a.value))}
+              style={{ height: '100%' }}
+            >
               {item => (
                 <Box
                   background={item.color}

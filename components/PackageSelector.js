@@ -1,14 +1,36 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { Box, Text, Paragraph } from 'grommet';
-import { Tags } from 'grommet-controls';
 import { withTheme } from 'grommet/components/hocs';
+import { Tags } from 'grommet-controls';
 import TextInput from './TextInput/TextInput';
-import { npmUpdateSearch, npmSearchRequest, npmClearSearch, npmRemovePackage, npmAddPackage } from '../redux/npm/actions';
+import { npmUpdateSearch, npmSearchRequest, npmClearSearch, npmSetPackages } from '../redux/npm/actions';
 import connect from '../redux';
+import { colorFromIndex } from '../utils/colors';
 
 class PackageSelector extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.packages = undefined;
+    this.updatePackages(props);
+  }
+
+  updatePackages = (props) => {
+    if (props.router.query.packages !== this.packages) {
+      let { packages } = props.router.query;
+      if (packages) {
+        packages = packages.split(',');
+      }
+      this.props.npmSetPackages(packages);
+      this.packages = props.router.query.packages;
+    }
+  };
+
+  componentWillReceiveProps(nextProps) {
+    this.updatePackages(nextProps);
+  }
   onSearch = ({ target }) => {
     this.props.npmUpdateSearch(target.value);
     if (this.timeout) {
@@ -20,13 +42,24 @@ class PackageSelector extends React.Component {
   };
 
   onSelect = ({ suggestion }) => {
-    const { onChange } = this.props;
+    const { onChange, packages, router } = this.props;
     const selected = suggestion.value;
     this.props.npmClearSearch();
-    this.props.npmAddPackage(selected);
+    const packagesPath = [...packages.map(p => p.name), selected].join(',');
+    const path = { pathname: router.pathname, query: { ...router.query, packages: packagesPath } };
+    router.replace(path, path, { shallow: true });
+
     if (onChange) {
       onChange(selected);
     }
+  };
+  onRemovePackage = (selected) => {
+    const { packages, router } = this.props;
+    const packagesPath = packages.filter(p => p.name !== selected.label)
+      .map(p => p.name)
+      .join(',');
+    const path = { pathname: router.pathname, query: { ...router.query, packages: packagesPath } };
+    router.replace(path, path, { shallow: true });
   };
 
   createSuggestions = () => {
@@ -62,6 +95,11 @@ class PackageSelector extends React.Component {
 
   render() {
     const { packages, search } = this.props;
+    let tags = [];
+    if (packages) {
+      tags = packages.map((p, i) =>
+        ({ label: p.name, background: colorFromIndex(i) }));
+    }
     return (
       <Box gap='medium'>
         <Box direction='row'>
@@ -77,8 +115,9 @@ class PackageSelector extends React.Component {
         </Box>
         <Tags
           pad={{ vertical: 'small' }}
-          value={packages.map(p => p.name)}
-          onChange={({ option }) => this.props.npmRemovePackage(option)}
+          placeholder='Search for an NPM package above'
+          value={tags}
+          onChange={({ option }) => this.onRemovePackage(option)}
           tagProps={{ size: 'large', pad: 'small' }}
         />
       </Box>
@@ -96,7 +135,10 @@ PackageSelector.propTypes = {
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    npmUpdateSearch, npmClearSearch, npmRemovePackage, npmAddPackage, npmSearchRequest,
+    npmUpdateSearch,
+    npmClearSearch,
+    npmSearchRequest,
+    npmSetPackages,
   }, dispatch);
 
 const mapStateToProps = state => ({
@@ -106,5 +148,5 @@ const mapStateToProps = state => ({
 });
 
 
-export default withTheme(connect(mapStateToProps, mapDispatchToProps)(PackageSelector));
+export default withRouter(withTheme(connect(mapStateToProps, mapDispatchToProps)(PackageSelector)));
 
