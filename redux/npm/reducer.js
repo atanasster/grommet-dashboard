@@ -74,17 +74,6 @@ export default function reduce(state = initialState, action) {
               error: action.data && action.data.message ? action.data.message : undefined,
             } : p)),
       };
-    case ActionTypes.NPM_REMOVE_PACKAGE:
-      return {
-        ...state,
-        packages: state.packages.filter(p => p.name !== action.packageName),
-      };
-    case ActionTypes.NPM_ADD_PACKAGE:
-      console.log([...state.packages, action.packageName]);
-      return {
-        ...state,
-        packages: [...state.packages, { name: action.packageName }],
-      };
     case ActionTypes.NPM_CHANGE_PERIOD:
       return {
         ...state,
@@ -95,6 +84,16 @@ export default function reduce(state = initialState, action) {
         ...state,
         interval: action.interval,
       };
+    case ActionTypes.NPM_UPDATE_INTERVAL_DATA:
+      return {
+        ...state,
+        packages: state.packages.map(p =>
+          (action.packageName === undefined || p.name === action.packageName ? {
+            ...p,
+            [state.interval]:
+              p.history.downloads ? groupDates(p.history.downloads, state.interval) : [],
+          } : p)),
+      };
     case ActionTypes.NPM_RETRIEVE_HISTORY:
       return {
         ...state,
@@ -103,7 +102,6 @@ export default function reduce(state = initialState, action) {
             (p.name === action.packageName ? {
               ...p,
               history: action.data && !action.data.error ? action.data : [],
-              [state.interval]: groupDates(action.data.downloads, state.interval),
             } : p)),
       };
     case ActionTypes.NPM_UPDATE_SEARCH:
