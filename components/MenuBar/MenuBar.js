@@ -19,9 +19,15 @@ export default withRouter(({ items, router, ...rest }) => (
       <Menu
         key={`menu_${item.path}`}
         dropAlign={{ top: 'bottom', right: 'right' }}
-        items={item.items.map(p => (
-          { ...p, onClick: () => routerPush(router, p.path) }
-          ))}
+        items={item.items.map(p => ({
+          label: p.label,
+          icon: p.icon,
+          href: p.path,
+          onClick: (e) => {
+            e.preventDefault();
+            routerPush(router, p.path);
+          },
+        }))}
       >
         <Anchor
           primary={true}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'next/router';
 import { bindActionCreators } from 'redux';
 import { Box, Heading, Select, Layer, Button, Text, Menu } from 'grommet';
 import {
@@ -7,6 +8,7 @@ import {
   CheckboxSelected, Document, Gallery, Cubes,
 } from 'grommet-icons';
 import { ImageStamp } from 'grommet-controls';
+import routerPush from './Router';
 import AlertsMenu from './AlertsMenu/AlertsMenu';
 import MenuBar from './MenuBar/MenuBar';
 import connect from '../redux';
@@ -61,6 +63,10 @@ class Header extends React.Component {
     const { onChangeTheme } = this.props;
     console.log(this.props);
     onChangeTheme(theme);
+  };
+  onSetPackages = (packages) => {
+    const { router } = this.props;
+    routerPush(router, '/', { packages: packages.join(',') });
   };
 
   render() {
@@ -154,7 +160,7 @@ class Header extends React.Component {
           {themeSelector}
           <AlertsMenu
             alerts={trendingNPM.map(t => (
-              { label: t.join(' vs '), onClick: () => this.props.npmSetPackages(t) }
+              { label: t.join(' vs '), onClick: () => this.onSetPackages(t) }
             ))}
           />
           {avatar}
@@ -207,5 +213,5 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
 

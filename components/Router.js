@@ -1,7 +1,6 @@
 import { queryParams } from './nextjs/urlParams';
 
-export default (router, pathname) => {
+export default (router, pathname, params = {}) => {
   const query = { ...queryParams(router, ['theme', 'packages']) };
-  console.log({ pathname, query });
-  router.push({ pathname, query });
+  router.push({ pathname, query: { ...query || {}, ...params } });
 };
