@@ -33,6 +33,15 @@ class Header extends React.Component {
     const {
       title: pageTitle, themes: { themes, selected: theme }, navMenu,
     } = this.props;
+    const toolbarItems = [
+      { path: '/', label: 'home', icon: <Home size='xsmall' /> },
+      { path: '/typography', label: 'typography', icon: <TextAlignCenter size='xsmall' /> },
+      { path: '/icons', label: 'icons', icon: <GrommetIcon size='xsmall' /> },
+      { path: '/components', label: 'components', icon: <Cubes size='xsmall' /> },
+      { path: '/pages', label: 'pages', icon: <Document size='xsmall' /> },
+      { path: '/forms', label: 'forms', icon: <CheckboxSelected size='xsmall' /> },
+      { path: '/gallery', label: 'gallery', icon: <Gallery size='xsmall' /> },
+    ];
     const keywords = ['grommet', 'grommet 2', 'react', 'next-js', 'next.js', 'dashboard', 'npm'];
     if (pageTitle) {
       keywords.push(pageTitle);
@@ -48,13 +57,15 @@ class Header extends React.Component {
       )
     ));
     const themeSelector = (
-      <Box basis='small' >
-        <Select
-          a11yTitle='Change theme'
-          value={theme}
-          options={Object.keys(themes)}
-          onChange={this.onThemeChange}
-        />
+      <Box direction='row'>
+        <Box basis='small' >
+          <Select
+            a11yTitle='Change theme'
+            value={theme}
+            options={Object.keys(themes)}
+            onChange={this.onThemeChange}
+          />
+        </Box>
       </Box>
     );
     let menu;
@@ -62,11 +73,16 @@ class Header extends React.Component {
       if (navMenu.active) {
         menu = (
           <Layer plain={true} onEsc={this.onCloseMenu} position='left' onClickOverlay={this.onCloseMenu}>
-            <Box background='brand' gap='small' style={{ height: '100vh' }} pad='small' align='start'>
+            <Box background='brand' gap='small' style={{ height: '100vh' }} pad={{ vertical: 'small' }} align='start'>
               <Button icon={<Menu />} onClick={this.onResponsiveMenu} />
-              <RoutedAnchor path='/' label='home' a11yTitle='go to home page' />
-              {items}
-              {themeSelector}
+              <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small'>
+                <RoutedAnchor path='/' label='home' a11yTitle='go to home page' />
+                {items}
+                {themeSelector}
+                {toolbarItems.map(item => (
+                  <RoutedAnchor key={`menu_${item.path}`} primary={true} {...item} />
+                ))}
+              </Box>
             </Box>
           </Layer>
         );
@@ -101,23 +117,21 @@ class Header extends React.Component {
           </Box>
           {menu}
         </Box>
-        <Box
-          tag='nav'
-          direction='row'
-          gap='large'
-          align='center'
-          border='bottom'
-          responsive={true}
-          pad={{ horizontal: 'xlarge', vertical: 'small' }}
-        >
-          <RoutedAnchor primary={true} path='/' label='home' icon={<Home size='xsmall' />} />
-          <RoutedAnchor primary={true} path='/typography' label='typography' icon={<TextAlignCenter size='xsmall' />} />
-          <RoutedAnchor primary={true} path='/icons' label='icons' icon={<GrommetIcon size='xsmall' />} />
-          <RoutedAnchor primary={true} path='/components' label='components' icon={<Cubes size='xsmall' />} />
-          <RoutedAnchor primary={true} path='/pages' label='pages' icon={<Document size='xsmall' />} />
-          <RoutedAnchor primary={true} path='/forms' label='forms' icon={<CheckboxSelected size='xsmall' />} />
-          <RoutedAnchor primary={true} path='/gallery' label='gallery' icon={<Gallery size='xsmall' />} />
-        </Box>
+        {!navMenu.responsive && (
+          <Box
+            tag='nav'
+            direction='row'
+            gap='large'
+            align='center'
+            border='bottom'
+            responsive={true}
+            pad={{ horizontal: 'xlarge', vertical: 'small' }}
+          >
+            {toolbarItems.map(item => (
+              <RoutedAnchor key={`menu_${item.path}`} primary={true} {...item} />
+            ))}
+          </Box>
+        )}
       </Box>
     );
   }
