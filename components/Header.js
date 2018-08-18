@@ -7,7 +7,8 @@ import {
   CheckboxSelected, Document, Gallery, Cubes,
 } from 'grommet-icons';
 import { ImageStamp } from 'grommet-controls';
-import MessageAlerts from './MessageAlerts/MessageAlerts';
+import AlertsMenu from './AlertsMenu/AlertsMenu';
+import MenuBar from './MenuBar/MenuBar';
 import connect from '../redux';
 import RoutedButton from './RoutedButton';
 import RoutedAnchor from './RoutedAnchor';
@@ -71,7 +72,23 @@ class Header extends React.Component {
       { path: '/typography', label: 'typography', icon: <TextAlignCenter size='xsmall' /> },
       { path: '/icons', label: 'icons', icon: <GrommetIcon size='xsmall' /> },
       { path: '/components', label: 'components', icon: <Cubes size='xsmall' /> },
-      { path: '/pages', label: 'pages', icon: <Document size='xsmall' /> },
+      {
+        label: 'pages',
+        icon: <Document size='xsmall' />,
+        items: [
+          { path: '/profile', label: 'Profile' },
+          { path: '/login', label: 'Login' },
+          { path: '/register', label: 'Register' },
+          { path: '/forgot_password', label: 'Forgot password' },
+          { path: '/email', label: 'Email' },
+          { path: '/400', label: '400 error' },
+          { path: '/401', label: '401 error' },
+          { path: '/403', label: '403 error' },
+          { path: '/404', label: '404 error' },
+          { path: '/500', label: '500 error' },
+          { path: '/503', label: '503 error' },
+        ],
+      },
       { path: '/forms', label: 'forms', icon: <CheckboxSelected size='xsmall' /> },
       { path: '/gallery', label: 'gallery', icon: <Gallery size='xsmall' /> },
     ];
@@ -93,19 +110,6 @@ class Header extends React.Component {
     );
     const avatar = (
       <Menu
-        icon={(
-          <Box direction='row' align='center' gap='small'>
-            <ImageStamp
-              src='//v2.grommet.io/assets/Wilderpeople_Ricky.jpg'
-              size='medium'
-              round='full'
-            />
-            <Box>
-              <Text weight='bold'>Adam Levine</Text>
-              <Text size='small'>Singer</Text>
-            </Box>
-          </Box>
-        )}
         dropAlign={{ top: 'bottom', right: 'right' }}
         items={[
           { label: 'Profile', onClick: () => {} },
@@ -113,7 +117,19 @@ class Header extends React.Component {
           { label: 'Subscriptions', onClick: () => {} },
           { label: 'Inbox', onClick: () => {} },
         ]}
-      />
+      >
+        <Box direction='row' align='center' gap='small'>
+          <ImageStamp
+            src='//v2.grommet.io/assets/Wilderpeople_Ricky.jpg'
+            size='medium'
+            round='full'
+          />
+          <Box>
+            <Text weight='bold'>Adam Levine</Text>
+            <Text size='small'>Singer</Text>
+          </Box>
+        </Box>
+      </Menu>
     );
     let menu;
     if (navMenu.responsive) {
@@ -136,8 +152,8 @@ class Header extends React.Component {
       menu = (
         <Box direction='row' align='center' justify='end' gap='medium' tag='nav'>
           {themeSelector}
-          <MessageAlerts
-            notifications={trendingNPM.map(t => (
+          <AlertsMenu
+            alerts={trendingNPM.map(t => (
               { label: t.join(' vs '), onClick: () => this.props.npmSetPackages(t) }
             ))}
           />
@@ -168,19 +184,9 @@ class Header extends React.Component {
           {menu}
         </Box>
         {!navMenu.responsive && (
-          <Box
-            tag='nav'
-            direction='row'
-            gap='large'
-            align='center'
-            border='bottom'
-            responsive={true}
-            pad={{ horizontal: 'xlarge', vertical: 'small' }}
-          >
-            {toolbarItems.map(item => (
-              <RoutedAnchor key={`menu_${item.path}`} primary={true} {...item} />
-            ))}
-          </Box>
+          <MenuBar
+            items={toolbarItems}
+          />
         )}
       </Box>
     );

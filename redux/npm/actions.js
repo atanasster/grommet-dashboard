@@ -4,7 +4,7 @@ import * as ActionTypes from './constants';
 
 const npmRetrieveStats = npmPackage => (dispatch) => {
   if (npmPackage && npmPackage.stats === undefined) {
-    fetch(`https://api.npms.io/v2/package/${npmPackage.name}`)
+    fetch(`https://api.npms.io/v2/package/${encodeURIComponent(npmPackage.name)}`)
       .then(response => response.json())
       .then(data => dispatch({
         type: ActionTypes.NPM_RETRIEVE_STATS,
@@ -38,7 +38,7 @@ const npmRetrieveHistory = (npmPackage, period) => (dispatch, getState) => {
         startDate.subtract(1, 'year');
         break;
     }
-    fetch(`https://api.npmjs.org/downloads/range/${startDate.format('YYYY-MM-DD')}:${moment().format('YYYY-MM-DD')}/${npmPackage.name}`)
+    fetch(`https://api.npmjs.org/downloads/range/${startDate.format('YYYY-MM-DD')}:${moment().format('YYYY-MM-DD')}/${encodeURIComponent(npmPackage.name)}`)
       .then(response => response.json())
       .then((data) => {
         dispatch({ type: ActionTypes.NPM_RETRIEVE_HISTORY, packageName: npmPackage.name, data });
