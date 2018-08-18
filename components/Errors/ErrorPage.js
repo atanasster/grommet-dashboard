@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box, Heading, Text } from 'grommet';
-import Page from './Page';
+import Page from '../Page';
+import messages from './messages';
 
-export default ({ statusCode, message }) => (
+export default ({ statusCode }) => (
   <Page title='Error'>
     <Box align='center' full={true} flex={true}>
       <Box direction='row' align='center' full='vertical' flex={true}>
@@ -13,7 +14,7 @@ export default ({ statusCode, message }) => (
         </Box>
         <Box pad='large'>
           <Text>
-            {message}
+            {messages[statusCode] || 'Unknown error.'}
           </Text>
         </Box>
       </Box>

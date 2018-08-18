@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorPage from '../components/ErrorPage';
+import ErrorPage from '../components/Errors/ErrorPage';
 
 export default class Error extends React.Component {
   static getInitialProps({ res, err }) {
@@ -18,7 +18,6 @@ export default class Error extends React.Component {
     return (
       <ErrorPage
         statusCode={this.props.status}
-        message='This page could not be found.'
       />
     );
   }
