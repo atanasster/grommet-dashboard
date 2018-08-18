@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Box, Heading, Select, Layer, Button } from 'grommet';
-import { Menu, Grommet as GrommetIcon, Home, TextAlignCenter, CheckboxSelected, Document, Gallery, Accessibility } from 'grommet-icons';
+import { Menu, Grommet as GrommetIcon, Home, TextAlignCenter, CheckboxSelected, Document, Gallery, Cubes } from 'grommet-icons';
 import connect from '../redux';
 import RoutedButton from './RoutedButton';
 import RoutedAnchor from './RoutedAnchor';
@@ -62,7 +62,7 @@ class Header extends React.Component {
       if (navMenu.active) {
         menu = (
           <Layer plain={true} onEsc={this.onCloseMenu} position='left' onClickOverlay={this.onCloseMenu}>
-            <Box background='brand' gap='small' style={{ height: '100vh' }} pad='medium'>
+            <Box background='brand' gap='small' style={{ height: '100vh' }} pad='small' align='start'>
               <Button icon={<Menu />} onClick={this.onResponsiveMenu} />
               <RoutedAnchor path='/' label='home' a11yTitle='go to home page' />
               {items}
@@ -113,7 +113,7 @@ class Header extends React.Component {
           <RoutedAnchor primary={true} path='/' label='home' icon={<Home size='xsmall' />} />
           <RoutedAnchor primary={true} path='/typography' label='typography' icon={<TextAlignCenter size='xsmall' />} />
           <RoutedAnchor primary={true} path='/icons' label='icons' icon={<GrommetIcon size='xsmall' />} />
-          <RoutedAnchor primary={true} path='/components' label='components' icon={<Accessibility size='xsmall' />} />
+          <RoutedAnchor primary={true} path='/components' label='components' icon={<Cubes size='xsmall' />} />
           <RoutedAnchor primary={true} path='/pages' label='pages' icon={<Document size='xsmall' />} />
           <RoutedAnchor primary={true} path='/forms' label='forms' icon={<CheckboxSelected size='xsmall' />} />
           <RoutedAnchor primary={true} path='/gallery' label='gallery' icon={<Gallery size='xsmall' />} />

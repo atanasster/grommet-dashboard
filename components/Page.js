@@ -46,6 +46,7 @@ class Page extends React.Component {
     if (pageTitle) {
       keywords.push(pageTitle);
     }
+    console.log(this.theme);
     return (
       <div>
         <Head>
@@ -59,7 +60,7 @@ class Page extends React.Component {
           }
           <meta name='keywords' content={keywords.join(',')} />
         </Head>
-        <Grommet theme={themes[this.theme] || {}} style={{ height: 'auto', minHeight: '100vh' }}>
+        <Grommet theme={themes[this.theme] || themes.light} style={{ height: 'auto', minHeight: '100vh' }}>
           <Responsive onChange={this.onResponsive}>
             <Box style={{ height: 'auto', minHeight: '100vh' }}>
               <Header title={pageTitle} onChangeTheme={this.onChangeTheme} />
