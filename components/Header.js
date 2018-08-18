@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { Box, Heading, Select, Layer, Button } from 'grommet';
-import { Menu, Grommet as GrommetIcon, Home, TextAlignCenter, CheckboxSelected, Document, Gallery, Cubes } from 'grommet-icons';
+import { Box, Heading, Select, Layer, Button, Text } from 'grommet';
+import {
+  Menu, Grommet as GrommetIcon, Home, TextAlignCenter,
+  CheckboxSelected, Document, Gallery, Cubes, Notification,
+} from 'grommet-icons';
+import { ImageStamp } from 'grommet-controls';
 import connect from '../redux';
 import RoutedButton from './RoutedButton';
 import RoutedAnchor from './RoutedAnchor';
@@ -47,13 +51,26 @@ class Header extends React.Component {
     }
     const themeSelector = (
       <Box direction='row'>
-        <Box basis='small' >
+        <Box basis='medium' >
           <Select
             a11yTitle='Change theme'
             value={theme}
             options={Object.keys(themes)}
             onChange={this.onThemeChange}
           />
+        </Box>
+      </Box>
+    );
+    const avatar = (
+      <Box direction='row' align='center' gap='small'>
+        <ImageStamp
+          src='//v2.grommet.io/assets/Wilderpeople_Ricky.jpg'
+          size='medium'
+          round='full'
+        />
+        <Box>
+          <Text weight='bold'>Adam Levine</Text>
+          <Text size='small'>Singer</Text>
         </Box>
       </Box>
     );
@@ -76,8 +93,10 @@ class Header extends React.Component {
       }
     } else {
       menu = (
-        <Box direction='row' align='center' justify='end' gap='small' tag='nav'>
+        <Box direction='row' align='center' justify='end' gap='medium' tag='nav'>
           {themeSelector}
+          <Notification />
+          {avatar}
         </Box>
       );
     }
