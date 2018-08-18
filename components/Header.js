@@ -6,7 +6,6 @@ import { Menu, Grommet as GrommetIcon, Home, TextAlignCenter, CheckboxSelected, 
 import connect from '../redux';
 import RoutedButton from './RoutedButton';
 import RoutedAnchor from './RoutedAnchor';
-import NextJsAnchor from './Anchor';
 import { selectTheme } from '../redux/themes/actions';
 import { navActivate } from '../redux/nav/actions';
 
@@ -46,16 +45,6 @@ class Header extends React.Component {
     if (pageTitle) {
       keywords.push(pageTitle);
     }
-    const menuItems = [
-      { external: 'https:///crypto-grommet.com', label: 'use-case' },
-    ];
-    const items = menuItems.map(item => (
-      item.external ? (
-        <NextJsAnchor target='_blank' key={item.label} path={item.external} label={item.label} />
-      ) : (
-        <RoutedAnchor key={item.label} path={item.path} label={item.label} />
-      )
-    ));
     const themeSelector = (
       <Box direction='row'>
         <Box basis='small' >
@@ -76,8 +65,6 @@ class Header extends React.Component {
             <Box background='brand' gap='small' style={{ height: '100vh' }} pad={{ vertical: 'small' }} align='start'>
               <Button icon={<Menu />} onClick={this.onResponsiveMenu} />
               <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small'>
-                <RoutedAnchor path='/' label='home' a11yTitle='go to home page' />
-                {items}
                 {themeSelector}
                 {toolbarItems.map(item => (
                   <RoutedAnchor key={`menu_${item.path}`} primary={true} {...item} />
@@ -90,7 +77,6 @@ class Header extends React.Component {
     } else {
       menu = (
         <Box direction='row' align='center' justify='end' gap='small' tag='nav'>
-          {items}
           {themeSelector}
         </Box>
       );
