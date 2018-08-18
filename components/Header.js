@@ -1,18 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { Box, Heading, Select, Layer, Button, Text } from 'grommet';
+import { Box, Heading, Select, Layer, Button, Text, Menu } from 'grommet';
 import {
-  Menu, Grommet as GrommetIcon, Home, TextAlignCenter,
-  CheckboxSelected, Document, Gallery, Cubes, Notification,
+  Menu as MenuIcon, Grommet as GrommetIcon, Home, TextAlignCenter,
+  CheckboxSelected, Document, Gallery, Cubes,
 } from 'grommet-icons';
 import { ImageStamp } from 'grommet-controls';
+import MessageAlerts from './MessageAlerts/MessageAlerts';
 import connect from '../redux';
 import RoutedButton from './RoutedButton';
 import RoutedAnchor from './RoutedAnchor';
+import { npmSetPackages } from '../redux/npm/actions';
 import { selectTheme } from '../redux/themes/actions';
 import { navActivate } from '../redux/nav/actions';
 
+const trendingNPM = [
+  [
+    'material-ui',
+    'semantic-ui-react',
+    'react-bootstrap',
+    'antd',
+    'office-ui-fabric-react',
+    'grommet',
+  ],
+  [
+    'react',
+    'angular',
+    'vue',
+    'jquery',
+  ],
+  [
+    'next',
+    'gatsby',
+    'nuxt',
+    'razzle',
+  ],
+  [
+    '@tensorflow/tfjs',
+    'keras-js',
+    'brain.js',
+  ],
+
+];
 class Header extends React.Component {
   componentDidMount() {
     this.props.navActivate(false);
@@ -62,17 +92,28 @@ class Header extends React.Component {
       </Box>
     );
     const avatar = (
-      <Box direction='row' align='center' gap='small'>
-        <ImageStamp
-          src='//v2.grommet.io/assets/Wilderpeople_Ricky.jpg'
-          size='medium'
-          round='full'
-        />
-        <Box>
-          <Text weight='bold'>Adam Levine</Text>
-          <Text size='small'>Singer</Text>
-        </Box>
-      </Box>
+      <Menu
+        icon={(
+          <Box direction='row' align='center' gap='small'>
+            <ImageStamp
+              src='//v2.grommet.io/assets/Wilderpeople_Ricky.jpg'
+              size='medium'
+              round='full'
+            />
+            <Box>
+              <Text weight='bold'>Adam Levine</Text>
+              <Text size='small'>Singer</Text>
+            </Box>
+          </Box>
+        )}
+        dropAlign={{ top: 'bottom', right: 'right' }}
+        items={[
+          { label: 'Profile', onClick: () => {} },
+          { label: 'Settings', onClick: () => {} },
+          { label: 'Subscriptions', onClick: () => {} },
+          { label: 'Inbox', onClick: () => {} },
+        ]}
+      />
     );
     let menu;
     if (navMenu.responsive) {
@@ -80,7 +121,7 @@ class Header extends React.Component {
         menu = (
           <Layer plain={true} onEsc={this.onCloseMenu} position='left' onClickOverlay={this.onCloseMenu}>
             <Box background='brand' gap='small' style={{ height: '100vh' }} pad={{ vertical: 'small' }} align='start'>
-              <Button icon={<Menu />} onClick={this.onResponsiveMenu} />
+              <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
               <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small'>
                 {themeSelector}
                 {toolbarItems.map(item => (
@@ -95,7 +136,11 @@ class Header extends React.Component {
       menu = (
         <Box direction='row' align='center' justify='end' gap='medium' tag='nav'>
           {themeSelector}
-          <Notification />
+          <MessageAlerts
+            notifications={trendingNPM.map(t => (
+              { label: t.join(' vs '), onClick: () => this.props.npmSetPackages(t) }
+            ))}
+          />
           {avatar}
         </Box>
       );
@@ -112,7 +157,7 @@ class Header extends React.Component {
         >
           <Box direction='row' align='center'gap='small' >
             {navMenu.responsive && (
-              <Button icon={<Menu />} onClick={this.onResponsiveMenu} />
+              <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
             )}
             <Heading level='3' margin='none'>
               <RoutedButton path='/'>
@@ -148,7 +193,7 @@ Header.propTypes = {
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ selectTheme, navActivate }, dispatch);
+  bindActionCreators({ selectTheme, navActivate, npmSetPackages }, dispatch);
 
 const mapStateToProps = state => ({
   themes: state.themes,
