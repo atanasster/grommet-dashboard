@@ -17,7 +17,7 @@ export default withRouter(({ items, router, ...rest }) => (
   >
     {items.map(item => (item.items ? (
       <Menu
-        key={`menu_${item.path}`}
+        key={`menu_${item.path || item.label}`}
         dropAlign={{ top: 'bottom', right: 'right' }}
         items={item.items.map(p => ({
           label: p.label,

@@ -77,7 +77,15 @@ class Header extends React.Component {
       { path: '/', label: 'home', icon: <Home size='xsmall' /> },
       { path: '/typography', label: 'typography', icon: <TextAlignCenter size='xsmall' /> },
       { path: '/icons', label: 'icons', icon: <GrommetIcon size='xsmall' /> },
-      { path: '/components', label: 'components', icon: <Cubes size='xsmall' /> },
+      {
+        label: 'components',
+        icon: <Cubes size='xsmall' />,
+        items: [
+          { path: '/maps', label: 'Maps' },
+          { path: '/tables', label: 'Tables' },
+          { path: '/notifications', label: 'Notifications' },
+        ],
+      },
       {
         label: 'pages',
         icon: <Document size='xsmall' />,
@@ -147,7 +155,7 @@ class Header extends React.Component {
               <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small'>
                 {themeSelector}
                 {toolbarItems.map(item => (
-                  <RoutedAnchor key={`menu_${item.path}`} primary={true} {...item} />
+                  <RoutedAnchor key={`menu_${item.path || item.label}`} primary={true} {...item} />
                 ))}
               </Box>
             </Box>
