@@ -46,7 +46,6 @@ class Page extends React.Component {
     if (pageTitle) {
       keywords.push(pageTitle);
     }
-    console.log(this.theme);
     return (
       <div>
         <Head>
