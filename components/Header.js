@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Box, Heading, Select, Layer, Button } from 'grommet';
@@ -12,21 +11,6 @@ import { selectTheme } from '../redux/themes/actions';
 import { navActivate } from '../redux/nav/actions';
 
 class Header extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.changeTheme(props.router.query.theme);
-  }
-
-  changeTheme(theme) {
-    this.theme = theme;
-    this.props.selectTheme(theme);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.router.query.theme !== this.theme) {
-      this.props.selectTheme(nextProps.router.query.theme);
-    }
-  }
   componentDidMount() {
     this.props.navActivate(false);
   }
@@ -40,10 +24,9 @@ class Header extends React.Component {
     this.props.navActivate(false);
   };
   onThemeChange = ({ option: theme }) => {
-    const { router } = this.props;
-    const path = { pathname: router.pathname, query: { ...router.query, theme } };
-    this.changeTheme(theme);
-    router.replace(path, path, { shallow: true });
+    const { onChangeTheme } = this.props;
+    console.log(this.props);
+    onChangeTheme(theme);
   };
 
   render() {
@@ -142,6 +125,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  onChangeTheme: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch =>
@@ -153,5 +137,5 @@ const mapStateToProps = state => ({
 });
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
