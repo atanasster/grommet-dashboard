@@ -145,7 +145,11 @@ class Header extends React.Component {
         <Box direction='row' align='center' gap='small'>
           <ImageStamp
             src='//v2.grommet.io/assets/Wilderpeople_Ricky.jpg'
-            size='medium'
+            style={{
+              width: '36px',
+              height: '36px',
+              border: '1px solid black',
+            }}
             round='full'
           />
           <Box>

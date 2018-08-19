@@ -1,0 +1,56 @@
+import React from 'react';
+import { Box, Heading, Paragraph, Image, Button } from 'grommet';
+import { Twitter } from 'grommet-icons';
+import { ImageStamp } from 'grommet-controls';
+import { Card, CardTitle, CardContent } from '../Card';
+
+export default ({
+  background, avatar, name, bio, twitterURL,
+}) => (
+  <Card>
+    <CardTitle pad='none' basis='small' align='stretch'>
+      <Box style={{ position: 'relative' }} height='small' width='full'>
+        <Image
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '100%',
+          }}
+          fit='cover'
+          src={background}
+        />
+        <ImageStamp
+          style={{
+            position: 'absolute',
+            top: '100%',
+            left: '50%',
+            marginTop: '-48px',
+            marginLeft: '-48px',
+            width: '96px',
+            height: '96px',
+            border: '3px solid white',
+          }}
+          src={avatar}
+          round='full'
+        />
+      </Box>
+    </CardTitle>
+    <CardContent pad={{ top: 'large', bottom: 'medium' }}>
+      <Box basis='small' align='center'>
+        <Heading level={3}>
+          {name}
+        </Heading>
+        <Paragraph textAlign='center'>
+          {bio}
+        </Paragraph>
+      </Box>
+      <Box direction='row'>
+        <Box align='center' fill='horizontal'>
+          <Button href={twitterURL} target='_blank' icon={<Twitter color='plain' />} label='Follow' onClick={() => {}} />
+        </Box>
+      </Box>
+    </CardContent>
+  </Card>
+);
