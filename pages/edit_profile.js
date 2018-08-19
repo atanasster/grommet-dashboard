@@ -1,24 +1,33 @@
 import React from 'react';
-import { Box, Text } from 'grommet';
+import { Box } from 'grommet';
 import { TextInputField, EmailInputField, TextAreaField, SelectField } from 'grommet-controls/components/Form/Fields';
 import validators from 'grommet-controls/components/Form/validators';
 import FormLayout from '../components/Layouts/FormLayout';
-import RoutedAnchor from '../components/RoutedAnchor';
 
 export default () => (
   <FormLayout
+    object={{
+      company: 'Assassins inc.',
+      username: 'jwick',
+      email: 'jwick@assasins.com',
+      first_name: 'John',
+      last_name: 'Wick',
+      address: '4066 Sunflower str',
+      city: 'Cupertino',
+      zip_code: 95350,
+      country: 'USA',
+      bio: `
+Legendary assassin retired from his violent career after marrying the love of his life.
+Her sudden death leaves John in deep mourning and when sadistic mobster Iosef Tarasov and his thugs
+steal John's prized car and kill the puppy that was a last gift from his wife,
+John unleashes the remorseless killing machine within and seeks vengeance.
+      `,
+
+    }}
     basis='large'
     pageTitle='Profile'
     title='Edit profile'
     submit='Save profile'
-    footer={(
-      <Box direction='row' alignSelf='center' gap='small' align='center'>
-        <Text>
-          {'Already have an account?'}
-        </Text>
-        <RoutedAnchor path='/login' label='Sign in' />
-      </Box>
-    )}
   >
     <Box direction='row' gap='medium'>
       <Box basis='1/3'>
