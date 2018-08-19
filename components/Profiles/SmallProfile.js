@@ -9,12 +9,12 @@ export default ({
 }) => (
   <Card>
     <CardContent >
-      <Box direction='row' gap='large' align='center'>
+      <Box direction='row' gap='medium' align='center'>
         <ImageStamp
           src={avatar} size='large'
           round='full'
         />
-        <Box gap='small'>
+        <Box pad='small'>
           <Heading level={3} margin='none'>
             {name}
           </Heading>
