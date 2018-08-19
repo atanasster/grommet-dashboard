@@ -93,7 +93,7 @@ class Header extends React.Component {
           { path: '/profile', label: 'Profile' },
           { path: '/login', label: 'Login' },
           { path: '/register', label: 'Register' },
-          { path: '/forgot_password', label: 'Forgot password' },
+          { path: '/reset_password', label: 'Recover password' },
           { path: '/email', label: 'Email' },
           { path: '/400', label: '400 error' },
           { path: '/401', label: '401 error' },
