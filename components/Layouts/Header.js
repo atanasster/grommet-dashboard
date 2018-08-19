@@ -68,6 +68,16 @@ class Header extends React.Component {
     const { router } = this.props;
     routerPush(router, '/', { packages: packages.join(',') });
   };
+  routeProps = (path) => {
+    const { router } = this.props;
+    return {
+      href: path,
+      onClick: (e) => {
+        e.preventDefault();
+        routerPush(router, path);
+      },
+    };
+  };
 
   render() {
     const {
@@ -126,10 +136,10 @@ class Header extends React.Component {
       <Menu
         dropAlign={{ top: 'bottom', right: 'right' }}
         items={[
-          { label: 'Profile', onClick: () => {} },
-          { label: 'Settings', onClick: () => {} },
-          { label: 'Subscriptions', onClick: () => {} },
-          { label: 'Inbox', onClick: () => {} },
+          { ...this.routeProps('/edit_profile'), label: 'Edit profile' },
+          { ...this.routeProps('/settings'), label: 'Settings' },
+          { ...this.routeProps('/subscriptions'), label: 'Subscriptions' },
+          { ...this.routeProps('/email'), label: 'Inbox' },
         ]}
       >
         <Box direction='row' align='center' gap='small'>

@@ -49,7 +49,7 @@ class Card extends Component {
     backContent: undefined,
     flipped: false,
     flipOnHover: true,
-    background: 'brand',
+    background: 'white',
     flipDuration: 0.3,
   };
 
