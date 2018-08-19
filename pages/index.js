@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Grid, Heading } from 'grommet';
-import Page from '../components/Page';
+import SiteLayout from '../components/Layouts/SiteLayout';
 import connect from '../redux';
 import PackageSelector from '../components/PackageSelector';
 import NPMStats from '../components/NPMStats';
@@ -12,7 +12,7 @@ class Home extends React.Component {
   render() {
     const { packages } = this.props;
     return (
-      <Page title='Home'>
+      <SiteLayout title='Home'>
         <Box>
           <PackageSelector />
           <Box direction='row' gap='xlarge' margin={{ bottom: 'large' }}>
@@ -35,7 +35,7 @@ class Home extends React.Component {
             <DonutChart pName='downloadsAcceleration' title='Downloads acceleration' />
           </Grid>
         </Box>
-      </Page>
+      </SiteLayout>
     );
   }
 }

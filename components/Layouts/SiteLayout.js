@@ -6,11 +6,11 @@ import Head from 'next/head';
 import { Grommet, Responsive, Box } from 'grommet';
 import Header from './Header';
 import Footer from './Footer';
-import connect from '../redux';
-import { selectTheme } from '../redux/themes/actions';
-import { updateResponsive } from '../redux/nav/actions';
+import connect from '../../redux/index';
+import { selectTheme } from '../../redux/themes/actions';
+import { updateResponsive } from '../../redux/nav/actions';
 
-class Page extends React.Component {
+class SiteLayout extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.changeTheme(props.router.query.theme);
@@ -75,12 +75,12 @@ class Page extends React.Component {
   }
 }
 
-Page.propTypes = {
+SiteLayout.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
 };
 
-Page.defaultProps = {
+SiteLayout.defaultProps = {
   description: undefined,
 };
 
@@ -93,5 +93,5 @@ const mapStateToProps = state => ({
 });
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Page));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SiteLayout));
 

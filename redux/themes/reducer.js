@@ -6,20 +6,22 @@ import * as ActionTypes from './constants';
 
 
 const defaultTheme = 'light';
+const colors = {
+  'brand': '#ffffff',
+  'border-light': 'rgba(0, 0, 0, 0.10)',
+  'border-dark': 'rgba(255, 255, 255, 0.10)',
+  'focus': '#4193ff',
+  'accent-1': '#4193ff',
+  'accent-2': '#07c66c',
+  'accent-3': '#60EBE1',
+  'accent-4': '#FFCA58',
+};
 
 const baseSpacing = 16;
 
 const lightTheme = {
   global: {
-    colors: {
-      'brand': '#ffffff',
-      'border-light': 'rgba(0, 0, 0, 0.10)',
-      'border-dark': 'rgba(255, 255, 255, 0.10)',
-      'accent-1': '#FD6FFF',
-      'accent-2': '#61EC9F',
-      'accent-3': '#60EBE1',
-      'accent-4': '#FFCA58',
-    },
+    colors,
     font: {
       family: "'Montserrat', sans-serif;",
       face: `
@@ -74,6 +76,18 @@ const lightTheme = {
         xlarge: `${baseSpacing * 2}px`, // 48
       },
     },
+    hover: {
+      background: {
+        dark: {
+          color: '#d7d7d7',
+          opacity: 'none',
+        },
+        light: {
+          color: '#377ad6',
+          opacity: 'none',
+        },
+      },
+    },
   },
   text: {
     xsmall: { size: '10px', height: 1.5 },
@@ -99,7 +113,40 @@ const lightTheme = {
       xsmall: '14px',
     },
   },
-
+  button: {
+    border: {
+      // color: { dark: undefined, light: undefined }
+      radius: '1px',
+      color: '#28599e',
+    },
+    // color: { dark: undefined, light: undefined }
+    primary: {
+      color: {
+        dark: '#e9e9e9',
+        light: '#316cbe',
+      },
+    },
+  },
+  checkBox: {
+    border: {
+      color: {
+        dark: 'rgba(255, 255, 255, 0.5)',
+        light: 'rgba(0, 0, 0, 0.15)',
+      },
+      radius: '4px',
+      width: '2px',
+    },
+    check: {
+      color: {
+        dark: '#ffffff',
+        light: '#333333',
+      },
+      width: '4px',
+    },
+    icons: {
+      // checked: undefined,
+    },
+  },
 };
 
 const initialState = {

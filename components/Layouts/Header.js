@@ -8,15 +8,15 @@ import {
   CheckboxSelected, Document, Gallery, Cubes,
 } from 'grommet-icons';
 import { ImageStamp } from 'grommet-controls';
-import routerPush from './Router';
-import AlertsMenu from './AlertsMenu/AlertsMenu';
-import MenuBar from './MenuBar/MenuBar';
-import connect from '../redux';
-import RoutedButton from './RoutedButton';
-import RoutedAnchor from './RoutedAnchor';
-import { npmSetPackages } from '../redux/npm/actions';
-import { selectTheme } from '../redux/themes/actions';
-import { navActivate } from '../redux/nav/actions';
+import routerPush from '../Router';
+import AlertsMenu from '../AlertsMenu/AlertsMenu';
+import MenuBar from '../MenuBar/MenuBar';
+import connect from '../../redux/index';
+import RoutedButton from '../RoutedButton';
+import RoutedAnchor from '../RoutedAnchor';
+import { npmSetPackages } from '../../redux/npm/actions';
+import { selectTheme } from '../../redux/themes/actions';
+import { navActivate } from '../../redux/nav/actions';
 
 const trendingNPM = [
   [

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { Stack, Box, Heading } from 'grommet';
 import { withTheme } from 'grommet/components/hocs';
@@ -40,7 +39,6 @@ export const CardContent = ({ children, pad = 'small', ...rest }) => (
 class Card extends Component {
   static defaultProps = {
     title: undefined,
-    subTitle: undefined,
     align: 'center',
     border: 'all',
     elevation: 'small',
@@ -130,9 +128,6 @@ class Card extends Component {
   }
 }
 
-Card.propTypes = {
-  subTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-};
 
 if (process.env.NODE_ENV !== 'production') {
   doc(Card);

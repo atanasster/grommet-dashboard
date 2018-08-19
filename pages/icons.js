@@ -3,7 +3,7 @@ import { Box, Heading, Grid, InfiniteScroll, Text } from 'grommet';
 import { DropInput } from 'grommet-controls';
 import * as Icons from 'grommet-icons';
 import metadata from 'grommet-icons/metadata';
-import Page from '../components/Page';
+import SiteLayout from '../components/Layouts/SiteLayout';
 
 const iconKeys = Object.keys(Icons).filter(icon =>
   Icons[icon] && icon !== 'default' && icon !== 'ThemeContext' &&
@@ -30,7 +30,7 @@ export default class IconsPage extends React.Component {
         ) : icon,
       }));
     return (
-      <Page title='Icons'>
+      <SiteLayout title='Icons'>
         <Box direction='row' justify='between' margin={{ bottom: 'large' }} align='center'>
           <Heading level={3}>
             <strong>Icons</strong>
@@ -74,7 +74,7 @@ export default class IconsPage extends React.Component {
               ) : null}
           </Grid>
         </Box>
-      </Page>
+      </SiteLayout>
     );
   }
 }

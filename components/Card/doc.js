@@ -20,14 +20,11 @@ export default (Element) => {
     .usage(
       `$ npm install grommet-controls\n
     import { Card } from 'grommet-controls';\n
-    import { CardTitle, CardSubTitle, CardContent } from 'grommet-controls/components/Card';\n
+    import { CardTitle, CardContent } from 'grommet-controls/components/Card';\n
     <Card>
       <CardTitle>
         Title
       </CardTitle>
-      <CardSubTitle>
-        Sub title
-      </CardSubTitle>
       <CardContent>
         card content goes here
       </CardContent>  
@@ -88,7 +85,7 @@ export default (Element) => {
     flipDuration: PropTypes.number.description('Duration in seconds for the flip transition.')
       .defaultValue(0.3),
     gap: PropTypes.oneOf(['xsmall', 'small', 'medium', 'large', 'xlarge'])
-      .description('The amount of spacing between child elements (title, subtitle, content).').defaultValue('small'),
+      .description('The amount of spacing between child elements (title, content).').defaultValue('small'),
     margin: PropTypes.oneOfType([
       PropTypes.oneOf(['none', ...PAD_SIZES]),
       PropTypes.shape({
@@ -167,31 +164,6 @@ export const docCardTitle = (Element) => {
       PropTypes.string,
       PropTypes.node]).description(
       'Content of the title - a string or a react node.'
-    ).isRequired,
-  };
-
-  return DocumentedElement;
-};
-
-export const docCardSubTitle = (Element) => {
-  const DocumentedElement = describe(Element)
-    .description('Card sub title component. All properties of Box and Text apply.')
-    .usage(
-      `$ npm install grommet-controls\n
-    import { CardSubTitle } from 'grommet-controls/components/Card';\n
-    <Card>
-      <CardSubTitle>
-        Sub title
-      </CardSubTitle>
-    </Card>
-`
-    );
-
-  DocumentedElement.propTypes = {
-    children: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.node]).description(
-      'Content of the sub title - a string or a react node.'
     ).isRequired,
   };
 

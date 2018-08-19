@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Heading, Text, Paragraph } from 'grommet';
-import Page from '../components/Page';
+import SiteLayout from '../components/Layouts/SiteLayout';
 
 const lineText = 'It\'s 5 o\'clock somewhere';
 const paragraphText = `
@@ -18,7 +18,7 @@ const TypographyLine = ({ label, element }) => (
 export default class IconsPage extends React.Component {
   render() {
     return (
-      <Page title='Typography'>
+      <SiteLayout title='Typography'>
         <Box direction='row' justify='between' margin={{ bottom: 'large' }} align='center'>
           <Heading level={3}>
             <strong>Typography</strong>
@@ -40,7 +40,7 @@ export default class IconsPage extends React.Component {
           <TypographyLine label='Paragraph size = medium' element={<Paragraph size='medium'>{paragraphText}</Paragraph>} />
           <TypographyLine label='Paragraph size = small' element={<Paragraph size='small'>{paragraphText}</Paragraph>} />
         </Box>
-      </Page>
+      </SiteLayout>
     );
   }
 }

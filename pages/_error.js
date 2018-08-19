@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorPage from '../components/Errors/ErrorPage';
+import ErrorPage from '../components/Layouts/ErrorPage';
 
 export default class Error extends React.Component {
   static getInitialProps({ res, err }) {
