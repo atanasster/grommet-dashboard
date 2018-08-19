@@ -35,9 +35,9 @@ export default () => (
     />
     <CheckBoxField
       controlLabel={(
-        <Box direction='row' gap='small' align='center'>
+        <Box direction='row' gap='xsmall' align='center'>
           Agree to
-          <RoutedAnchor path='/terms_of_service' size='small' label='terms of service' />
+          <RoutedAnchor path='/terms_of_service' label='terms of service' />
         </Box>
       )}
       description='Terms of service'
