@@ -1,0 +1,32 @@
+import React from 'react';
+import { Box, Text, Paragraph } from 'grommet';
+import { EmailInputField } from 'grommet-controls/components/Form/Fields';
+import validators from 'grommet-controls/components/Form/validators';
+import FormLayout from '../components/Layouts/FormLayout';
+import RoutedAnchor from '../components/RoutedAnchor';
+
+export default () => (
+  <FormLayout
+    pageTitle='Recover password'
+    title='Recover password'
+    submit='Reset my password'
+    footer={(
+      <Box direction='row' alignSelf='center' gap='small' align='center'>
+        <Text>
+          {'Remembered your password?'}
+        </Text>
+        <RoutedAnchor path='/login' label='Sign in' />
+      </Box>
+    )}
+    onSubmit={({ email }) => alert(`an email was sent to ${email}`)}
+  >
+    <Paragraph size='small'>
+      Enter your email address below and we will send you an email to reset your password.
+    </Paragraph>
+    <EmailInputField
+      label='Email address'
+      name='email'
+      validation={[validators.required(), validators.email()]}
+    />
+  </FormLayout>
+);
