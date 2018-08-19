@@ -8,7 +8,7 @@ export default ({
   background, avatar, name, bio, twitterURL,
 }) => (
   <Card>
-    <CardTitle pad='none' basis='small' align='stretch'>
+    <CardTitle pad='none' basis='small'>
       <Box style={{ position: 'relative' }} height='small' width='full'>
         <Image
           style={{
@@ -37,8 +37,8 @@ export default ({
         />
       </Box>
     </CardTitle>
-    <CardContent pad={{ top: 'large', bottom: 'medium' }}>
-      <Box basis='small' align='center'>
+    <CardContent responsive={false} pad={{ top: 'large', bottom: 'medium' }}>
+      <Box align='center'>
         <Heading level={3}>
           {name}
         </Heading>
