@@ -9,19 +9,19 @@ export default ({
 }) => (
   <Card>
     <CardContent >
-      <Box direction='row' gap='medium' align='center'>
+      <Box direction='row' gap='medium' align='center' pad={{ horizontal: 'small' }}>
         <ImageStamp
           src={avatar} size='large'
           round='full'
         />
-        <Box pad='small'>
+        <Box pad='xsmall'>
           <Heading level={3} margin='none'>
             {name}
           </Heading>
           <Text size='small'>
             {description}
           </Text>
-          <Box direction='row' gap='small'>
+          <Box direction='row' gap='small' pad={{ vertical: 'xsmall' }}>
             {icons.map((icon, idx) => (
               <IconButton
                 key={`small_profile_${name}_${idx}`}

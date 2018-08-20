@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box } from 'grommet';
 import { Twitter, Facebook, Linkedin, GooglePlus } from 'grommet-icons';
-import SiteLayout from '../components/Layouts/SiteLayout';
-import LargeProfile from '../components/Profiles/LargeProfile';
-import SmallProfile from '../components/Profiles/SmallProfile';
+import SiteLayout from '../components/layouts/SiteLayout';
+import LargeProfile from '../components/profiles/LargeProfile';
+import SmallProfile from '../components/profiles/SmallProfile';
+import LargeProfileForm from '../components/profiles/LargeProfileForm';
 
 export default class ProfilePage extends React.Component {
   render() {
@@ -31,7 +32,7 @@ export default class ProfilePage extends React.Component {
             />
           </Box>
           <Box basis='2/3' align='center'>
-            2/3
+            <LargeProfileForm />
           </Box>
         </Box>
       </SiteLayout>

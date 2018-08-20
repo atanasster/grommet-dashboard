@@ -38,11 +38,11 @@ export default ({
       </Box>
     </CardTitle>
     <CardContent responsive={false} pad={{ top: 'large', bottom: 'medium' }}>
-      <Box align='center'>
-        <Heading level={3}>
+      <Box align='center' pad='large' gap='medium'>
+        <Heading level={3} margin='none'>
           {name}
         </Heading>
-        <Paragraph textAlign='center'>
+        <Paragraph textAlign='center' margin='none'>
           {bio}
         </Paragraph>
       </Box>

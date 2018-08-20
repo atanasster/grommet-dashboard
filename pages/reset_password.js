@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Text, Paragraph } from 'grommet';
 import { EmailInputField } from 'grommet-controls/components/Form/Fields';
 import validators from 'grommet-controls/components/Form/validators';
-import FormLayout from '../components/Layouts/FormLayout';
+import FormLayout from '../components/layouts/FormLayout';
 import RoutedAnchor from '../components/RoutedAnchor';
 
 export default () => (

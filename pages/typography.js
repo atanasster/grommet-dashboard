@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Heading, Text, Paragraph } from 'grommet';
-import SiteLayout from '../components/Layouts/SiteLayout';
+import SiteLayout from '../components/layouts/SiteLayout';
 
 const lineText = 'It\'s 5 o\'clock somewhere';
 const paragraphText = `

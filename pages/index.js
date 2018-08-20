@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Grid, Heading } from 'grommet';
-import SiteLayout from '../components/Layouts/SiteLayout';
+import SiteLayout from '../components/layouts/SiteLayout';
 import connect from '../redux';
 import PackageSelector from '../components/PackageSelector';
 import NPMStats from '../components/NPMStats';

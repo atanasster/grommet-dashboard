@@ -3,7 +3,7 @@ import { Box, Heading, Grid, InfiniteScroll, Text } from 'grommet';
 import { DropInput } from 'grommet-controls';
 import * as Icons from 'grommet-icons';
 import metadata from 'grommet-icons/metadata';
-import SiteLayout from '../components/Layouts/SiteLayout';
+import SiteLayout from '../components/layouts/SiteLayout';
 
 const iconKeys = Object.keys(Icons).filter(icon =>
   Icons[icon] && icon !== 'default' && icon !== 'ThemeContext' &&
