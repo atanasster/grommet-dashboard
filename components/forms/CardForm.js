@@ -5,9 +5,9 @@ import { Form } from 'grommet-controls';
 import { Card, CardTitle, CardActions, CardContent } from '../Card';
 
 const CardForm = ({
-  basis, title, children, footer, actions, submitLabel, onSubmit, object,
+  title, children, footer, actions, submitLabel, onSubmit, object,
 }) => (
-  <Box basis={basis} gap='large'>
+  <Box gap='large'>
     <Card>
       <CardTitle pad='medium'>
         {title}
@@ -28,7 +28,6 @@ const CardForm = ({
 );
 
 CardForm.defaultProps = {
-  basis: 'medium',
   footer: undefined,
   actions: undefined,
   submitLabel: 'Submit',
@@ -37,7 +36,6 @@ CardForm.defaultProps = {
 };
 
 CardForm.propTypes = {
-  basis: PropTypes.string,
   title: PropTypes.string.isRequired,
   footer: PropTypes.oneOfType([
     PropTypes.string,

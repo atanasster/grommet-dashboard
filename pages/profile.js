@@ -5,13 +5,14 @@ import SiteLayout from '../components/layouts/SiteLayout';
 import LargeProfile from '../components/profiles/LargeProfile';
 import SmallProfile from '../components/profiles/SmallProfile';
 import LargeProfileForm from '../components/profiles/LargeProfileForm';
+import SmallProfileForm from '../components/profiles/SmallProfileForm';
 
 export default class ProfilePage extends React.Component {
   render() {
     return (
       <SiteLayout title='Profile'>
         <Box direction='row-responsive' gap='large'>
-          <Box basis='1/3' gap='large' align='stretch'>
+          <Box basis='1/3' gap='large' >
             <LargeProfile
               background='//v2.grommet.io/assets/IMG_4245.jpg'
               avatar='//v2.grommet.io/assets/Wilderpeople_Ricky.jpg'
@@ -30,6 +31,8 @@ export default class ProfilePage extends React.Component {
                 { icon: <GooglePlus color='plain' />, href: 'https://twitter.com/grommetux' },
               ]}
             />
+
+            <SmallProfileForm />
           </Box>
           <Box basis='2/3' align='center'>
             <LargeProfileForm />

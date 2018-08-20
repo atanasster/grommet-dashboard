@@ -25,7 +25,7 @@ John unleashes the remorseless killing machine within and seeks vengeance.
     }}
     basis='large'
     title='Profile'
-    submit='Save profile'
+    submitLabel='Save profile'
   >
     <Box direction='row' gap='medium'>
       <Box basis='1/3'>

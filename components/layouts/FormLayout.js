@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Box } from 'grommet';
 import CenterLayout from './CenterLayout';
 import CardForm from '../forms/CardForm';
 
 
-const FormLayout = ({ title, ...rest }) => (
+const FormLayout = ({ title, basis, ...rest }) => (
   <CenterLayout
     title={title}
   >
-    <CardForm {...rest} />
+    <Box basis={basis}>
+      <CardForm title={title} {...rest} />
+    </Box>
   </CenterLayout>
 );
 

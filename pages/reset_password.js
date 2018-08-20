@@ -7,9 +7,8 @@ import RoutedAnchor from '../components/RoutedAnchor';
 
 export default () => (
   <FormLayout
-    pageTitle='Recover password'
     title='Recover password'
-    submit='Reset my password'
+    submitLabel='Reset my password'
     footer={(
       <Box direction='row' alignSelf='center' gap='small' align='center'>
         <Text>
