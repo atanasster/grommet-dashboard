@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Box, Heading, Select, Layer, Button, Text, Menu } from 'grommet';
 import {
   Menu as MenuIcon, Grommet as GrommetIcon, Home, TextAlignCenter,
-  CheckboxSelected, Document, Gallery, Cubes,
+  Document, Cubes,
 } from 'grommet-icons';
 import { ImageStamp } from 'grommet-controls';
 import routerPush from '../Router';
@@ -88,9 +88,11 @@ class Header extends React.Component {
       { path: '/typography', label: 'typography', icon: <TextAlignCenter size='xsmall' /> },
       { path: '/icons', label: 'icons', icon: <GrommetIcon size='xsmall' /> },
       {
-        label: 'components',
+        label: 'interface',
         icon: <Cubes size='xsmall' />,
         items: [
+          { path: '/profile', label: 'Profile' },
+          { path: '/blog', label: 'Blog' },
           { path: '/maps', label: 'Maps' },
           { path: '/tables', label: 'Tables' },
           { path: '/notifications', label: 'Notifications' },
@@ -100,11 +102,9 @@ class Header extends React.Component {
         label: 'pages',
         icon: <Document size='xsmall' />,
         items: [
-          { path: '/profile', label: 'Profile' },
           { path: '/login', label: 'Login' },
           { path: '/register', label: 'Register' },
           { path: '/reset_password', label: 'Recover password' },
-          { path: '/email', label: 'Email' },
           { path: '/400', label: '400 error' },
           { path: '/401', label: '401 error' },
           { path: '/403', label: '403 error' },
@@ -113,8 +113,6 @@ class Header extends React.Component {
           { path: '/503', label: '503 error' },
         ],
       },
-      { path: '/forms', label: 'forms', icon: <CheckboxSelected size='xsmall' /> },
-      { path: '/gallery', label: 'gallery', icon: <Gallery size='xsmall' /> },
     ];
     const keywords = ['grommet', 'grommet 2', 'react', 'next-js', 'next.js', 'dashboard', 'npm'];
     if (pageTitle) {

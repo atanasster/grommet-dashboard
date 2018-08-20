@@ -11,7 +11,8 @@ export default ({
     <CardContent >
       <Box direction='row' gap='medium' align='center' pad={{ horizontal: 'small' }}>
         <ImageStamp
-          src={avatar} size='large'
+          src={avatar}
+          size='large'
           round='full'
         />
         <Box pad='xsmall'>

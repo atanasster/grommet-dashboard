@@ -27,6 +27,7 @@
     "chart.js": "^2.7.2",
     "dotenv": "^5.0.1",
     "dotenv-webpack": "^1.5.5",
+    "google-map-react": "^1.0.6",
     "grommet": "https://github.com/grommet/grommet/tarball/NEXT-stable",
     "grommet-controls": "^0.35.0",
     "grommet-icons": "https://github.com/grommet/grommet-icons/tarball/stable",
