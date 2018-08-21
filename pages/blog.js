@@ -2,10 +2,11 @@ import React from 'react';
 import { Box, Grid } from 'grommet';
 import { Favorite } from 'grommet-icons';
 import SiteLayout from '../components/layouts/SiteLayout';
-import VerticalPostCard from '../components/blog/VerticalPostCard';
+import VerticalPost from '../components/blog/VerticalPost';
+import HorizontalPost from '../components/blog/HorizontalPost';
 
-const VerticalPost = (...props) => (
-  <VerticalPostCard
+const Post = ({ Component, ...props }) => (
+  <Component
     image='//v2.grommet.io/assets/IMG_4245.jpg'
     title='John Wick'
     path='https://www.imdb.com/title/tt2911666/'
@@ -28,7 +29,7 @@ export default class ProfilePage extends React.Component {
     const componentsArray = (Component, name, size) => {
       const arr = [];
       for (let i = 0; i < size; i += 1) {
-        arr.push(<Component key={`${name}_${i}`} />);
+        arr.push(<Post Component={Component} key={`${name}_${i}`} />);
       }
       return arr;
     };
@@ -36,11 +37,15 @@ export default class ProfilePage extends React.Component {
       <SiteLayout title='Profile'>
         <Box direction='row-responsive' gap='large'>
           <Box basis='1/3' gap='large' >
-            <VerticalPost />
+            <Post Component={VerticalPost} />
+            <Post Component={HorizontalPost} />
           </Box>
-          <Box basis='2/3' flex={false}>
+          <Box basis='2/3' flex={false} gap='large'>
             <Grid columns='small' gap='small'>
               {componentsArray(VerticalPost, 'vertical_post', 4)}
+            </Grid>
+            <Grid columns='medium' gap='small'>
+              {componentsArray(HorizontalPost, 'vertical_post', 4)}
             </Grid>
           </Box>
         </Box>

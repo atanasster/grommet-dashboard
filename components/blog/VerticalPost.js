@@ -7,7 +7,7 @@ import { Card, CardContent } from '../Card';
 import IconButton from '../IconButton/IconButton';
 import Avatar from '../profiles/Avatar';
 
-const VerticalPostCard = ({
+const VerticalPost = ({
   image, title, authorName, authorImage, authorDescription, path, excerpt, icons = [],
 }) => (
   <Card>
@@ -52,14 +52,14 @@ const VerticalPostCard = ({
   </Card>
 );
 
-VerticalPostCard.defaultProps = {
+VerticalPost.defaultProps = {
   image: undefined,
   authorDescription: undefined,
   path: undefined,
   excerpt: undefined,
   icons: [{ icon: <Favorite /> }],
 };
-VerticalPostCard.propTypes = {
+VerticalPost.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string.isRequired,
   authorName: PropTypes.string.isRequired,
@@ -69,4 +69,4 @@ VerticalPostCard.propTypes = {
   excerpt: PropTypes.string,
   icons: PropTypes.arrayOf(PropTypes.object),
 };
-export default VerticalPostCard;
+export default VerticalPost;
