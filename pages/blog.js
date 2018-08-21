@@ -26,10 +26,10 @@ John unleashes the remorseless killing machine within and seeks vengeance.
 
 export default class ProfilePage extends React.Component {
   render() {
-    const componentsArray = (Component, name, size) => {
+    const componentsArray = (Component, name, size, props) => {
       const arr = [];
       for (let i = 0; i < size; i += 1) {
-        arr.push(<Post Component={Component} key={`${name}_${i}`} />);
+        arr.push(<Post Component={Component} key={`${name}_${i}`} {...props} />);
       }
       return arr;
     };
@@ -39,6 +39,7 @@ export default class ProfilePage extends React.Component {
           <Box basis='1/3' gap='large' >
             <Post Component={VerticalPost} />
             <Post Component={HorizontalPost} />
+            <Post Component={HorizontalPost} image={undefined} />
           </Box>
           <Box basis='2/3' flex={false} gap='large'>
             <Grid columns='small' gap='small'>
@@ -46,6 +47,9 @@ export default class ProfilePage extends React.Component {
             </Grid>
             <Grid columns='medium' gap='small'>
               {componentsArray(HorizontalPost, 'vertical_post', 4)}
+            </Grid>
+            <Grid columns='medium' gap='small'>
+              {componentsArray(HorizontalPost, 'vertical_post', 4, { image: undefined })}
             </Grid>
           </Box>
         </Box>

@@ -9,48 +9,56 @@ import Avatar from '../profiles/Avatar';
 
 const HorizontalPost = ({
   image, title, authorName, authorImage, authorDescription, path, excerpt, icons = [],
-}) => (
-  <Card>
-    <Box basis='small' gap='small' direction='row' flex={false}>
+}) => {
+  let img;
+  if (image) {
+    img = (
       <Box width='small' flex={false}>
         <Image
           fit='cover'
           src={image}
         />
       </Box>
-      <Box pad='small' justify='between'>
-        <Box>
-          <RoutedAnchor path={path}>
-            <Heading level={3} margin='none'>
-              {title}
-            </Heading>
-          </RoutedAnchor>
-          <Paragraph
-            size='small'
-            style={{
-             display: '-webkit-box',
-             WebkitLineClamp: '3',
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden',
-           }}
-          >
-            {excerpt}
-          </Paragraph>
-        </Box>
-        <Box direction='row' justify='between' pad={{ vertical: 'small' }} fill='horizontal'>
-          <Avatar
-            image={authorImage}
-            name={authorName}
-            description={authorDescription}
-          />
-          {icons.map((icon, idx) => (
-            <IconButton key={`title_${idx}`} {...icon} />
-          ))}
+    );
+  }
+  return (
+    <Card>
+      <Box basis='small' direction='row' flex={false} fill='horizontal'>
+        {img}
+        <Box pad='medium' justify='between' fill='horizontal'>
+          <Box>
+            <RoutedAnchor path={path}>
+              <Heading level={3} margin='none'>
+                {title}
+              </Heading>
+            </RoutedAnchor>
+            <Paragraph
+              size='small'
+              style={{
+                display: '-webkit-box',
+                WebkitLineClamp: '3',
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+              }}
+            >
+              {excerpt}
+            </Paragraph>
+          </Box>
+          <Box direction='row' justify='between' >
+            <Avatar
+              image={authorImage}
+              name={authorName}
+              description={authorDescription}
+            />
+            {icons.map((icon, idx) => (
+              <IconButton key={`title_${idx}`} {...icon} />
+            ))}
+          </Box>
         </Box>
       </Box>
-    </Box>
-  </Card>
-);
+    </Card>
+  );
+};
 
 HorizontalPost.defaultProps = {
   image: undefined,
