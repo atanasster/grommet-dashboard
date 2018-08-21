@@ -8,7 +8,7 @@ import { queryParams } from './urlParams';
 class RoutedAnchor extends React.Component {
   render() {
     const {
-      path, preserveParams, router, size, label, ...rest
+      path, preserveParams, children, router, size, label, ...rest
     } = this.props;
     const query = queryParams(router, preserveParams);
     return (
@@ -17,7 +17,9 @@ class RoutedAnchor extends React.Component {
         href={{ pathname: path, query }}
         passHref={true}
       >
-        <Anchor {...rest} label={<Text size={size}>{label}</Text>} />
+        <Anchor {...rest} label={label && <Text size={size}>{label}</Text>} >
+          {children}
+        </Anchor>
       </Link>
     );
   }

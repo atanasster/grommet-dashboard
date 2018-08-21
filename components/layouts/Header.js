@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'next/router';
 import { bindActionCreators } from 'redux';
-import { Box, Heading, Select, Layer, Button, Text, Menu } from 'grommet';
+import { Box, Heading, Select, Layer, Button, Menu } from 'grommet';
 import {
   Menu as MenuIcon, Grommet as GrommetIcon, Home, TextAlignCenter,
   Document, Cubes,
 } from 'grommet-icons';
-import { ImageStamp } from 'grommet-controls';
 import routerPush from '../Router';
 import AlertsMenu from '../AlertsMenu/AlertsMenu';
 import MenuBar from '../MenuBar/MenuBar';
@@ -17,6 +16,8 @@ import RoutedAnchor from '../RoutedAnchor';
 import { npmSetPackages } from '../../redux/npm/actions';
 import { selectTheme } from '../../redux/themes/actions';
 import { navActivate } from '../../redux/nav/actions';
+import Avatar from '../profiles/Avatar';
+
 
 const trendingNPM = [
   [
@@ -140,21 +141,11 @@ class Header extends React.Component {
           { ...this.routeProps('/email'), label: 'Inbox' },
         ]}
       >
-        <Box direction='row' align='center' gap='small'>
-          <ImageStamp
-            src='//v2.grommet.io/assets/Wilderpeople_Ricky.jpg'
-            style={{
-              width: '36px',
-              height: '36px',
-              border: '1px solid black',
-            }}
-            round='full'
-          />
-          <Box>
-            <Text weight='bold'>Adam Levine</Text>
-            <Text size='small'>Singer</Text>
-          </Box>
-        </Box>
+        <Avatar
+          image='//v2.grommet.io/assets/Wilderpeople_Ricky.jpg'
+          name='John Wick'
+          description='Assassin'
+        />
       </Menu>
     );
     let menu;
