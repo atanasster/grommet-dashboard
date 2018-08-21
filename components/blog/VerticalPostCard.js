@@ -30,10 +30,10 @@ const VerticalPostCard = ({
       <Paragraph
         size='small'
         style={{
-         'display': '-webkit-box',
-         '-webkit-line-clamp': '5',
-          '-webkit-box-orient': 'vertical',
-          'overflow': 'hidden',
+         display: '-webkit-box',
+         WebkitLineClamp: '5',
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
        }}
       >
         {excerpt}
