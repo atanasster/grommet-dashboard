@@ -8,11 +8,13 @@ import thunkMiddleware from 'redux-thunk';
 import themes from './themes/reducer';
 import nav from './nav/reducer';
 import npm from './npm/reducer';
+import notifications from './notifications/reducer';
 
 const makeStore = combineReducers({
   themes,
   nav,
   npm,
+  notifications,
 });
 
 const initialState = {};

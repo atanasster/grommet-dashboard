@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { Grommet, Responsive, Box } from 'grommet';
 import Header from './Header';
 import Footer from './Footer';
+import Notifications from './Notifications';
 import connect from '../../redux/index';
 import { selectTheme } from '../../redux/themes/actions';
 import { updateResponsive } from '../../redux/nav/actions';
@@ -63,6 +64,7 @@ class SiteLayout extends React.Component {
           <Responsive onChange={this.onResponsive}>
             <Box style={{ height: 'auto', minHeight: '100vh' }}>
               <Header title={pageTitle} onChangeTheme={this.onChangeTheme} />
+              <Notifications />
               <Box flex={true} background='light-1' pad={{ horizontal: navMenu.responsive ? 'small' : 'xlarge', vertical: 'large' }}>
                 {children}
               </Box>

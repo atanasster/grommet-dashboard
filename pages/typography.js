@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Heading, Text, Paragraph } from 'grommet';
 import SiteLayout from '../components/layouts/SiteLayout';
+import Title from '../components/layouts/Title';
 
 const lineText = 'It\'s 5 o\'clock somewhere';
 const paragraphText = `
@@ -19,11 +20,7 @@ export default class IconsPage extends React.Component {
   render() {
     return (
       <SiteLayout title='Typography'>
-        <Box direction='row' justify='between' margin={{ bottom: 'large' }} align='center'>
-          <Heading level={3}>
-            <strong>Typography</strong>
-          </Heading>
-        </Box>
+        <Title label='Typography' />
         <Box pad={{ horizontal: 'large' }}>
           <TypographyLine label='Header level = 1' element={<Heading level={1}>{lineText}</Heading>} />
           <TypographyLine label='Header level = 2' element={<Heading level={2}>{lineText}</Heading>} />

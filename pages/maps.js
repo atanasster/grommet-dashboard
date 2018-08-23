@@ -3,9 +3,11 @@ import { Box, WorldMap } from 'grommet';
 import GoogleMap from 'google-map-react';
 import SiteLayout from '../components/layouts/SiteLayout';
 import { Card, CardTitle, CardContent } from '../components/Card';
+import Title from '../components/layouts/Title';
 
 export default () => (
   <SiteLayout title='Typography'>
+    <Title label='Maps' />
     <Box fill='horizontal' align='center' gap='large'>
       <Card width='large'>
         <CardTitle>

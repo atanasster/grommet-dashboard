@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, Heading, Grid, InfiniteScroll, Text } from 'grommet';
+import { Box, Grid, InfiniteScroll, Text } from 'grommet';
 import { DropInput } from 'grommet-controls';
 import * as Icons from 'grommet-icons';
 import metadata from 'grommet-icons/metadata';
 import SiteLayout from '../components/layouts/SiteLayout';
+import Title from '../components/layouts/Title';
 
 const iconKeys = Object.keys(Icons).filter(icon =>
   Icons[icon] && icon !== 'default' && icon !== 'ThemeContext' &&
@@ -31,10 +32,7 @@ export default class IconsPage extends React.Component {
       }));
     return (
       <SiteLayout title='Icons'>
-        <Box direction='row' justify='between' margin={{ bottom: 'large' }} align='center'>
-          <Heading level={3}>
-            <strong>Icons</strong>
-          </Heading>
+        <Title label='Icons'>
           <Box direction='row' basis='medium'>
             <DropInput
               value={search}
@@ -45,8 +43,7 @@ export default class IconsPage extends React.Component {
               ]}
             />
           </Box>
-
-        </Box>
+        </Title>
         <Box pad={{ horizontal: 'large' }} >
           <Grid columns='small'>
             {icons.length > 0 ? (

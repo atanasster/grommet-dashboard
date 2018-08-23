@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Heading } from 'grommet';
+import { Box, Grid } from 'grommet';
 import SiteLayout from '../components/layouts/SiteLayout';
 import connect from '../redux';
 import PackageSelector from '../components/PackageSelector';
@@ -7,6 +7,7 @@ import NPMStats from '../components/NPMStats';
 import DonutChart from '../components/charts/DonutChart';
 import LineChart from '../components/charts/LineChart';
 import DistributionCard from '../components/Distribution';
+import Title from '../components/layouts/Title';
 
 class Home extends React.Component {
   render() {
@@ -15,13 +16,7 @@ class Home extends React.Component {
       <SiteLayout title='Home'>
         <Box>
           <PackageSelector />
-          <Box direction='row' gap='xlarge' margin={{ bottom: 'large' }}>
-            <Box basis='medium' overflow='hidden'>
-              <Heading level={3}>
-                <strong>Dashboard</strong>
-              </Heading>
-            </Box>
-          </Box>
+          <Title label='Dashboard' />
         </Box>
         <Box gap='medium'>
           <LineChart />

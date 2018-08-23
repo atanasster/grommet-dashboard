@@ -35,23 +35,16 @@ export default class ProfilePage extends React.Component {
     };
     return (
       <SiteLayout title='Profile'>
-        <Box direction='row-responsive' gap='large'>
-          <Box basis='1/3' gap='large' >
-            <Post Component={VerticalPost} />
-            <Post Component={HorizontalPost} />
-            <Post Component={HorizontalPost} image={undefined} />
-          </Box>
-          <Box basis='2/3' flex={false} gap='large'>
-            <Grid columns='small' gap='small'>
-              {componentsArray(VerticalPost, 'vertical_post', 4)}
-            </Grid>
-            <Grid columns='medium' gap='small'>
-              {componentsArray(HorizontalPost, 'vertical_post', 4)}
-            </Grid>
-            <Grid columns='medium' gap='small'>
-              {componentsArray(HorizontalPost, 'vertical_post', 4, { image: undefined })}
-            </Grid>
-          </Box>
+        <Box gap='large' flex={false} full='horizontal'>
+          <Grid columns='medium' gap='small'>
+            {componentsArray(VerticalPost, 'vertical_post', 5)}
+          </Grid>
+          <Grid columns='medium' gap='small'>
+            {componentsArray(HorizontalPost, 'vertical_post', 5)}
+          </Grid>
+          <Grid columns='medium' gap='small'>
+            {componentsArray(HorizontalPost, 'vertical_post', 5, { image: undefined })}
+          </Grid>
         </Box>
       </SiteLayout>
     );
