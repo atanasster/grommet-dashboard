@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import { Stack, Box, Heading } from 'grommet';
+import { Box, Heading } from 'grommet';
 import { withTheme } from 'grommet/components/hocs';
 import doc from './doc';
 import { StyledCard, StyledCardContent, StyledFlipCard } from './StyledCard';
@@ -31,7 +31,7 @@ export const CardTitle = ({
 );
 
 export const CardContent = ({ children, pad = 'small', ...rest }) => (
-  <Box overflow='scroll' justifySelf='stretch' pad={pad} fill='horizontal' {...rest} >
+  <Box justifySelf='stretch' pad={pad} fill='horizontal' {...rest} >
     {children}
   </Box>
 );
@@ -103,25 +103,14 @@ class Card extends Component {
           onMouseOver={flipOnHover ? () => this.onHover(true) : undefined}
           onMouseLeave={flipOnHover ? () => this.onHover(false) : undefined}
         >
-          <Stack>
-            <StyledFlipCard
-              align={align}
-              gap={gap}
-              show={!flipped}
-              flipDuration={flipDuration}
-            >
-              {children}
-            </StyledFlipCard>
-            {backContent && (
-              <StyledFlipCard
-                style={{ overflow: 'scroll' }}
-                show={flipped}
-                flipDuration={flipDuration}
-              >
-                {backContent}
-              </StyledFlipCard>
-            )}
-          </Stack>
+          <StyledFlipCard
+            align={align}
+            gap={gap}
+            show={!flipped}
+            flipDuration={flipDuration}
+          >
+            {children}
+          </StyledFlipCard>
         </StyledCardContent>
       </StyledCard>
     );
