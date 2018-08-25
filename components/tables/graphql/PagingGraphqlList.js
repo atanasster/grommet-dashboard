@@ -107,7 +107,7 @@ export const withGraphQLList = (gqlQuery, WrappedComponent) => (
 
 PagingGraphqlList.defaultProps = {
   ordering: undefined,
-  pageSize: 25,
+  pageSize: 20,
   aliases: {},
   gqlProps: undefined,
   onExpand: undefined,

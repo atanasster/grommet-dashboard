@@ -6,16 +6,20 @@ import connect from '../redux/index';
 import { addStatus } from '../redux/notifications/actions';
 import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';
-import CoinsList from '../components/tables/CoinsList';
+import GraphQLCoins from '../components/tables/GraphQLCoins';
+import LocalDataCoins from '../components/tables/LocalDataCoins';
 
 class TablesPage extends React.Component {
   render() {
     return (
-      <SiteLayout title='GraphQL Server Side'>
+      <SiteLayout title='PagingTable'>
         <Box margin={{ bottom: 'large' }}>
-          <Title label='GraphQL server' />
-          <CoinsList />
-
+          <Title label='Local data' />
+          <LocalDataCoins />
+        </Box>
+        <Box margin={{ bottom: 'large' }}>
+          <Title label='GraphQL server side paging, sorting, filtering' />
+          <GraphQLCoins />
         </Box>
       </SiteLayout>
     );
