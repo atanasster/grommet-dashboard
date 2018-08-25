@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Box, Text, Paragraph } from 'grommet';
+import { Box, Text, Paragraph, Select } from 'grommet';
 import { ImageStamp } from 'grommet-controls';
 import { ColoredPercentChange, FormattedMoneyValue } from '../../utils/formatters';
 import PagingGraphqlList, { withGraphQLList } from './PagingGraphqlList';
@@ -12,8 +11,8 @@ const Coin = ({ coin }) => (
       src={coin.image}
       size='small'
     />
-    <Text size='large' weight='bold'>
-      {coin.symbol}
+    <Text weight='bold'>
+      {coin.symbol} - {coin.name}
     </Text>
   </Box>
 );
@@ -28,14 +27,12 @@ class CoinsList extends React.Component {
   );
 
   render() {
-    const {
-      data, loadMoreEntries, algorithm, proofType,
-
-    } = this.props;
+    const { data, loadMoreEntries } = this.props;
     const columns = [
       {
         Header: 'Coin',
-        accessor: 'symbol',
+        accessor: 'name',
+        filterable: true,
         Cell: cell => (
           <Coin
             coin={cell.original}
@@ -54,9 +51,41 @@ class CoinsList extends React.Component {
       }, {
         Header: 'Algo',
         accessor: 'algorithm.name',
+        id: 'algorithm',
+        filterable: true,
+        Filter: ({ onChange, filter }) => (
+          <Box direction='row' alignSelf='stretch'>
+            <Select
+              style={{ width: '100%' }}
+              value={filter && filter.value ? filter.value : 'All'}
+              options={['All', 'SHA256', 'SHA3', 'Scrypt', 'NeoScrypt', 'HybridScryptHash256',
+                'X11', 'X13', 'X16R',
+                'Ouroboros', 'CryptoNight', 'CryptoNight-V7', 'Ethash', 'BLAKE256', 'Blake2b',
+                'Lyra2Z', 'Lyra2RE', 'Quark', 'Keccak', 'DPoS', 'Dagger-Hashimoto', 'Shabal256',
+                'Groestl', 'Time Travel', 'NIST5']}
+              onChange={({ option }) => {
+                onChange(option === 'All' ? undefined : option);
+              }}
+            />
+          </Box>
+        ),
       }, {
         Header: 'Proof',
+        id: 'proofType',
         accessor: 'proofType.name',
+        filterable: true,
+        Filter: ({ onChange, filter }) => (
+          <Box direction='row'>
+            <Select
+              style={{ width: '100%' }}
+              value={filter && filter.value ? filter.value : 'All'}
+              options={['All', 'PoW', 'PoS', 'PoW/PoS', 'PoI', 'DPoS']}
+              onChange={({ option }) => {
+                onChange(option === 'All' ? undefined : option);
+              }}
+            />
+          </Box>
+        ),
       },
       {
         Header: 'Price',
@@ -70,20 +99,6 @@ class CoinsList extends React.Component {
         maxWidth: 120,
         Cell: cell => (<ColoredPercentChange value={cell.value / 100} />),
         getProps: () => ({ textAlign: 'end' }),
-      }, {
-        Header: 'Circulation',
-        accessor: 'stats.availableSupply',
-        Cell: cell => (
-          <FormattedMoneyValue value={cell.value} />
-        ),
-        getProps: () => ({ textAlign: 'end' }),
-      }, {
-        Header: 'Total',
-        accessor: 'stats.totalSupply',
-        Cell: cell => (
-          <FormattedMoneyValue value={cell.value} />
-        ),
-        getProps: () => ({ textAlign: 'end' }),
       },
     ];
     return (
@@ -95,21 +110,14 @@ class CoinsList extends React.Component {
         aliases={{ 'stats': 'tickers_coinkeystats' }}
         ordering={[{ id: 'stats.marketCap', desc: true }]}
         gqlProps={{
- hasMarketCap: true, hasICO: false, algorithm, proofType,
-}}
+         hasMarketCap: true,
+         hasICO: false,
+        }}
       />
     );
   }
 }
 
-CoinsList.defaultProps = {
-  algorithm: undefined,
-  proofType: undefined,
-};
-CoinsList.propTypes = {
-  algorithm: PropTypes.string,
-  proofType: PropTypes.string,
-};
 
 export default withGraphQLList(allCoinsQuery, CoinsList);
 

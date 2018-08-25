@@ -5,7 +5,9 @@ import { Box } from 'grommet';
 import { PagingTable } from 'grommet-controls';
 
 class PagingGraphqlList extends Component {
-  fetchData = ({ pageSize, page, sorted }) => {
+  fetchData = ({
+    pageSize, page, sorted, filtered,
+  }) => {
     const { loadMoreEntries, aliases, gqlProps } = this.props;
     let ordering;
     if (sorted.length > 0) {
@@ -25,8 +27,13 @@ class PagingGraphqlList extends Component {
       }
       ordering = sorted[0].desc ? `-${orderField}` : orderField;
     }
+    const filterProps = filtered
+      .reduce((obj, filter) => ({ ...obj, [filter.id]: filter.value }), {});
     loadMoreEntries({
-      offset: pageSize * page, limit: pageSize, ordering, gqlProps,
+      offset: pageSize * page,
+      limit: pageSize,
+      ordering,
+      gqlProps: { ...gqlProps, ...filterProps },
     });
   };
 
