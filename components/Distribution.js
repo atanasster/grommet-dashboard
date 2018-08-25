@@ -46,6 +46,8 @@ class DistributionCard extends Component {
                   <Box direction='row' align='center' fill='vertical'>
                     <Value
                       value={item.value}
+                      size='large'
+                      gap='none'
                       label={item.name}
                     />
                   </Box>

@@ -18,7 +18,7 @@ export default class LocalDataCoins extends React.Component {
       <PagingTable
         columns={columns}
         data={data}
-        onExpand={this.onExpand}
+        SubComponent={this.onExpand}
         defaultSorted={[{ id: 'stats.marketCap', desc: true }]}
       />
     );
