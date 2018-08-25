@@ -62,7 +62,6 @@ class Header extends React.Component {
   };
   onThemeChange = ({ option: theme }) => {
     const { onChangeTheme } = this.props;
-    console.log(this.props);
     onChangeTheme(theme);
   };
   onSetPackages = (packages) => {
