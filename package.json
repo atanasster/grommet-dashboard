@@ -21,7 +21,8 @@
     "check": "./node_modules/.bin/eslint .",
     "heroku-postbuild": "npm run build",
     "analyze": "ANALYZE_BUILD=true npm run build",
-    "start": "NODE_ENV=production next start -p ${PORT}"
+    "start": "NODE_ENV=production next start -p ${PORT}",
+    "start-server": "NODE_ENV=production next start -p 8333"
   },
   "dependencies": {
     "apollo-client-preset": "^1.0.8",
@@ -34,7 +35,7 @@
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "grommet": "https://github.com/grommet/grommet/tarball/NEXT-stable",
-    "grommet-controls": "^0.35.1",
+    "grommet-controls": "^0.36.19",
     "grommet-icons": "https://github.com/grommet/grommet-icons/tarball/stable",
     "isomorphic-unfetch": "^2.1.1",
     "moment": "^2.22.2",

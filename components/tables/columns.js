@@ -24,6 +24,10 @@ export default [
         coin={cell.original}
       />
     ),
+    Footer: ({ data, column }) => (
+      <Text weight='bold'>{data.length} {column.Header} in memory</Text>
+    ),
+
   }, {
     Header: 'Market cap',
     accessor: 'stats.marketCap',
