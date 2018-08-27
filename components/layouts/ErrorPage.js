@@ -7,7 +7,7 @@ export default ({ statusCode }) => (
   <CenterLayout title='Error'>
     <Box border='right' pad='large'>
       <Heading margin='none'>
-        {statusCode}
+        {statusCode || 'What?'}
       </Heading>
     </Box>
     <Box pad='large'>
