@@ -1,6 +1,6 @@
 // eslint-disable-next-line camelcase
 import { black, materiallight, materialdark, metro } from 'grommet-controls/themes';
-import { dark, grommet } from 'grommet/themes';
+import { base, dark, grommet } from 'grommet/themes';
 import * as ActionTypes from './constants';
 
 
@@ -11,9 +11,15 @@ const colors = {
   'border-dark': 'rgba(255, 255, 255, 0.10)',
   'focus': '#4193ff',
   'accent-1': '#4193ff',
-  'accent-2': '#07c66c',
-  'accent-3': '#60EBE1',
+  'accent-2': '#5ec660',
+  'accent-3': '#d4293d',
   'accent-4': '#FFCA58',
+  'neutral-1': '#d7d7d7',
+  'neutral-2': '#bdd741',
+  'neutral-3': '#d7ad7f',
+  'neutral-4': '#9cb6d7',
+  'neutral-5': '#fffebb',
+
 };
 
 const baseSpacing = 16;
@@ -148,6 +154,7 @@ const lightTheme = {
   },
 };
 
+console.log(base.global.colors, lightTheme.global.colors);
 const initialState = {
   themes: {
     light: lightTheme,
