@@ -27,12 +27,14 @@ class NPMStats extends React.Component {
           </CardContent>
           <CardActions>
             <Box direction='row' pad={{ top: 'small' }} fill={true} align='center'>
-              <Anchor
-                icon={<Github />}
-                href={pckg.stats.collected.metadata.repository.url.split('+')[1]}
-                target='_blank'
-                a11yTitle={`Go to the repository for ${pckg.name}`}
-              />
+              { pckg.stats.collected.metadata.repository && (
+                <Anchor
+                  icon={<Github />}
+                  href={pckg.stats.collected.metadata.repository.url.split('+')[1]}
+                  target='_blank'
+                  a11yTitle={`Go to the repository for ${pckg.name}`}
+                />
+              )}
               { pckg.stats.collected.github && (
               <Box direction='row' align='center' justify='between' fill={true}>
                 <Value size='medium' value={pckg.stats.collected.github.starsCount} label='stars' />

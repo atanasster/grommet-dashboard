@@ -1,14 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'next/router';
-import PropTypes from 'prop-types';
+import 'isomorphic-unfetch';
 import { Box, Text, Paragraph, TextInput } from 'grommet';
 import { Tags } from 'grommet-controls';
-import { npmUpdateSearch, npmSearchRequest, npmClearSearch, npmSetPackages } from '../redux/npm/actions';
+import { npmSetPackages } from '../redux/npm/actions';
 import connect from '../redux';
 import { colorFromIndex } from '../utils/colors';
 
 class PackageSelector extends React.Component {
+  state = {
+    search: '',
+    showDrop: undefined,
+    searchResults: undefined,
+  }
   constructor(props, context) {
     super(props, context);
     this.packages = undefined;
@@ -30,25 +36,38 @@ class PackageSelector extends React.Component {
     this.updatePackages(nextProps);
   }
   onSearch = ({ target }) => {
-    this.props.npmUpdateSearch(target.value);
+    this.setState({ search: target.value, showDrop: undefined });
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
-    this.timeout = setTimeout(() => {
-      this.props.npmSearchRequest(target.value);
-    }, 600);
+    if (target.value) {
+      this.timeout = setTimeout(() => {
+        fetch(`https://api.npms.io/v2/search?q=${target.value}`)
+          .then(response => response.json())
+          .then((data) => {
+            this.setState({ searchResults: data.results, showDrop: true });
+          });
+      }, 100);
+    } else {
+      this.setState({ searchResults: undefined, showDrop: true });
+    }
   };
 
   onSelect = ({ suggestion }) => {
     const { onChange, packages, router } = this.props;
-    const selected = suggestion.value;
-    this.props.npmClearSearch();
-    const packagesPath = [...packages.map(p => p.name), selected].join(',');
-    const path = { pathname: router.pathname, query: { ...router.query, packages: packagesPath } };
-    router.replace(path, path, { shallow: true });
-
-    if (onChange) {
-      onChange(selected);
+    console.log(packages.find(p => p.name === suggestion.value), packages);
+    if (!packages.find(p => p.name === suggestion.value)) {
+      const selected = suggestion.value;
+      this.setState({ search: '', searchResults: undefined });
+      const packagesPath = [...packages.map(p => p.name), selected].join(',');
+      const path = {
+        pathname: router.pathname,
+        query: { ...router.query, packages: packagesPath },
+      };
+      router.replace(path, path, { shallow: true });
+      if (onChange) {
+        onChange(selected);
+      }
     }
   };
   onRemovePackage = (selected) => {
@@ -61,13 +80,13 @@ class PackageSelector extends React.Component {
   };
 
   createSuggestions = () => {
-    const { searchResults } = this.props;
+    const { searchResults } = this.state;
     const suggestions = [];
     if (searchResults) {
       searchResults.forEach((p) => {
         suggestions.push({
           label: (
-            <Box fill='horizontal'>
+            <Box fill='horizontal' pad='xsmall'>
               <Box direction='row' justify='between'>
                 <Text><strong>{p.package.name}</strong></Text>
                 <Box>
@@ -92,7 +111,8 @@ class PackageSelector extends React.Component {
   };
 
   render() {
-    const { packages, search } = this.props;
+    const { packages } = this.props;
+    const { search, showDrop } = this.state;
     let tags = [];
     if (packages) {
       tags = packages.map((p, i) =>
@@ -104,6 +124,7 @@ class PackageSelector extends React.Component {
           <Box basis='medium'>
             <TextInput
               value={search}
+              showDrop={showDrop}
               placeholder='search'
               suggestions={this.createSuggestions()}
               onChange={this.onSearch}
@@ -133,16 +154,11 @@ PackageSelector.propTypes = {
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    npmUpdateSearch,
-    npmClearSearch,
-    npmSearchRequest,
     npmSetPackages,
   }, dispatch);
 
 const mapStateToProps = state => ({
-  searchResults: state.npm.searchResults,
   packages: state.npm.packages,
-  search: state.npm.search,
 });
 
 

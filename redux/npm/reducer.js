@@ -13,8 +13,6 @@ const defaultPackages = [
 */
 const initialState = {
   packages: [],
-  search: '',
-  searchResults: '',
   interval: 'weekly',
   period: '6 months',
 };
@@ -103,22 +101,6 @@ export default function reduce(state = initialState, action) {
               ...p,
               history: action.data && !action.data.error ? action.data : [],
             } : p)),
-      };
-    case ActionTypes.NPM_UPDATE_SEARCH:
-      return {
-        ...state,
-        search: action.search,
-      };
-    case ActionTypes.NPM_CLEAR_SEARCH:
-      return {
-        ...state,
-        search: '',
-        searchResults: undefined,
-      };
-    case ActionTypes.NPM_RETRIEVE_SEARCH:
-      return {
-        ...state,
-        searchResults: Array.isArray(action.data) ? [...action.data] : undefined,
       };
     default:
       return state;

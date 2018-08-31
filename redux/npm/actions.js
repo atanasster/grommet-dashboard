@@ -71,25 +71,3 @@ export const npmChangeInterval = interval => (dispatch) => {
   dispatch(npmUpdateIntervalData());
 };
 
-export const npmSearchRequest = search => (dispatch) => {
-  if (search && search.length > 1) {
-    fetch(`https://api.npms.io/v2/search?q=${search}`)
-      .then(response => response.json())
-      .then(data => dispatch({
-        type: ActionTypes.NPM_RETRIEVE_SEARCH,
-        data: data.results,
-        search,
-      }));
-  } else {
-    dispatch({
-      type: ActionTypes.NPM_RETRIEVE_SEARCH,
-      data: [],
-      search,
-    });
-  }
-};
-
-export const npmUpdateSearch = search => ({ type: ActionTypes.NPM_UPDATE_SEARCH, search });
-
-
-export const npmClearSearch = () => ({ type: ActionTypes.NPM_CLEAR_SEARCH });
