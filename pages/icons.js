@@ -7,7 +7,7 @@ import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';
 
 const iconKeys = Object.keys(Icons).filter(icon =>
-  Icons[icon] && icon !== 'default' && icon !== 'ThemeContext' &&
+  Icons[icon] && icon !== 'default' && icon !== 'ThemeContext' && icon !== 'Icon' && icon !== 'base' &&
   Icons[icon] !== true);
 
 export default class IconsPage extends React.Component {
