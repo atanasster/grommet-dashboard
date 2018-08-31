@@ -51,7 +51,7 @@ class DistributionCard extends Component {
                         <Value
                           value={item.value}
                           size='large'
-                          gap='none'
+                          gap={null}
                           label={item.name}
                         />
                       </Box>
