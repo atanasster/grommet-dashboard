@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Text } from 'grommet';
-import { PasswordInputField, EmailInputField, CheckBoxField } from 'grommet-controls/components/Form/Fields';
-import { validators } from 'grommet-controls/components/Form/validators';
+import { PasswordInputField, EmailInputField, CheckBoxField, validators } from 'grommet-controls';
 import FormLayout from '../components/layouts/FormLayout';
 import RoutedAnchor from '../components/RoutedAnchor';
 

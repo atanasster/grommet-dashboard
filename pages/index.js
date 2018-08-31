@@ -21,10 +21,10 @@ class Home extends React.Component {
         <Box gap='medium'>
           <LineChart />
           <DistributionCard pName='downloadsCount' title='Downloads' />
-          <Grid columns='medium' gap='medium' justify='between'>
+          <Grid columns='medium' gap='medium'>
             {packages.map((pckg, index) => <NPMStats key={`npm-stats-${pckg.name}`} pckg={pckg} index={index} />)}
           </Grid>
-          <Grid columns='medium' gap='medium' justify='between'>
+          <Grid columns='medium' gap='medium'>
             <DonutChart pName='dependentsCount' title='Dependents' />
             <DonutChart pName='communityInterest' title='Community interest' />
             <DonutChart pName='downloadsAcceleration' title='Downloads acceleration' />

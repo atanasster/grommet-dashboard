@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'next/router';
 import { bindActionCreators } from 'redux';
 import Head from 'next/head';
-import { Grommet, Responsive, Box } from 'grommet';
+import { Grommet, Box } from 'grommet';
+import { ResponsiveContext } from 'grommet/contexts';
 import Header from './Header';
 import Footer from './Footer';
 import Notifications from './Notifications';
 import connect from '../../redux/index';
 import { selectTheme } from '../../redux/themes/actions';
-import { updateResponsive } from '../../redux/nav/actions';
 
 class SiteLayout extends React.Component {
   constructor(props, context) {
@@ -35,46 +35,45 @@ class SiteLayout extends React.Component {
        this.props.selectTheme(nextProps.router.query.theme);
      }
    }
-  onResponsive = (size) => {
-    this.props.updateResponsive(size === 'narrow');
-  };
 
-  render() {
-    const {
-      children, title: pageTitle, description, themes: { themes }, navMenu,
-    } = this.props;
-    const keywords = ['grommet', 'grommet 2', 'react', 'next-js', 'next.js', 'dashboard', 'npm'];
-    if (pageTitle) {
-      keywords.push(pageTitle);
-    }
-    return (
-      <div>
-        <Head>
-          {pageTitle && (
-            <title>{`Grommet Dashboard - ${pageTitle}`}</title>
+   render() {
+     const {
+       children, title: pageTitle, description, themes: { themes },
+     } = this.props;
+     const keywords = ['grommet', 'grommet 2', 'react', 'next-js', 'next.js', 'dashboard', 'npm'];
+     if (pageTitle) {
+       keywords.push(pageTitle);
+     }
+     return (
+       <div>
+         <Head>
+           {pageTitle && (
+           <title>{`Grommet Dashboard - ${pageTitle}`}</title>
             )
           }
-          {typeof description === 'string' && (
-            <meta name='description' content={description} />
+           {typeof description === 'string' && (
+           <meta name='description' content={description} />
             )
           }
-          <meta name='keywords' content={keywords.join(',')} />
-        </Head>
-        <Grommet theme={themes[this.theme] || themes.light} style={{ height: 'auto', minHeight: '100vh' }}>
-          <Responsive onChange={this.onResponsive}>
-            <Box style={{ height: 'auto', minHeight: '100vh' }}>
-              <Header title={pageTitle} onChangeTheme={this.onChangeTheme} />
-              <Notifications />
-              <Box flex={true} background='light-1' pad={{ horizontal: navMenu.responsive ? 'small' : 'xlarge', vertical: 'large' }}>
-                {children}
-              </Box>
-              <Footer />
-            </Box>
-          </Responsive>
-        </Grommet>
-      </div>
-    );
-  }
+           <meta name='keywords' content={keywords.join(',')} />
+         </Head>
+         <Grommet theme={themes[this.theme] || themes.light} style={{ height: 'auto', minHeight: '100vh' }}>
+           <ResponsiveContext.Consumer >
+             {size => (
+               <Box style={{ height: 'auto', minHeight: '100vh' }}>
+                 <Header title={pageTitle} onChangeTheme={this.onChangeTheme} size={size} />
+                 <Notifications />
+                 <Box flex={true} background='light-1' pad={{ horizontal: size === 'narrow' ? 'small' : 'xlarge', vertical: 'large' }}>
+                   {children}
+                 </Box>
+                 <Footer />
+               </Box>
+              )}
+           </ResponsiveContext.Consumer>
+         </Grommet>
+       </div>
+     );
+   }
 }
 
 SiteLayout.propTypes = {
@@ -87,11 +86,10 @@ SiteLayout.defaultProps = {
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ updateResponsive, selectTheme }, dispatch);
+  bindActionCreators({ selectTheme }, dispatch);
 
 const mapStateToProps = state => ({
   themes: state.themes,
-  navMenu: state.nav,
 });
 
 

@@ -20,14 +20,13 @@ export default (Element) => {
     .usage(
       `$ npm install grommet-controls\n
     import { Card } from 'grommet-controls';\n
-    import { CardTitle, CardContent } from 'grommet-controls/components/Card';\n
     <Card>
-      <CardTitle>
+      <Card.CardTitle>
         Title
-      </CardTitle>
-      <CardContent>
+      </Card.CardTitle>
+      <Card.CardContent>
         card content goes here
-      </CardContent>  
+      </Card.CardContent>  
     </Card>  
 `
     );
@@ -150,11 +149,11 @@ export const docCardTitle = (Element) => {
     .description('Card title component. All properties of Box and Heading apply.')
     .usage(
       `$ npm install grommet-controls\n
-    import { CardTitle } from 'grommet-controls/components/Card';\n
+    import { Card } from 'grommet-controls';\n
     <Card>
-      <CardTitle>
+      <Card.CardTitle>
         Title
-      </CardTitle>
+      </Card.CardTitle>
     </Card>
 `
     );

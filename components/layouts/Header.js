@@ -15,7 +15,6 @@ import RoutedButton from '../RoutedButton';
 import RoutedAnchor from '../RoutedAnchor';
 import { npmSetPackages } from '../../redux/npm/actions';
 import { selectTheme } from '../../redux/themes/actions';
-import { navActivate } from '../../redux/nav/actions';
 import Avatar from '../profiles/Avatar';
 
 
@@ -48,18 +47,18 @@ const trendingNPM = [
 
 ];
 class Header extends React.Component {
-  componentDidMount() {
-    this.props.navActivate(false);
-  }
+  state = {
+    activeMenu: false,
+  };
 
   onResponsiveMenu = () => {
-    const { navMenu: { active } } = this.props;
-    this.props.navActivate(!active);
+    this.setState({ activeMenu: !this.state.activeMenu });
   };
 
   onCloseMenu = () => {
-    this.props.navActivate(false);
+    this.setState({ activeMenu: false });
   };
+
   onThemeChange = ({ option: theme }) => {
     const { onChangeTheme } = this.props;
     onChangeTheme(theme);
@@ -81,8 +80,10 @@ class Header extends React.Component {
 
   render() {
     const {
-      title: pageTitle, themes: { themes, selected: theme }, navMenu,
+      title: pageTitle, themes: { themes, selected: theme }, size,
     } = this.props;
+    const isNarrow = size === 'narrow';
+    const isWide = size === 'wide';
     const toolbarItems = [
       { path: '/', label: 'home', icon: <Home size='xsmall' /> },
       { path: '/typography', label: 'typography', icon: <TextAlignCenter size='xsmall' /> },
@@ -148,8 +149,8 @@ class Header extends React.Component {
       </Menu>
     );
     let menu;
-    if (navMenu.responsive) {
-      if (navMenu.active) {
+    if (isNarrow) {
+      if (this.state.activeMenu) {
         menu = (
           <Layer plain={true} onEsc={this.onCloseMenu} position='left' onClickOverlay={this.onCloseMenu}>
             <Box background='brand' gap='small' style={{ height: '100vh' }} pad={{ vertical: 'small' }} align='start'>
@@ -164,7 +165,7 @@ class Header extends React.Component {
           </Layer>
         );
       }
-    } else {
+    } else if (isWide) {
       menu = (
         <Box direction='row' align='center' justify='end' gap='medium' tag='nav'>
           {themeSelector}
@@ -185,10 +186,10 @@ class Header extends React.Component {
           justify='between'
           align='center'
           border='bottom'
-          pad={{ horizontal: !navMenu.responsive && 'xlarge', vertical: 'small' }}
+          pad={{ horizontal: !isNarrow && 'xlarge', vertical: 'small' }}
         >
           <Box direction='row' align='center'gap='small' >
-            {navMenu.responsive && (
+            {isNarrow && (
               <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
             )}
             <Heading level='3' margin='none'>
@@ -199,7 +200,7 @@ class Header extends React.Component {
           </Box>
           {menu}
         </Box>
-        {!navMenu.responsive && (
+        {!isNarrow && (
           <MenuBar
             items={toolbarItems}
           />
@@ -209,17 +210,21 @@ class Header extends React.Component {
   }
 }
 
+Header.defaultProps = {
+  size: undefined,
+};
+
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   onChangeTheme: PropTypes.func.isRequired,
+  size: PropTypes.string,
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ selectTheme, navActivate, npmSetPackages }, dispatch);
+  bindActionCreators({ selectTheme, npmSetPackages }, dispatch);
 
 const mapStateToProps = state => ({
   themes: state.themes,
-  navMenu: state.nav,
 });
 
 

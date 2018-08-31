@@ -9,7 +9,7 @@ export default ({ alerts }) => (
   >
     <Stack anchor='top-right'>
       <Notification />
-      <Box background='rgba(255, 0, 0, 0.7)' pad='xxsmall' style={{ borderRadius: '50%' }}>
+      <Box background='rgba(255, 0, 0, 0.7)' pad='xsmall' style={{ borderRadius: '50%' }}>
         <Text weight='bold' color='white' size='small' style={{ lineHeight: 1 }}>
           {alerts.length}
         </Text>

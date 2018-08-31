@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withTheme } from 'grommet/components/hocs';
+import { ThemeContext } from 'grommet/contexts';
 import { colorForName } from 'grommet/utils/colors';
 import { Value } from 'grommet-controls';
 import { Box, Distribution } from 'grommet';
@@ -12,18 +12,21 @@ import { colorFromIndex } from '../utils/colors';
 class DistributionCard extends Component {
   render() {
     const {
-      packages, pName, theme, title,
+      packages, pName, title,
     } = this.props;
-    const data = [];
-    packages.forEach((npm, index) => {
-      if (npm.stats) {
-        data.push({
-          name: npm.name,
-          value: parseInt(npm.stats.evaluation.popularity[pName].toFixed(0), 10),
-          color: colorForName(colorFromIndex(index), theme),
-        });
-      }
-    });
+    const data = (theme) => {
+      const result = [];
+      packages.forEach((npm, index) => {
+        if (npm.stats) {
+          result.push({
+            name: npm.name,
+            value: parseInt(npm.stats.evaluation.popularity[pName].toFixed(0), 10),
+            color: colorForName(colorFromIndex(index), theme),
+          });
+        }
+      });
+      return result.sort((a, b) => (b.value - a.value));
+    };
     return (
       <Card>
         <Box fill='horizontal' basis='324px'>
@@ -31,29 +34,32 @@ class DistributionCard extends Component {
             {title}
           </CardTitle>
           <CardContent fill={true} flex={true}>
-
-            <Distribution
-              values={data.sort((a, b) => (b.value - a.value))}
-              style={{ height: '100%' }}
-            >
-              {item => (
-                <Box
-                  background={item.color}
-                  border='all'
-                  fill={true}
-                  align='center'
+            <ThemeContext.Consumer>
+              {theme => (
+                <Distribution
+                  values={data(theme)}
+                  style={{ height: '100%' }}
                 >
-                  <Box direction='row' align='center' fill='vertical'>
-                    <Value
-                      value={item.value}
-                      size='large'
-                      gap='none'
-                      label={item.name}
-                    />
-                  </Box>
-                </Box>
+                  {item => (
+                    <Box
+                      background={item.color}
+                      border='all'
+                      fill={true}
+                      align='center'
+                    >
+                      <Box direction='row' align='center' fill='vertical'>
+                        <Value
+                          value={item.value}
+                          size='large'
+                          gap='none'
+                          label={item.name}
+                        />
+                      </Box>
+                    </Box>
+                    )}
+                </Distribution>
                 )}
-            </Distribution>
+            </ThemeContext.Consumer>
           </CardContent>
         </Box>
       </Card>
@@ -70,5 +76,5 @@ const mapStateToProps = state => ({
 });
 
 
-export default withTheme(connect(mapStateToProps)(DistributionCard));
+export default connect(mapStateToProps)(DistributionCard);
 

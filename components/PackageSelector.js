@@ -2,10 +2,8 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { Box, Text, Paragraph } from 'grommet';
-import { withTheme } from 'grommet/components/hocs';
+import { Box, Text, Paragraph, TextInput } from 'grommet';
 import { Tags } from 'grommet-controls';
-import TextInput from './TextInput/TextInput';
 import { npmUpdateSearch, npmSearchRequest, npmClearSearch, npmSetPackages } from '../redux/npm/actions';
 import connect from '../redux';
 import { colorFromIndex } from '../utils/colors';
@@ -148,5 +146,5 @@ const mapStateToProps = state => ({
 });
 
 
-export default withRouter(withTheme(connect(mapStateToProps, mapDispatchToProps)(PackageSelector)));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PackageSelector));
 

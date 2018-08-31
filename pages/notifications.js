@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
-import { Box, Button, Table } from 'grommet';
-import { TableBody, TableCell, TableRow } from 'grommet/components/Table';
+import { Box, Button, Table, TableBody, TableCell, TableRow } from 'grommet';
 import { Notification } from 'grommet-controls';
 import connect from '../redux/index';
 import { addStatus } from '../redux/notifications/actions';

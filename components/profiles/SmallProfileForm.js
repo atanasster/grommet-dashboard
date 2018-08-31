@@ -1,8 +1,6 @@
 import React from 'react';
 import { Box } from 'grommet';
-import { ImageStamp } from 'grommet-controls';
-import { TextInputField, EmailInputField, TextAreaField, PasswordInputField } from 'grommet-controls/components/Form/Fields';
-import { validators } from 'grommet-controls/components/Form/validators';
+import { ImageStamp, TextInputField, EmailInputField, TextAreaField, PasswordInputField, validators } from 'grommet-controls';
 import CardForm from '../forms/CardForm';
 
 export default () => (

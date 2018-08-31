@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { compose } from 'recompose';
 import { Box, Heading } from 'grommet';
-import { withTheme } from 'grommet/components/hocs';
+import { ThemeContext } from 'grommet/contexts';
 import doc from './doc';
 import { StyledCard, StyledCardContent, StyledFlipCard } from './StyledCard';
 
@@ -85,34 +84,37 @@ class Card extends Component {
   render() {
     const {
       align, gap, children, flipCard,
-      theme, backContent, flipDuration, flipOnHover,
+      backContent, flipDuration, flipOnHover,
       ...rest
     } = this.props;
     const { flipped } = this.state;
     return (
-      <StyledCard
-        theme={theme}
-        overflow='hidden'
-        justify='stretch'
-        {...rest}
-      >
-        <StyledCardContent
-          fill='horizontal'
-          flex={true}
-          onFocus={() => {}}
-          onMouseOver={flipOnHover ? () => this.onHover(true) : undefined}
-          onMouseLeave={flipOnHover ? () => this.onHover(false) : undefined}
-        >
-          <StyledFlipCard
-            align={align}
-            gap={gap}
-            show={!flipped}
-            flipDuration={flipDuration}
+      <ThemeContext.Consumer>
+        {theme => (
+          <StyledCard
+            theme={theme}
+            overflow='hidden'
+            {...rest}
           >
-            {children}
-          </StyledFlipCard>
-        </StyledCardContent>
-      </StyledCard>
+            <StyledCardContent
+              fill='horizontal'
+              flex={true}
+              onFocus={() => {}}
+              onMouseOver={flipOnHover ? () => this.onHover(true) : undefined}
+              onMouseLeave={flipOnHover ? () => this.onHover(false) : undefined}
+            >
+              <StyledFlipCard
+                align={align}
+                gap={gap}
+                show={!flipped}
+                flipDuration={flipDuration}
+              >
+                {children}
+              </StyledFlipCard>
+            </StyledCardContent>
+          </StyledCard>
+        )}
+      </ThemeContext.Consumer>
     );
   }
 }
@@ -122,6 +124,4 @@ if (process.env.NODE_ENV !== 'production') {
   doc(Card);
 }
 
-export default compose(
-  withTheme,
-)(Card);
+export default Card;
