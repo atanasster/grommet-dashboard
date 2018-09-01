@@ -9,17 +9,16 @@ const colors = {
   'brand': '#ffffff',
   'border-light': 'rgba(0, 0, 0, 0.10)',
   'border-dark': 'rgba(255, 255, 255, 0.10)',
-  'focus': '#4193ff',
-  'accent-1': '#4193ff',
+  'focus': '#3679d2',
+  'accent-1': '#367bd5',
   'accent-2': '#5ec660',
   'accent-3': '#d4293d',
-  'accent-4': '#FFCA58',
-  'neutral-1': '#d7d7d7',
-  'neutral-2': '#bdd741',
-  'neutral-3': '#d7ad7f',
+  'accent-4': '#9C27B0',
+  'neutral-1': '#795548',
+  'neutral-2': '#CDDC39',
+  'neutral-3': '#607D8B',
   'neutral-4': '#9cb6d7',
-  'neutral-5': '#fffebb',
-
+  'neutral-5': '#FF9800',
 };
 
 const baseSpacing = 16;
@@ -84,13 +83,17 @@ const lightTheme = {
     hover: {
       background: {
         dark: {
-          color: '#d7d7d7',
+          color: '#e3e3e3',
           opacity: 'none',
         },
         light: {
-          color: '#377ad6',
-          opacity: 'none',
+          color: '#316cbe',
+          opacity: 'medium',
         },
+      },
+      color: {
+        dark: 'white',
+        light: 'black',
       },
     },
   },
@@ -130,6 +133,14 @@ const lightTheme = {
         dark: '#e9e9e9',
         light: '#316cbe',
       },
+    },
+  },
+  anchor: {
+    textDecoration: 'none',
+    fontWeight: 600,
+    color: {
+      dark: '#69a1ff',
+      light: '#316cbe',
     },
   },
   checkBox: {

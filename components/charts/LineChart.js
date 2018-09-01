@@ -8,7 +8,7 @@ import { Card, CardTitle, CardContent } from '../Card/index';
 import connect from '../../redux/index';
 import { npmChangePeriod, npmChangeInterval } from '../../redux/npm/actions';
 import { colorFromIndex } from '../../utils/colors';
-import withChartTheme from './ThemedChart';
+import withChartTheme from './withChartTheme';
 
 const ThemedLine = withChartTheme(Line);
 

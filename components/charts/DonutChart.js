@@ -7,7 +7,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { Card, CardTitle, CardContent } from '../Card/index';
 import connect from '../../redux/index';
 import { colorFromIndex } from '../../utils/colors';
-import withChartTheme from './ThemedChart';
+import withChartTheme from './withChartTheme';
 
 const ThemedDoughnut = withChartTheme(Doughnut);
 
