@@ -30,7 +30,7 @@ export const CardTitle = ({
 );
 
 export const CardContent = ({ children, pad = 'small', ...rest }) => (
-  <Box justifySelf='stretch' pad={pad} fill='horizontal' {...rest} >
+  <Box pad={pad} fill='horizontal' {...rest} >
     {children}
   </Box>
 );
@@ -47,6 +47,7 @@ class Card extends Component {
     titleLevel: 2,
     backContent: undefined,
     flipped: false,
+    fill: 'horizontal',
     flipOnHover: true,
     background: 'brand',
     flipDuration: 0.3,

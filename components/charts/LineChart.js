@@ -1,16 +1,11 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { Box, Heading, Select } from 'grommet';
-import { colorForName } from 'grommet/utils/colors';
-import { ThemeContext } from 'grommet/contexts';
-import { Line } from 'react-chartjs-2';
+import { Line } from './chartjs/Line';
 import { Card, CardTitle, CardContent } from '../Card/index';
 import connect from '../../redux/index';
 import { npmChangePeriod, npmChangeInterval } from '../../redux/npm/actions';
-import { colorFromIndex } from '../../utils/colors';
-import withChartTheme from './withChartTheme';
 
-const ThemedLine = withChartTheme(Line);
 
 class LineChart extends React.Component {
   onChangeInterval = (interval) => {
@@ -25,23 +20,18 @@ class LineChart extends React.Component {
     const {
       packages, interval, period,
     } = this.props;
-    const data = (theme) => {
-      const result = {
-        datasets: [],
-      };
-
-      packages.forEach((npm, index) => {
-        if (npm[interval]) {
-          result.datasets.push({
-            label: npm.name,
-            data: npm[interval].map(d => ({ x: d.day, y: d.downloads })),
-            backgroundColor: 'transparent',
-            borderColor: colorForName(colorFromIndex(index), theme),
-          });
-        }
-      });
-      return result;
+    const data = {
+      datasets: [],
     };
+
+    packages.forEach((npm) => {
+      if (npm[interval]) {
+        data.datasets.push({
+          label: npm.name,
+          data: npm[interval].map(d => ({ x: d.day, y: d.downloads })),
+        });
+      }
+    });
     return (
       <Card>
         <Box fill='horizontal'>
@@ -63,43 +53,43 @@ class LineChart extends React.Component {
             </Box>
           </CardTitle>
           <CardContent>
-            <ThemeContext.Consumer>
-              {theme => (
-                <ThemedLine
-                  height={324}
-                  data={data(theme)}
-                  options={{
-                  maintainAspectRatio: false,
-                  scales: {
-                    xAxes: [{
-                      type: 'time',
-                      time: {
-                        tooltipFormat: 'llll',
-                        unit: 'day',
-                        displayFormats: {
-                          'day': 'll',
-                        },
+            <Line
+              height={324}
+              data={data}
+              options={{
+                tooltips: {
+                  mode: 'index',
+                  intersect: true,
+                },
+                maintainAspectRatio: false,
+                scales: {
+                  xAxes: [{
+                    type: 'time',
+                    time: {
+                      tooltipFormat: 'llll',
+                      unit: 'day',
+                      displayFormats: {
+                        'day': 'll',
                       },
-                      ticks: {
-                        source: 'data',
-                        autoSkip: interval === 'daily' ? true : undefined,
-                      },
-                      scaleLabel: {
-                        display: true,
-                        labelString: 'date',
-                      },
-                    }],
-                    yAxes: [{
-                      scaleLabel: {
-                        display: true,
-                        labelString: 'downloads',
-                      },
-                    }],
-                  },
-                }}
-                />
-                )}
-            </ThemeContext.Consumer>
+                    },
+                    ticks: {
+                      source: 'data',
+                      autoSkip: interval === 'daily' ? true : undefined,
+                    },
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'date',
+                    },
+                  }],
+                  yAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'downloads',
+                    },
+                  }],
+                },
+              }}
+            />
           </CardContent>
         </Box>
       </Card>

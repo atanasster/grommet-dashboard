@@ -96,6 +96,7 @@ class Header extends React.Component {
           { path: '/blog', label: 'Blog' },
           { path: '/maps', label: 'Maps' },
           { path: '/tables', label: 'Tables' },
+          { path: '/charts', label: 'Charts' },
           { path: '/notifications', label: 'Notifications' },
         ],
       },
