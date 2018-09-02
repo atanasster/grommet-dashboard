@@ -42,17 +42,27 @@ export const withChartTheme = (WrappedComponent,
         themedOptions.scales.yAxes = themedOptions.scales.yAxes || defaultScales;
         themedOptions.scales.xAxes = themedOptions.scales.xAxes.map(x => deepMerge(axisColors, x));
         themedOptions.scales.yAxes = themedOptions.scales.yAxes.map(y => deepMerge(axisColors, y));
-        const defaultData = data;
-        if (defaultData && Array.isArray(defaultData.datasets)) {
-          defaultData.datasets = defaultData.datasets
+        let datasets;
+        if (data && Array.isArray(data.datasets)) {
+          datasets = data.datasets
             .map((dataset, i) => {
+              const {
+               backgroundColor, borderColor, color, ...rest
+              } = dataset;
               let newOpts;
-              const themeColors = (index, opacity) => {
-                const color = colorForName(colorFromIndex(index), theme);
+              const themeColors = (index, itemOpacity) => {
+                const lineColor = borderColor || color || colorFromIndex(index);
+                const lineColors = Array.isArray(lineColor) ?
+                  lineColor.map(c => colorForName(c, theme)) : colorForName(lineColor, theme);
+                const fillColor = backgroundColor || lineColor;
+                const opacity = itemOpacity || dataset.opacity
+                  || (options && options.opacity) || classOpacity;
+                const fillColors = Array.isArray(fillColor) ?
+                  fillColor.map(c => getRGBA(colorForName(c, theme), opacity))
+                  : getRGBA(colorForName(fillColor, theme), opacity);
                 return {
-                  backgroundColor: getRGBA(color,
-                    opacity || dataset.opacity || (options && options.opacity) || classOpacity),
-                  borderColor: color,
+                  backgroundColor: fillColors,
+                  borderColor: lineColors,
                 };
               };
               if (options && options.themedData && dataset.data) {
@@ -68,14 +78,14 @@ export const withChartTheme = (WrappedComponent,
               return {
                 ...newOpts,
                 ...other,
-                ...dataset,
+                ...rest,
               };
             });
         }
         return (
           <WrappedComponent
             options={themedOptions}
-            data={defaultData}
+            data={{ ...data, datasets }}
           />
         );
       }}
