@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Grid } from 'grommet';
 import { ThemeContext } from 'grommet/contexts';
-import { colorForName } from 'grommet/utils/colors';
+import { colorForName, getRGBA } from 'grommet/utils/colors';
 import { colorFromIndex } from '../utils/colors';
 import { Card, CardTitle, CardContent } from '../components/Card';
 import { Bar } from '../components/charts/chartjs/Bar';
@@ -14,12 +14,14 @@ import { rndDatasets } from '../components/charts/data';
 
 const ChartCard = ({ title, children }) => (
   <Card>
-    <CardTitle>
-      {title}
-    </CardTitle>
-    <CardContent>
-      {children}
-    </CardContent>
+    <Box fill='horizontal' basis='300px'>
+      <CardTitle>
+        {title}
+      </CardTitle>
+      <CardContent>
+        {children}
+      </CardContent>
+    </Box>
   </Card>
 );
 
@@ -34,7 +36,7 @@ export default () => (
             <Title label='Bar charts' />
             <Grid columns='medium' gap='medium'>
               <ChartCard title='Vertical'>
-                <Bar data={rndDatasets()} />
+                <Bar options={{ height: '100%' }} data={rndDatasets()} />
               </ChartCard>
               <ChartCard title='Horizontal'>
                 <HorizontalBar
@@ -174,14 +176,14 @@ export default () => (
                     props: [
                       { label: 'Unfilled', fill: false },
                       { label: 'Dashed', fill: false, borderDash: [5, 5] },
-                      { label: 'Filled', fill: true, backgroundColor: colorForName('accent-3', theme) },
+                      { label: 'Filled', fill: true, backgroundColor: getRGBA(colorForName('accent-3', theme), 0.6) },
                     ],
                   })}
                 />
               </ChartCard>
               {['circle', 'triangle', 'rect', 'rectRounded', 'rectRot', 'cross', 'crossRot', 'star', 'line', 'dash']
                 .map((style, i) => (
-                  <ChartCard title={`Point style : "${style}"`}>
+                  <ChartCard key={`line_styles_${style}`} title={`Point style : "${style}"`}>
                     <Line
                       data={rndDatasets({
                         count: 1,
@@ -190,7 +192,7 @@ export default () => (
                             pointRadius: 10,
                             pointHoverRadius: 15,
                             showLine: false,
-                            backgroundColor: colorForName(colorFromIndex(i), theme),
+                            backgroundColor: getRGBA(colorForName(colorFromIndex(i), theme), 0.6),
                             borderColor: colorForName(colorFromIndex(i), theme),
                           },
                         ],
@@ -208,6 +210,119 @@ export default () => (
                     />
                   </ChartCard>
                 ))}
+              <ChartCard title='Point sizes'>
+                <Line
+                  data={rndDatasets({
+                    count: 3,
+                    props: [
+                      {
+                        label: 'big points',
+                        backgroundColor: getRGBA(colorForName('accent-1', theme), 0.6),
+                        borderColor: colorForName('accent-1', theme),
+                        fill: false,
+                        borderDash: [5, 5],
+                        pointRadius: 15,
+                        pointHoverRadius: 10,
+                      },
+                      {
+                        label: 'individual point sizes',
+                        backgroundColor: getRGBA(colorForName('accent-2', theme), 0.6),
+                        borderColor: colorForName('accent-2', theme),
+                        fill: false,
+                        borderDash: [5, 5],
+                        pointRadius: [2, 4, 6, 18, 0, 12, 20, 8, 2, 5, 15, 10],
+                      },
+                      {
+                        label: 'large pointHoverRadius',
+                        backgroundColor: getRGBA(colorForName('accent-3', theme), 0.6),
+                        borderColor: colorForName('accent-3', theme),
+                        fill: false,
+                        pointHoverRadius: 20,
+                      },
+                    ],
+                  })}
+                  options={{
+                    hover: {
+                      mode: 'index',
+                    },
+                  }}
+                />
+              </ChartCard>
+            </Grid>
+          </Box>
+          <Box margin={{ bottom: 'large' }}>
+            <Title label='Area charts' />
+            <Grid columns='medium' gap='medium'>
+              {[false, 'origin', 'start', 'end'].map((boundary, i) => (
+                <ChartCard key={`line_area_fill_${boundary}`} title={`Line fill=${boundary}`}>
+                  <Line
+                    data={rndDatasets({
+                      count: 1,
+                      props: [
+                        {
+                          fill: boundary,
+                          backgroundColor: getRGBA(colorForName(colorFromIndex(i), theme), 0.6),
+                          borderColor: colorForName(colorFromIndex(i), theme),
+                        },
+                      ],
+                    })}
+                    options={{
+                      spanGaps: false,
+                      elements: {
+                        line: {
+                          tension: 0.000001,
+                        },
+                      },
+                      plugins: {
+                        filler: {
+                          propagate: false,
+                        },
+                      },
+                      scales: {
+                        xAxes: [{
+                          ticks: {
+                            autoSkip: false,
+                          },
+                        }],
+                      },
+                    }}
+                  />
+                </ChartCard>
+              ))
+              }
+              <ChartCard title='Datasets'>
+                <Line
+                  data={rndDatasets({
+                    count: 3,
+                    props: [
+                      { label: 'hidden', hidden: true },
+                      { label: 'fill "-1"', fill: '-1' },
+                      { label: 'fill "1"', fill: '1' },
+                    ],
+                  })}
+                  options={{
+                    spanGaps: false,
+                    elements: {
+                      line: {
+                        tension: 0.000001,
+                      },
+                    },
+                    scales: {
+                      yAxes: [{
+                        stacked: true,
+                      }],
+                    },
+                    plugins: {
+                      'filler': {
+                        propagate: false,
+                      },
+                      'samples-filler-analyser': {
+                        target: 'chart-analyser',
+                      },
+                    },
+                  }}
+                />
+              </ChartCard>
             </Grid>
           </Box>
         </React.Fragment>

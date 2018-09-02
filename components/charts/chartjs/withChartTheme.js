@@ -1,11 +1,11 @@
 import React from 'react';
 import { ThemeContext } from 'grommet/contexts';
 import { deepMerge } from 'grommet/utils/object';
-import { colorForName, normalizeColor } from 'grommet/utils/colors';
+import { colorForName, normalizeColor, getRGBA } from 'grommet/utils/colors';
 import { colorFromIndex } from '../../../utils/colors';
 
 // eslint-disable-next-line import/prefer-default-export
-export const withChartTheme = (WrappedComponent, { borderThemed, dataOptions, ...other } = {}) =>
+export const withChartTheme = (WrappedComponent, { opacity = 0.6, ...other } = {}) =>
   ({ options, data, ...rest }) => (
     <ThemeContext.Consumer>
       {(theme) => {
@@ -22,41 +22,49 @@ export const withChartTheme = (WrappedComponent, { borderThemed, dataOptions, ..
           },
         };
         const defaultOptions = {
+          title: {
+            fontColor: textColor,
+          },
           legend: {
             labels: {
-              // This more specific font property overrides the global property
               fontColor: textColor,
             },
           },
           scales: {
 
           },
-          ...other,
         };
         const themedOptions = deepMerge(defaultOptions, options);
 
-        themedOptions.scales.xAxes = themedOptions.scales.xAxes || [];
-        themedOptions.scales.yAxes = themedOptions.scales.yAxes || [];
+        themedOptions.scales.xAxes = themedOptions.scales.xAxes || [{}];
+        themedOptions.scales.yAxes = themedOptions.scales.yAxes || [{}];
         themedOptions.scales.xAxes = themedOptions.scales.xAxes.map(x => deepMerge(axisColors, x));
         themedOptions.scales.yAxes = themedOptions.scales.yAxes.map(y => deepMerge(axisColors, y));
         const defaultData = data;
-        const colorName = borderThemed ? 'borderColor' : 'backgroundColor';
+        const themeColors = (index) => {
+          const color = colorForName(colorFromIndex(index), theme);
+          return {
+            backgroundColor: getRGBA(color, opacity),
+            borderColor: color,
+          };
+        };
         if (defaultData && Array.isArray(defaultData.datasets)) {
           defaultData.datasets = defaultData.datasets
             .map((d, i) => {
-              if (d[colorName]) {
-                return d;
-              }
-              const newOpts = {};
+              let newOpts;
               if (options && options.themedData && d.data) {
-                newOpts[colorName] = d.data
-                    .map((_, rIndex) => (colorForName(colorFromIndex(rIndex), theme)));
+                newOpts = { backgroundColor: [], borderColor: [] };
+                d.data.forEach((_, rIndex) => {
+                      const colors = themeColors(rIndex);
+                      newOpts.backgroundColor.push(colors.backgroundColor);
+                      newOpts.borderColor.push(colors.borderColor);
+                    });
               } else {
-                newOpts[colorName] = colorForName(colorFromIndex(i), theme);
+                newOpts = themeColors(i);
               }
               return {
-                ...dataOptions,
                 ...newOpts,
+                ...other,
                 ...d,
               };
             });

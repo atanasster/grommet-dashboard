@@ -28,7 +28,7 @@ class DonutChart extends React.Component {
           <CardTitle>
             {title}
           </CardTitle>
-          <CardContent>
+          <CardContent >
             <Doughnut
               data={data}
               height={324}
