@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from 'grommet';
-import { Doughnut } from './chartjs/Doughnut';
+import { DoughnutChart } from './chartjs/DoughnutChart';
 import { Card, CardTitle, CardContent } from '../Card/index';
 import connect from '../../redux/index';
 
 
-class DonutChart extends React.Component {
+class NPMPopularityChart extends React.Component {
   render() {
     const {
       packages, pName, title,
@@ -24,27 +23,23 @@ class DonutChart extends React.Component {
     });
     return (
       <Card>
-        <Box fill='horizontal' basis='324px'>
-          <CardTitle>
-            {title}
-          </CardTitle>
-          <CardContent >
-            <Doughnut
-              data={data}
-              height={324}
-              options={{
-                maintainAspectRatio: false,
-                themedData: true,
-              }}
-            />
-          </CardContent>
-        </Box>
+        <CardTitle>
+          {title}
+        </CardTitle>
+        <CardContent basis='medium'>
+          <DoughnutChart
+            data={data}
+            options={{
+              themedData: true,
+            }}
+          />
+        </CardContent>
       </Card>
     );
   }
 }
 
-DonutChart.propTypes = {
+NPMPopularityChart.propTypes = {
   pName: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
@@ -55,5 +50,5 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(DonutChart);
+export default connect(mapStateToProps)(NPMPopularityChart);
 

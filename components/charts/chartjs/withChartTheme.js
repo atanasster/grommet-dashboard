@@ -5,8 +5,9 @@ import { colorForName, normalizeColor, getRGBA } from 'grommet/utils/colors';
 import { colorFromIndex } from '../../../utils/colors';
 
 // eslint-disable-next-line import/prefer-default-export
-export const withChartTheme = (WrappedComponent, { opacity = 0.6, ...other } = {}) =>
-  ({ options, data, ...rest }) => (
+export const withChartTheme = (WrappedComponent,
+  { classOpacity = 0.6, defaultScales = [{}], ...other } = {}) =>
+  ({ options, data }) => (
     <ThemeContext.Consumer>
       {(theme) => {
         const textColor = normalizeColor(theme.global.text.color, theme);
@@ -22,6 +23,7 @@ export const withChartTheme = (WrappedComponent, { opacity = 0.6, ...other } = {
           },
         };
         const defaultOptions = {
+          maintainAspectRatio: false,
           title: {
             fontColor: textColor,
           },
@@ -36,26 +38,27 @@ export const withChartTheme = (WrappedComponent, { opacity = 0.6, ...other } = {
         };
         const themedOptions = deepMerge(defaultOptions, options);
 
-        themedOptions.scales.xAxes = themedOptions.scales.xAxes || [{}];
-        themedOptions.scales.yAxes = themedOptions.scales.yAxes || [{}];
+        themedOptions.scales.xAxes = themedOptions.scales.xAxes || defaultScales;
+        themedOptions.scales.yAxes = themedOptions.scales.yAxes || defaultScales;
         themedOptions.scales.xAxes = themedOptions.scales.xAxes.map(x => deepMerge(axisColors, x));
         themedOptions.scales.yAxes = themedOptions.scales.yAxes.map(y => deepMerge(axisColors, y));
         const defaultData = data;
-        const themeColors = (index) => {
-          const color = colorForName(colorFromIndex(index), theme);
-          return {
-            backgroundColor: getRGBA(color, opacity),
-            borderColor: color,
-          };
-        };
         if (defaultData && Array.isArray(defaultData.datasets)) {
           defaultData.datasets = defaultData.datasets
-            .map((d, i) => {
+            .map((dataset, i) => {
               let newOpts;
-              if (options && options.themedData && d.data) {
+              const themeColors = (index, opacity) => {
+                const color = colorForName(colorFromIndex(index), theme);
+                return {
+                  backgroundColor: getRGBA(color,
+                    opacity || dataset.opacity || (options && options.opacity) || classOpacity),
+                  borderColor: color,
+                };
+              };
+              if (options && options.themedData && dataset.data) {
                 newOpts = { backgroundColor: [], borderColor: [] };
-                d.data.forEach((_, rIndex) => {
-                      const colors = themeColors(rIndex);
+                dataset.data.forEach((dataRow, rIndex) => {
+                      const colors = themeColors(rIndex, dataRow.opacity);
                       newOpts.backgroundColor.push(colors.backgroundColor);
                       newOpts.borderColor.push(colors.borderColor);
                     });
@@ -65,7 +68,7 @@ export const withChartTheme = (WrappedComponent, { opacity = 0.6, ...other } = {
               return {
                 ...newOpts,
                 ...other,
-                ...d,
+                ...dataset,
               };
             });
         }
@@ -73,7 +76,6 @@ export const withChartTheme = (WrappedComponent, { opacity = 0.6, ...other } = {
           <WrappedComponent
             options={themedOptions}
             data={defaultData}
-            {...rest}
           />
         );
       }}

@@ -4,9 +4,10 @@ import { ThemeContext } from 'grommet/contexts';
 import { colorForName, getRGBA } from 'grommet/utils/colors';
 import { colorFromIndex } from '../utils/colors';
 import { Card, CardTitle, CardContent } from '../components/Card';
-import { Bar } from '../components/charts/chartjs/Bar';
-import { Line } from '../components/charts/chartjs/Line';
-import { HorizontalBar } from '../components/charts/chartjs/HorizontalBar';
+import { BarChart } from '../components/charts/chartjs/BarChart';
+import { LineChart } from '../components/charts/chartjs/LineChart';
+import { HorizontalBarChart } from '../components/charts/chartjs/HorizontalBarChart';
+// import { RadarChart } from '../components/charts/chartjs/RadarChart';
 import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';
 import { rndDatasets } from '../components/charts/data';
@@ -14,14 +15,12 @@ import { rndDatasets } from '../components/charts/data';
 
 const ChartCard = ({ title, children }) => (
   <Card>
-    <Box fill='horizontal' basis='300px'>
-      <CardTitle>
-        {title}
-      </CardTitle>
-      <CardContent>
-        {children}
-      </CardContent>
-    </Box>
+    <CardTitle>
+      {title}
+    </CardTitle>
+    <CardContent basis='medium'>
+      {children}
+    </CardContent>
   </Card>
 );
 
@@ -36,10 +35,12 @@ export default () => (
             <Title label='Bar charts' />
             <Grid columns='medium' gap='medium'>
               <ChartCard title='Vertical'>
-                <Bar options={{ height: '100%' }} data={rndDatasets()} />
+                <BarChart
+                  data={rndDatasets()}
+                />
               </ChartCard>
               <ChartCard title='Horizontal'>
-                <HorizontalBar
+                <HorizontalBarChart
                   data={rndDatasets({ count: 1 })}
                   options={{
                     themedData: true,
@@ -52,7 +53,7 @@ export default () => (
                 />
               </ChartCard>
               <ChartCard title='Multi axis'>
-                <Bar
+                <BarChart
                   data={rndDatasets({ props: [{ yAxisID: 'y-axis-0' }, { yAxisID: 'y-axis-1' }] })}
                   options={{
                     tooltips: {
@@ -79,7 +80,7 @@ export default () => (
                 />
               </ChartCard>
               <ChartCard title='Stacked'>
-                <Bar
+                <BarChart
                   data={rndDatasets({ count: 3 })}
                   options={{
                     tooltips: {
@@ -98,7 +99,7 @@ export default () => (
                 />
               </ChartCard>
               <ChartCard title='Stacked group'>
-                <Bar
+                <BarChart
                   data={rndDatasets({ count: 3, props: [{ stack: 'stack-1' }, { stack: 'stack-2' }, { stack: 'stack-1' }] })}
                   options={{
                     tooltips: {
@@ -122,8 +123,8 @@ export default () => (
             <Title label='Line charts' />
             <Grid columns='medium' gap='medium'>
               <ChartCard title='Simple'>
-                <Line
-                  data={rndDatasets()}
+                <LineChart
+                  data={rndDatasets({ props: { backgroundColor: 'transparent' } })}
                   options={{
                     title: {
                       display: true,
@@ -133,8 +134,13 @@ export default () => (
                 />
               </ChartCard>
               <ChartCard title='Multi axis'>
-                <Line
-                  data={rndDatasets({ props: [{ yAxisID: 'y-axis-0' }, { yAxisID: 'y-axis-1' }] })}
+                <LineChart
+                  data={rndDatasets({
+                    props: [
+                      { yAxisID: 'y-axis-0', backgroundColor: 'transparent' },
+                      { yAxisID: 'y-axis-1', backgroundColor: 'transparent' },
+                    ],
+                  })}
                   options={{
                     legend: { position: 'right' },
                     tooltips: {
@@ -161,16 +167,16 @@ export default () => (
                 />
               </ChartCard>
               <ChartCard title='Stepped: true'>
-                <Line data={rndDatasets({ count: 1, props: { steppedLine: true } })} />
+                <LineChart data={rndDatasets({ count: 1, props: { steppedLine: true, backgroundColor: 'transparent' } })} />
               </ChartCard>
               <ChartCard title='Stepped: "before"'>
-                <Line data={rndDatasets({ count: 1, props: { steppedLine: 'before' } })} />
+                <LineChart data={rndDatasets({ count: 1, props: { steppedLine: 'before', backgroundColor: 'transparent' } })} />
               </ChartCard>
               <ChartCard title='Stepped: "after"'>
-                <Line data={rndDatasets({ count: 1, props: { steppedLine: 'after' } })} />
+                <LineChart data={rndDatasets({ count: 1, props: { steppedLine: 'after', backgroundColor: 'transparent' } })} />
               </ChartCard>
               <ChartCard title='Line styles'>
-                <Line
+                <LineChart
                   data={rndDatasets({
                     count: 3,
                     props: [
@@ -184,7 +190,7 @@ export default () => (
               {['circle', 'triangle', 'rect', 'rectRounded', 'rectRot', 'cross', 'crossRot', 'star', 'line', 'dash']
                 .map((style, i) => (
                   <ChartCard key={`line_styles_${style}`} title={`Point style : "${style}"`}>
-                    <Line
+                    <LineChart
                       data={rndDatasets({
                         count: 1,
                         props: [
@@ -211,7 +217,7 @@ export default () => (
                   </ChartCard>
                 ))}
               <ChartCard title='Point sizes'>
-                <Line
+                <LineChart
                   data={rndDatasets({
                     count: 3,
                     props: [
@@ -255,7 +261,7 @@ export default () => (
             <Grid columns='medium' gap='medium'>
               {[false, 'origin', 'start', 'end'].map((boundary, i) => (
                 <ChartCard key={`line_area_fill_${boundary}`} title={`Line fill=${boundary}`}>
-                  <Line
+                  <LineChart
                     data={rndDatasets({
                       count: 1,
                       props: [
@@ -290,35 +296,33 @@ export default () => (
                 </ChartCard>
               ))
               }
-              <ChartCard title='Datasets'>
-                <Line
+              <ChartCard title='Stacked'>
+                <LineChart
                   data={rndDatasets({
                     count: 3,
-                    props: [
-                      { label: 'hidden', hidden: true },
-                      { label: 'fill "-1"', fill: '-1' },
-                      { label: 'fill "1"', fill: '1' },
-                    ],
+                    props: { opacity: 0.9 },
                   })}
                   options={{
-                    spanGaps: false,
-                    elements: {
-                      line: {
-                        tension: 0.000001,
-                      },
+                    tooltips: {
+                      mode: 'index',
+                    },
+                    hover: {
+                      mode: 'index',
                     },
                     scales: {
+                      xAxes: [{
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Month',
+                        },
+                      }],
                       yAxes: [{
                         stacked: true,
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Value',
+                        },
                       }],
-                    },
-                    plugins: {
-                      'filler': {
-                        propagate: false,
-                      },
-                      'samples-filler-analyser': {
-                        target: 'chart-analyser',
-                      },
                     },
                   }}
                 />

@@ -4,8 +4,8 @@ import SiteLayout from '../components/layouts/SiteLayout';
 import connect from '../redux';
 import PackageSelector from '../components/PackageSelector';
 import NPMStats from '../components/NPMStats';
-import DonutChart from '../components/charts/DonutChart';
-import LineChart from '../components/charts/LineChart';
+import DonutChart from '../components/charts/NPMPopularityChart';
+import LineChart from '../components/charts/NPMTrendsChart';
 import DistributionCard from '../components/Distribution';
 import Title from '../components/layouts/Title';
 
