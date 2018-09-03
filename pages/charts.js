@@ -12,7 +12,7 @@ import { PieChart } from '../components/charts/chartjs/PieChart';
 import { PolarChart } from '../components/charts/chartjs/PolarChart';
 import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';
-import { rndRange, rndDatasets, rndDatasets2d, daysAfter, timeFormat, daysAfterStr } from '../components/charts/data';
+import { rndRange, rndDatasets, rndDatasets2d, daysAfter, timeFormat, rndTimeSerie, daysAfterStr } from '../components/charts/data';
 
 
 const ChartCard = ({ title, children }) => (
@@ -614,6 +614,35 @@ export default () => (
                   scaleLabel: {
                     display: true,
                     labelString: 'value',
+                  },
+                }],
+              },
+            }}
+          />
+        </ChartCard>
+        <ChartCard title='Time serie'>
+          <LineChart
+            data={{
+              datasets: [{
+                label: 'Closing price',
+                data: rndTimeSerie(),
+                type: 'line',
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0,
+                borderWidth: 2,
+                }],
+            }}
+            options={{
+              scales: {
+                xAxes: [{
+                  type: 'time',
+                  distribution: 'series',
+                }],
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Price ($)',
                   },
                 }],
               },

@@ -1,12 +1,19 @@
 import moment from 'moment';
 
 export const timeFormat = 'MM/DD/YYYY HH:mm';
+export const dateFormat = 'MM/DD/YYYY';
 
 export const rndRange = (start = -100, stop = 100) => {
   const low = Math.ceil(start);
   const high = Math.floor(stop);
   return Math.floor(Math.random() * ((high - low) + 1)) + low;
 };
+
+
+export const rndRangeFloat = (start = -100, stop = 100) => (
+  (Math.random() * (stop - start)) + start
+);
+
 
 export const daysAfter = (days = 0) => moment().add(days, 'd').toDate();
 
@@ -21,6 +28,23 @@ export const rndDataset = (start, stop) => (
 export const rndDataset2d = (start, stop) => (
   labels.map(() => ({ x: rndRange(start, stop), y: rndRange(start, stop) }))
 );
+
+export const rndTimeSerie = (days = 150, startValue = 120) => {
+  const startData = moment().subtract(days, 'd');
+  const data = [];
+  let lastValue = startValue;
+  for (let i = 0; i < days; i += 1) {
+    const newValue = rndRangeFloat(Math.max(0, (lastValue - (lastValue * 0.05))),
+      Math.max(0, (lastValue + (lastValue * 0.05))));
+    data.push({
+      t: startData.add(1, 'd').format(dateFormat),
+      y: newValue,
+    });
+    lastValue = newValue;
+  }
+
+  return data;
+};
 
 
 export const rndDatasets = (count = 2, props = {}, boundedRandom = false) => {
@@ -58,3 +82,4 @@ export const rndDatasets2d = (count = 2, props = {}, boundedRandom = false) => {
     datasets,
   };
 };
+
