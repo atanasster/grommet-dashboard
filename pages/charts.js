@@ -395,7 +395,7 @@ export default () => (
         </ChartCard>
         <ChartCard title='Polar area'>
           <PolarChart
-            data={rndDatasets(1, {}, true)}
+            data={rndDatasets(1, { opacity: 0.2 }, true)}
             options={{
               themedData: true,
               legend: {
