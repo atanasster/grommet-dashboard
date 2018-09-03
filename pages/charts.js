@@ -425,6 +425,22 @@ export default () => (
             }}
           />
         </ChartCard>
+        <ChartCard title='Mixed line + bar'>
+          <BarChart
+            data={rndDatasets(2, [{ type: 'line', fill: false }, { type: 'bar' }])}
+          />
+        </ChartCard>
+        <ChartCard title='Mixed scatter + line'>
+          <LineChart
+            data={rndDatasets2d(2, [{ showLine: false, fill: false }, { fill: false }])}
+            options={{
+              tooltips: {
+                mode: 'index',
+                intersect: true,
+              },
+            }}
+          />
+        </ChartCard>
       </Grid>
     </Box>
   </SiteLayout>
