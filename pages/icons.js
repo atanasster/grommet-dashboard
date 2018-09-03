@@ -35,6 +35,11 @@ export default class IconsPage extends React.Component {
         <Title label='Icons'>
           <Box direction='row' basis='medium'>
             <DropInput
+              style={{
+                '-webkit-appearance': 'none',
+                '-webkit-border-radius': '4px',
+              }}
+
               value={search}
               type='search'
               onChange={({ target: { value } }) => this.setState({ search: value })}

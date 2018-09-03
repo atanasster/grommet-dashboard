@@ -1,9 +1,16 @@
+import moment from 'moment';
+
+export const timeFormat = 'MM/DD/YYYY HH:mm';
 
 export const rndRange = (start = -100, stop = 100) => {
   const low = Math.ceil(start);
   const high = Math.floor(stop);
   return Math.floor(Math.random() * ((high - low) + 1)) + low;
 };
+
+export const daysAfter = (days = 0) => moment().add(days, 'd').toDate();
+
+export const daysAfterStr = days => moment().add(days, 'd').format(timeFormat);
 
 export const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 

@@ -12,7 +12,7 @@ import { PieChart } from '../components/charts/chartjs/PieChart';
 import { PolarChart } from '../components/charts/chartjs/PolarChart';
 import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';
-import { rndDatasets, rndDatasets2d } from '../components/charts/data';
+import { rndRange, rndDatasets, rndDatasets2d, daysAfter, timeFormat, daysAfterStr } from '../components/charts/data';
 
 
 const ChartCard = ({ title, children }) => (
@@ -35,7 +35,7 @@ export default () => (
       <Grid columns='medium' gap='medium'>
         <ChartCard title='Vertical'>
           <BarChart
-            data={rndDatasets()}
+            data={rndDatasets(2, { borderWidth: 1 })}
           />
         </ChartCard>
         <ChartCard title='Horizontal'>
@@ -437,6 +437,185 @@ export default () => (
               tooltips: {
                 mode: 'index',
                 intersect: true,
+              },
+            }}
+          />
+        </ChartCard>
+      </Grid>
+    </Box>
+    <Box margin={{ bottom: 'large' }}>
+      <Title label='Chart scales' />
+      <Grid columns='medium' gap='medium'>
+        <ChartCard title='Linear scale, step size'>
+          <LineChart
+            data={rndDatasets(2, { fill: false }, true)}
+            options={{
+              tooltips: {
+                mode: 'index',
+                intersect: false,
+              },
+              hover: {
+                mode: 'nearest',
+                intersect: true,
+              },
+              scales: {
+                xAxes: [{
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Month',
+                  },
+                }],
+                yAxes: [{
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Value',
+                  },
+                  ticks: {
+                    min: 70,
+                    max: 110,
+                    // forces step size to be 5 units
+                    stepSize: 5,
+                  },
+                }],
+              },
+            }}
+          />
+        </ChartCard>
+        <ChartCard title='Linear scale, suggested min/max'>
+          <LineChart
+            data={rndDatasets(2, { fill: false }, true)}
+            options={{
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    // the data minimum for determining the ticks is Math.min(dataMin, suggestedMin)
+                    suggestedMin: 60,
+                    // the data maximum for determining the ticks is Math.max(dataMax, suggestedMax)
+                    suggestedMax: 80,
+                  },
+                }],
+              },
+            }}
+          />
+        </ChartCard>
+        <ChartCard title='Logarithmic scale, line chart'>
+          <LineChart
+            data={rndDatasets(2, { fill: false }, true)}
+            options={{
+              scales: {
+                xAxes: [{
+                  display: true,
+                }],
+                yAxes: [{
+                  display: true,
+                  type: 'logarithmic',
+                }],
+              },
+            }}
+          />
+        </ChartCard>
+        <ChartCard title='Logarithmic scale, scatter chart'>
+          <ScatterChart
+            data={rndDatasets2d(1)}
+            options={{
+              scales: {
+                xAxes: [{
+                  type: 'logarithmic',
+                  position: 'bottom',
+                  ticks: {
+                    userCallback(tick) {
+                      const remain = tick / (10 ** Math.floor(Math.log10(tick)));
+                      if (remain === 1 || remain === 2 || remain === 5) {
+                        return `${tick.toString()} y`;
+                      }
+                      return '';
+                    },
+                  },
+                  scaleLabel: {
+                    labelString: 'x-axis',
+                    display: true,
+                  },
+                }],
+                yAxes: [{
+                  type: 'linear',
+                  ticks: {
+                    userCallback(tick) {
+                      return `${tick.toString()} units`;
+                    },
+                  },
+                  scaleLabel: {
+                    labelString: 'y-axis',
+                    display: true,
+                  },
+                }],
+              },
+            }}
+          />
+        </ChartCard>
+        <ChartCard title='Time scale'>
+          <LineChart
+            data={{
+              labels: [ // Date Objects
+                daysAfter(0),
+                daysAfter(1),
+                daysAfter(2),
+                daysAfter(3),
+                daysAfter(4),
+                daysAfter(5),
+                daysAfter(6),
+              ],
+              datasets: [{
+                label: 'labels data',
+                fill: false,
+                data: [
+                  rndRange(),
+                  rndRange(),
+                  rndRange(),
+                  rndRange(),
+                  rndRange(),
+                  rndRange(),
+                  rndRange(),
+                ],
+              }, {
+                label: 'point (x,y) data',
+                fill: false,
+                data: [{
+                  x: daysAfterStr(0),
+                  y: rndRange(),
+                }, {
+                  x: daysAfterStr(5),
+                  y: rndRange(),
+                }, {
+                  x: daysAfterStr(7),
+                  y: rndRange(),
+                }, {
+                  x: daysAfterStr(10),
+                  y: rndRange(),
+                }],
+              }],
+            }}
+            options={{
+              scales: {
+                xAxes: [{
+                  type: 'time',
+                  time: {
+                    format: timeFormat,
+                    // round: 'day'
+                    tooltipFormat: 'll HH:mm',
+                  },
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Date',
+                  },
+                }],
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'value',
+                  },
+                }],
               },
             }}
           />
