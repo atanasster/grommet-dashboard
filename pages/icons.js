@@ -37,7 +37,6 @@ export default class IconsPage extends React.Component {
             <DropInput
               style={{
                 WebkitAppearance: 'none',
-                WebkitBorderRadius: '4px',
               }}
 
               value={search}
