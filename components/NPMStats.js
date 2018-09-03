@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Box, Anchor } from 'grommet';
 import { Github } from 'grommet-icons';
 import { Value, Spinning } from 'grommet-controls';
+import { colorFromIndex } from 'grommet-controls/utils/colors';
 import { Card, CardTitle, CardActions, CardContent } from './Card';
-import { colorFromIndex } from '../utils/colors';
+
 
 class NPMStats extends React.Component {
   render() {

@@ -5,9 +5,10 @@ import { withRouter } from 'next/router';
 import 'isomorphic-unfetch';
 import { Box, Text, Paragraph, TextInput } from 'grommet';
 import { Tags } from 'grommet-controls';
+import { colorFromIndex } from 'grommet-controls/utils/colors';
 import { npmSetPackages } from '../redux/npm/actions';
 import connect from '../redux';
-import { colorFromIndex } from '../utils/colors';
+
 
 class PackageSelector extends React.Component {
   state = {

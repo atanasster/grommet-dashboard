@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import { ThemeContext } from 'grommet/contexts';
 import { colorForName } from 'grommet/utils/colors';
 import { Value } from 'grommet-controls';
+import { colorFromIndex } from 'grommet-controls/utils/colors';
 import { Box, Distribution } from 'grommet';
 import { Card, CardTitle, CardContent } from './Card';
 import connect from '../redux';
-import { colorFromIndex } from '../utils/colors';
-
 
 class DistributionCard extends Component {
   render() {

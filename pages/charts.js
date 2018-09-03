@@ -1,15 +1,12 @@
 import React from 'react';
 import { Box, Grid } from 'grommet';
-import { colorFromIndex } from '../utils/colors';
+import {
+  BarChart, LineChart, HorizontalBarChart, RadarChart, ScatterChart,
+  DoughnutChart, PieChart, PolarChart,
+} from 'grommet-controls';
+
+import { colorFromIndex } from 'grommet-controls/utils/colors';
 import { Card, CardTitle, CardContent } from '../components/Card';
-import { BarChart } from '../components/charts/chartjs/BarChart';
-import { LineChart } from '../components/charts/chartjs/LineChart';
-import { HorizontalBarChart } from '../components/charts/chartjs/HorizontalBarChart';
-import { RadarChart } from '../components/charts/chartjs/RadarChart';
-import { ScatterChart } from '../components/charts/chartjs/ScatterChart';
-import { DoughnutChart } from '../components/charts/chartjs/DoughnutChart';
-import { PieChart } from '../components/charts/chartjs/PieChart';
-import { PolarChart } from '../components/charts/chartjs/PolarChart';
 import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';
 import { rndRange, rndDatasets, rndDatasets2d, daysAfter, timeFormat, rndTimeSerie, daysAfterStr } from '../components/charts/data';

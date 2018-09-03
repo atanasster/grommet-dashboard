@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { Box, Heading, Select } from 'grommet';
-import { LineChart } from './chartjs/LineChart';
+import { LineChart } from 'grommet-controls';
 import { Card, CardTitle, CardContent } from '../Card/index';
 import connect from '../../redux/index';
 import { npmChangePeriod, npmChangeInterval } from '../../redux/npm/actions';
