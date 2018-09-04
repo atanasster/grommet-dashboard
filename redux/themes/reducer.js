@@ -96,6 +96,12 @@ const lightTheme = {
         light: 'black',
       },
     },
+    control: {
+      color: {
+        dark: '#ffffff',
+        light: '#333333',
+      },
+    },
   },
   text: {
     xsmall: { size: '10px', height: 1.5 },
@@ -107,14 +113,6 @@ const lightTheme = {
   },
   heading: {
     font: false,
-  },
-  select: {
-    icons: {
-      color: {
-        dark: '#ffffff',
-        light: '#000000',
-      },
-    },
   },
   icon: {
     size: {

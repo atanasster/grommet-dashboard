@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import { Box, Heading } from 'grommet';
+import { Box, Heading, Stack } from 'grommet';
 import { ThemeContext } from 'grommet/contexts';
 import { StyledCard, StyledCardContent, StyledFlipCard } from './StyledCard';
 
 
 class Card extends Component {
   static defaultProps = {
-    title: undefined,
     align: 'center',
     border: 'all',
     elevation: 'small',
     round: 'xsmall',
     flex: false,
     gap: 'small',
-    titleLevel: 2,
     backContent: undefined,
     flipped: false,
     fill: 'horizontal',
@@ -73,14 +71,25 @@ class Card extends Component {
               onMouseOver={flipOnHover ? () => this.onHover(true) : undefined}
               onMouseLeave={flipOnHover ? () => this.onHover(false) : undefined}
             >
-              <StyledFlipCard
-                align={align}
-                gap={gap}
-                show={!flipped}
-                flipDuration={flipDuration}
-              >
-                {children}
-              </StyledFlipCard>
+              <Stack>
+                <StyledFlipCard
+                  align={align}
+                  gap={gap}
+                  show={!flipped}
+                  flipDuration={flipDuration}
+                >
+                  {children}
+                </StyledFlipCard>
+                {backContent && (
+                  <StyledFlipCard
+                    style={{ overflow: 'auto' }}
+                    show={flipped}
+                    flipDuration={flipDuration}
+                  >
+                    {backContent}
+                  </StyledFlipCard>
+                )}
+              </Stack>
             </StyledCardContent>
           </StyledCard>
         )}
