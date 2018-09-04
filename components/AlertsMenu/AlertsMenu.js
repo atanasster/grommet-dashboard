@@ -14,6 +14,8 @@ export default ({ alerts }) => (
         <Stack anchor='top-right'>
           <Notification />
           <Box
+            direction='row'
+            align='center'
             background={getRGBA(colorForName('status-error', theme), 0.9)}
             pad='xsmall'
             style={{
@@ -25,7 +27,7 @@ export default ({ alerts }) => (
               color='white'
               size='xsmall'
               style={{
-                lineHeight: 1,
+                lineHeight: 0.8,
                 minWidth: '0.6em',
                 width: '100%',
                 textAlign: 'center',
