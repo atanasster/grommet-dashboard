@@ -5,7 +5,7 @@ import { colorForName } from 'grommet/utils/colors';
 import { Value } from 'grommet-controls';
 import { colorFromIndex } from 'grommet-controls/utils/colors';
 import { Box, Distribution } from 'grommet';
-import { Card, CardTitle, CardContent } from './Card';
+import { Card } from './Card';
 import connect from '../redux';
 
 class DistributionCard extends Component {
@@ -29,10 +29,10 @@ class DistributionCard extends Component {
     return (
       <Card>
         <Box fill='horizontal' basis='324px'>
-          <CardTitle>
+          <Card.CardTitle>
             {title}
-          </CardTitle>
-          <CardContent fill={true} flex={true}>
+          </Card.CardTitle>
+          <Card.CardContent fill={true} flex={true}>
             <ThemeContext.Consumer>
               {theme => (
                 <Distribution
@@ -59,7 +59,7 @@ class DistributionCard extends Component {
                 </Distribution>
                 )}
             </ThemeContext.Consumer>
-          </CardContent>
+          </Card.CardContent>
         </Box>
       </Card>
     );

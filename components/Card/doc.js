@@ -185,7 +185,7 @@ export const docCardContent = (Element) => {
 
   DocumentedElement.propTypes = {
     children: PropTypes.node.description(
-      'Content of the sub title - a string or a react node.'
+      'Content of the card.'
     ).isRequired,
   };
 

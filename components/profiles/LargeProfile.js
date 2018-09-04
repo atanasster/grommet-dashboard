@@ -2,13 +2,13 @@ import React from 'react';
 import { Box, Heading, Paragraph, Image, Button } from 'grommet';
 import { Twitter } from 'grommet-icons';
 import { ImageStamp } from 'grommet-controls';
-import { Card, CardTitle, CardContent } from '../Card';
+import { Card } from '../Card';
 
 export default ({
   background, avatar, name, bio, twitterURL,
 }) => (
   <Card>
-    <CardTitle pad='none' basis='small'>
+    <Card.CardTitle pad='none' basis='small'>
       <Box style={{ position: 'relative' }} height='small' width='full'>
         <Image
           style={{
@@ -36,8 +36,8 @@ export default ({
           round='full'
         />
       </Box>
-    </CardTitle>
-    <CardContent responsive={false} pad={{ top: 'large', bottom: 'medium' }}>
+    </Card.CardTitle>
+    <Card.CardContent responsive={false} pad={{ top: 'large', bottom: 'medium' }}>
       <Box align='center' pad='large' gap='medium'>
         <Heading level={3} margin='none'>
           {name}
@@ -51,6 +51,6 @@ export default ({
           <Button href={twitterURL} target='_blank' icon={<Twitter color='plain' />} label='Follow' onClick={() => {}} />
         </Box>
       </Box>
-    </CardContent>
+    </Card.CardContent>
   </Card>
 );

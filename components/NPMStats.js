@@ -4,7 +4,7 @@ import { Box, Anchor } from 'grommet';
 import { Github } from 'grommet-icons';
 import { Value, Spinning } from 'grommet-controls';
 import { colorFromIndex } from 'grommet-controls/utils/colors';
-import { Card, CardTitle, CardActions, CardContent } from './Card';
+import { Card } from './Card';
 
 
 class NPMStats extends React.Component {
@@ -14,19 +14,19 @@ class NPMStats extends React.Component {
     if (pckg.stats) {
       content = (
         <Box justify='between' fill={true} pad='small' flex='grow'>
-          <CardTitle>
+          <Card.CardTitle>
             <Box direction='row' fill={true} justify='between'>
               <Value size='medium' value={pckg.stats.evaluation.popularity.downloadsCount.toFixed(0)} label='downloads' />
               <Value size='medium' value={pckg.stats.evaluation.popularity.dependentsCount.toFixed(0)} label='dependents' />
               <Value size='medium' value={pckg.stats.evaluation.popularity.communityInterest.toFixed(0)} label='interest' />
             </Box>
-          </CardTitle>
-          <CardContent align='center' justify='center' >
+          </Card.CardTitle>
+          <Card.CardContent align='center' justify='center' >
             <Box direction='row' align='center' pad={{ vertical: 'large' }}>
               <Value size='xlarge' value={pckg.stats.collected.metadata.name} label={pckg.stats.collected.metadata.version} />
             </Box>
-          </CardContent>
-          <CardActions>
+          </Card.CardContent>
+          <Card.CardActions>
             <Box direction='row' pad={{ top: 'small' }} fill={true} align='center'>
               { pckg.stats.collected.metadata.repository && (
                 <Anchor
@@ -44,7 +44,7 @@ class NPMStats extends React.Component {
               </Box>
                 )}
             </Box>
-          </CardActions>
+          </Card.CardActions>
         </Box>
       );
     } else if (pckg.error) {

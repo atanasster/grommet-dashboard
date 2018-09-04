@@ -1,39 +1,8 @@
 import React, { Component } from 'react';
 import { Box, Heading } from 'grommet';
 import { ThemeContext } from 'grommet/contexts';
-import doc from './doc';
 import { StyledCard, StyledCardContent, StyledFlipCard } from './StyledCard';
 
-export const CardActions = ({ children, pad = 'small', ...rest }) => (
-  <Box justifySelf='end' align='center' pad={pad} gap='small' border='top' flex={false} fill='horizontal' direction='row' {...rest}>
-    {children}
-  </Box>
-);
-
-export const CardTitle = ({
-  children, color, textAlign, truncate, level = 4, pad = 'small', strong = false, responsive, ...rest
-}) => (
-  <Box responsive={responsive} direction='row' fill={true} pad={pad} border='bottom' gap='small' flex={false} {...rest} >
-    {typeof children !== 'string' ? children : (
-      <Heading
-        level={level}
-        margin='none'
-        color={color}
-        textAlign={textAlign}
-        truncate={truncate}
-        responsive={responsive}
-      >
-        {strong ? <strong>{children}</strong> : children}
-      </Heading>
-    )}
-  </Box>
-);
-
-export const CardContent = ({ children, pad = 'small', ...rest }) => (
-  <Box pad={pad} fill='horizontal' {...rest} >
-    {children}
-  </Box>
-);
 
 class Card extends Component {
   static defaultProps = {
@@ -120,9 +89,42 @@ class Card extends Component {
   }
 }
 
-
+let CardDoc;
 if (process.env.NODE_ENV !== 'production') {
-  doc(Card);
+  CardDoc = require('./doc').default(Card); // eslint-disable-line global-require
 }
+const CardWrapper = CardDoc || Card;
 
-export default Card;
+CardWrapper.CardActions = ({ children, pad = 'small', ...rest }) => (
+  <Box justifySelf='end' align='center' pad={pad} gap='small' border='top' flex={false} fill='horizontal' direction='row' {...rest}>
+    {children}
+  </Box>
+);
+
+CardWrapper.CardTitle = ({
+  children, color, textAlign, truncate, level = 4, pad = 'small', strong = false, responsive, ...rest
+}) => (
+  <Box responsive={responsive} direction='row' fill={true} pad={pad} border='bottom' gap='small' flex={false} {...rest} >
+    {typeof children !== 'string' ? children : (
+      <Heading
+        level={level}
+        margin='none'
+        color={color}
+        textAlign={textAlign}
+        truncate={truncate}
+        responsive={responsive}
+      >
+        {strong ? <strong>{children}</strong> : children}
+      </Heading>
+    )}
+  </Box>
+);
+
+CardWrapper.CardContent = ({ children, pad = 'small', ...rest }) => (
+  <Box pad={pad} fill='horizontal' {...rest} >
+    {children}
+  </Box>
+);
+
+// eslint-disable-next-line import/prefer-default-export
+export { CardWrapper as Card };

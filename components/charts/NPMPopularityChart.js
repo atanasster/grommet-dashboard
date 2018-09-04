@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DoughnutChart } from 'grommet-controls';
-import { Card, CardTitle, CardContent } from '../Card/index';
+import { Card } from '../Card/index';
 import connect from '../../redux/index';
 
 
@@ -23,17 +23,17 @@ class NPMPopularityChart extends React.Component {
     });
     return (
       <Card>
-        <CardTitle>
+        <Card.CardTitle>
           {title}
-        </CardTitle>
-        <CardContent basis='medium'>
+        </Card.CardTitle>
+        <Card.CardContent basis='medium'>
           <DoughnutChart
             data={data}
             options={{
               themedData: true,
             }}
           />
-        </CardContent>
+        </Card.CardContent>
       </Card>
     );
   }

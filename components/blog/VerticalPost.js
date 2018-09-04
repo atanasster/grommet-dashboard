@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Heading, Paragraph, Image } from 'grommet';
 import { Favorite } from 'grommet-icons';
 import RoutedAnchor from '../RoutedAnchor';
-import { Card, CardContent } from '../Card';
+import { Card } from '../Card';
 import IconButton from '../IconButton/IconButton';
 import Avatar from '../profiles/Avatar';
 
@@ -21,7 +21,7 @@ const VerticalPost = ({
         </Box>
       </Box>
     </RoutedAnchor>
-    <CardContent align='center'>
+    <Card.CardContent align='center'>
       <RoutedAnchor path={path}>
         <Heading level={3} margin='none'>
           {title}
@@ -48,7 +48,7 @@ const VerticalPost = ({
           <IconButton key={`title_${idx}`} {...icon} />
         ))}
       </Box>
-    </CardContent>
+    </Card.CardContent>
   </Card>
 );
 

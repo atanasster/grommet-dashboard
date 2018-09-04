@@ -1,14 +1,14 @@
 import React from 'react';
 import { Box, Heading, Text } from 'grommet';
 import { ImageStamp } from 'grommet-controls';
-import { Card, CardContent } from '../Card';
+import { Card } from '../Card';
 import IconButton from '../IconButton/IconButton';
 
 export default ({
   avatar, name, description, icons,
 }) => (
   <Card>
-    <CardContent >
+    <Card.CardContent >
       <Box direction='row' gap='medium' align='center' pad={{ horizontal: 'small' }}>
         <ImageStamp
           src={avatar}
@@ -32,6 +32,6 @@ export default ({
           </Box>
         </Box>
       </Box>
-    </CardContent>
+    </Card.CardContent>
   </Card>
 );

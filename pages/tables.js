@@ -12,7 +12,7 @@ import LocalDataCoins from '../components/tables/LocalDataCoins';
 class TablesPage extends React.Component {
   render() {
     return (
-      <SiteLayout title='PagingTable'>
+      <SiteLayout title='Tables'>
         <Box margin={{ bottom: 'large' }}>
           <Title label='Local data' />
           <LocalDataCoins />

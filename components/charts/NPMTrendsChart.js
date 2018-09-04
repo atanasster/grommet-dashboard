@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { Box, Heading, Select } from 'grommet';
 import { LineChart } from 'grommet-controls';
-import { Card, CardTitle, CardContent } from '../Card/index';
+import { Card } from '../Card/index';
 import connect from '../../redux/index';
 import { npmChangePeriod, npmChangeInterval } from '../../redux/npm/actions';
 
@@ -35,7 +35,7 @@ class NPMTrendsChart extends React.Component {
     });
     return (
       <Card>
-        <CardTitle>
+        <Card.CardTitle>
           <Box direction='row' justify='between' align='center' fill='horizontal'>
             <Heading level={4} margin='none'>NPM trends</Heading>
             <Box direction='row' gap='small'>
@@ -51,8 +51,8 @@ class NPMTrendsChart extends React.Component {
               />
             </Box>
           </Box>
-        </CardTitle>
-        <CardContent basis='medium'>
+        </Card.CardTitle>
+        <Card.CardContent basis='medium'>
           <LineChart
             data={data}
             options={{
@@ -88,7 +88,7 @@ class NPMTrendsChart extends React.Component {
               },
             }}
           />
-        </CardContent>
+        </Card.CardContent>
       </Card>
     );
   }

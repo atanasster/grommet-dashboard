@@ -6,7 +6,7 @@ import {
 } from 'grommet-controls';
 
 import { colorFromIndex } from 'grommet-controls/utils/colors';
-import { Card, CardTitle, CardContent } from '../components/Card';
+import { Card } from '../components/Card';
 import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';
 import { rndRange, rndDatasets, rndDatasets2d, daysAfter, timeFormat, rndTimeSerie, daysAfterStr } from '../components/charts/data';
@@ -14,12 +14,12 @@ import { rndRange, rndDatasets, rndDatasets2d, daysAfter, timeFormat, rndTimeSer
 
 const ChartCard = ({ title, children }) => (
   <Card>
-    <CardTitle>
+    <Card.CardTitle>
       {title}
-    </CardTitle>
-    <CardContent basis='medium'>
+    </Card.CardTitle>
+    <Card.CardContent basis='medium'>
       {children}
-    </CardContent>
+    </Card.CardContent>
   </Card>
 );
 

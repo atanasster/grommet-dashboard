@@ -2,23 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button } from 'grommet';
 import { Form } from 'grommet-controls';
-import { Card, CardTitle, CardActions, CardContent } from '../Card';
+import { Card } from '../Card';
 
 const CardForm = ({
   title, children, footer, actions, submitLabel, onSubmit, object,
 }) => (
   <Box gap='large'>
     <Card>
-      <CardTitle pad='medium'>
+      <Card.CardTitle pad='medium'>
         {title}
-      </CardTitle>
+      </Card.CardTitle>
       <Form onSubmit={f => (onSubmit ? onSubmit(f) : alert(JSON.stringify(f)))} basis='full' object={object}>
-        <CardContent gap='small' pad={{ horizontal: 'medium', top: 'medium', bottom: 'large' }} >
+        <Card.CardContent gap='small' pad={{ horizontal: 'medium', top: 'medium', bottom: 'large' }} >
           {children}
-        </CardContent>
-        <CardActions pad='medium' alignContent='stretch'>
+        </Card.CardContent>
+        <Card.CardActions pad='medium' alignContent='stretch'>
           {actions || <Button hoverIndicator='background' primary={true} type='submit' label={submitLabel} />}
-        </CardActions>
+        </Card.CardActions>
       </Form>
     </Card>
     <Box direction='row' alignSelf='center' gap='small' align='center'>

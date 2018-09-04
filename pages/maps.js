@@ -2,18 +2,18 @@ import React from 'react';
 import { Box, WorldMap } from 'grommet';
 import GoogleMap from 'google-map-react';
 import SiteLayout from '../components/layouts/SiteLayout';
-import { Card, CardTitle, CardContent } from '../components/Card';
+import { Card } from '../components/Card';
 import Title from '../components/layouts/Title';
 
 export default () => (
-  <SiteLayout title='Typography'>
+  <SiteLayout title='Maps'>
     <Title label='Maps' />
     <Box fill='horizontal' align='center' gap='large'>
       <Card width='large'>
-        <CardTitle>
+        <Card.CardTitle>
           WorldMap
-        </CardTitle>
-        <CardContent>
+        </Card.CardTitle>
+        <Card.CardContent fill='horizontal'>
           <WorldMap
             color='neutral-1'
             continents={[
@@ -59,13 +59,13 @@ export default () => (
                 ]}
             selectColor='accent-2'
           />
-        </CardContent>
+        </Card.CardContent>
       </Card>
       <Card>
-        <CardTitle>
+        <Card.CardTitle>
           Google Map
-        </CardTitle>
-        <Box width='large' height='medium'>
+        </Card.CardTitle>
+        <Box fill='horizontal' height='medium'>
           <GoogleMap
             apiKey={undefined}
             defaultCenter={{ lat: 59.938043, lng: 30.337157 }}
