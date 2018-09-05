@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Anchor, Accordion, AccordionPanel } from 'grommet';
+import { Box, Anchor } from 'grommet';
 import { Github } from 'grommet-icons';
 import { Value, Spinning } from 'grommet-controls';
 import { colorFromIndex } from 'grommet-controls/utils/colors';
@@ -8,39 +8,9 @@ import { Card } from './Card';
 
 
 class NPMStats extends React.Component {
-  renderBackContent = () =>
-    // const { pckg } = this.props;
-    (
-      <Accordion multiple={true}>
-        <AccordionPanel label='github'>
-          in progress
-        </AccordionPanel>
-        <AccordionPanel label='metadata'>
-          in progress
-        </AccordionPanel>
-        <AccordionPanel label='npm'>
-          in progress
-        </AccordionPanel>
-        <AccordionPanel label='source'>
-          in progress
-        </AccordionPanel>
-        <AccordionPanel label='popularity'>
-          in progress
-        </AccordionPanel>
-        <AccordionPanel label='maintenance'>
-          in progress
-        </AccordionPanel>
-        <AccordionPanel label='quality'>
-          in progress
-        </AccordionPanel>
-
-      </Accordion>
-    )
-
   render() {
     const { pckg, index } = this.props;
     let content;
-    console.log(pckg.stats);
     if (pckg.stats) {
       content = (
         <Box justify='between' fill={true} pad='small' flex='grow'>
@@ -94,7 +64,6 @@ class NPMStats extends React.Component {
     return (
       <Card
         background={colorFromIndex(index)}
-        backContent={pckg.stats && this.renderBackContent()}
       >
         <Box fill='horizontal' basis='medium'>
           {content}
