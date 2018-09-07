@@ -44,7 +44,22 @@ const trendingNPM = [
     'keras-js',
     'brain.js',
   ],
-
+  [
+    'redux',
+    'mobx',
+    'flux',
+    'relay',
+  ],
+  [
+    'lodash',
+    'underscore',
+    'ramda',
+  ],
+  [
+    'react-codemirror2',
+    'react-ace',
+    'react-monaco-editor',
+  ],
 ];
 class Header extends React.Component {
   state = {
@@ -139,7 +154,7 @@ class Header extends React.Component {
           { ...this.routeProps('/edit_profile'), label: 'Edit profile' },
           { ...this.routeProps('/settings'), label: 'Settings' },
           { ...this.routeProps('/subscriptions'), label: 'Subscriptions' },
-          { ...this.routeProps('/email'), label: 'Inbox' },
+          { ...this.routeProps('/inbox'), label: 'Inbox' },
         ]}
       >
         <Avatar
@@ -187,7 +202,7 @@ class Header extends React.Component {
           justify='between'
           align='center'
           border='bottom'
-          pad={{ horizontal: !isNarrow && 'xlarge', vertical: 'small' }}
+          pad={{ horizontal: !isNarrow ? 'xlarge' : undefined, vertical: 'small' }}
         >
           <Box direction='row' align='center'gap='small' >
             {isNarrow && (
