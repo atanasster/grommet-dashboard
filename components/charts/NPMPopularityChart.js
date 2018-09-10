@@ -8,17 +8,18 @@ import connect from '../../redux/index';
 class NPMPopularityChart extends React.Component {
   render() {
     const {
-      packages, pName, title,
+      packages, stats, pName, title,
     } = this.props;
     const data = {
       labels: [],
       datasets: [{ data: [] }],
     };
 
-    packages.forEach((npm) => {
-      if (npm.stats) {
-        data.labels.push(npm.name);
-        data.datasets[0].data.push(npm.stats.evaluation.popularity[pName].toFixed(0));
+    packages.forEach((name) => {
+      const npm = stats[name];
+      if (npm && !npm.error) {
+        data.labels.push(name);
+        data.datasets[0].data.push(npm.evaluation.popularity[pName].toFixed(0));
       }
     });
     return (
@@ -47,6 +48,7 @@ NPMPopularityChart.propTypes = {
 
 const mapStateToProps = state => ({
   packages: state.npm.packages,
+  stats: state.npm.stats,
 });
 
 

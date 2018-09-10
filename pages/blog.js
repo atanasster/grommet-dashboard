@@ -24,29 +24,27 @@ John unleashes the remorseless killing machine within and seeks vengeance.
   />
 );
 
-export default class ProfilePage extends React.Component {
-  render() {
-    const componentsArray = (Component, name, size, props) => {
-      const arr = [];
-      for (let i = 0; i < size; i += 1) {
-        arr.push(<Post Component={Component} key={`${name}_${i}`} {...props} />);
-      }
-      return arr;
-    };
-    return (
-      <SiteLayout title='Profile'>
-        <Box gap='large' flex={false} full='horizontal'>
-          <Grid columns='medium' gap='small'>
-            {componentsArray(VerticalPost, 'vertical_post', 5)}
-          </Grid>
-          <Grid columns='medium' gap='small'>
-            {componentsArray(HorizontalPost, 'vertical_post', 5)}
-          </Grid>
-          <Grid columns='medium' gap='small'>
-            {componentsArray(HorizontalPost, 'vertical_post', 5, { image: undefined })}
-          </Grid>
-        </Box>
-      </SiteLayout>
-    );
-  }
-}
+export default () => {
+  const componentsArray = (Component, name, size, props) => {
+    const arr = [];
+    for (let i = 0; i < size; i += 1) {
+      arr.push(<Post Component={Component} key={`${name}_${i}`} {...props} />);
+    }
+    return arr;
+  };
+  return (
+    <SiteLayout title='Blog'>
+      <Box gap='large' flex={false} full='horizontal'>
+        <Grid columns='medium' gap='small'>
+          {componentsArray(VerticalPost, 'vertical_post', 5)}
+        </Grid>
+        <Grid columns='medium' gap='small'>
+          {componentsArray(HorizontalPost, 'vertical_post', 5)}
+        </Grid>
+        <Grid columns='medium' gap='small'>
+          {componentsArray(HorizontalPost, 'vertical_post', 5, { image: undefined })}
+        </Grid>
+      </Box>
+    </SiteLayout>
+  );
+};

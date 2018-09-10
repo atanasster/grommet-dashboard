@@ -1,20 +1,13 @@
 import moment from 'moment';
 import * as ActionTypes from './constants';
 
-/*
-const defaultPackages = [
-  'material-ui',
-  'semantic-ui-react',
-  'react-bootstrap',
-  'antd',
-  'office-ui-fabric-react',
-  'grommet',
-];
-*/
 const initialState = {
   packages: [],
   interval: 'weekly',
   period: '6 months',
+  stats: {},
+  history: {},
+  intervals: {},
 };
 
 // group download dates from a sorted array by period
@@ -56,21 +49,24 @@ export default function reduce(state = initialState, action) {
     case ActionTypes.NPM_SET_PACKAGES:
       return {
         ...state,
-        packages: Array.isArray(action.packages) ?
-          action.packages.map(p => (
-            { ...{ name: p }, ...state.packages.find(npmPackage => npmPackage.name === p) }
-          )) : [],
+        packages: Array.isArray(action.packages) ? [...action.packages] : [],
       };
     case ActionTypes.NPM_RETRIEVE_STATS:
       return {
         ...state,
-        packages:
-          state.packages.map(p =>
-            (p.name === action.packageName ? {
-              ...p,
-              stats: action.data && action.data.evaluation ? action.data : undefined,
-              error: action.data && action.data.message ? action.data.message : undefined,
-            } : p)),
+        stats: {
+          ...state.stats,
+          [action.packageName]: action.data ?
+            { ...action.data, error: (action.data.message ? action.data.message : undefined) } : {},
+        },
+      };
+    case ActionTypes.NPM_RETRIEVE_HISTORY:
+      return {
+        ...state,
+        history: {
+          ...state.history,
+          [action.packageName]: action.data && !action.data.error ? action.data : [],
+        },
       };
     case ActionTypes.NPM_CHANGE_PERIOD:
       return {
@@ -85,23 +81,17 @@ export default function reduce(state = initialState, action) {
     case ActionTypes.NPM_UPDATE_INTERVAL_DATA:
       return {
         ...state,
-        packages: state.packages.map(p =>
-          (action.packageName === undefined || p.name === action.packageName ? {
-            ...p,
+        intervals: {
+          ...state.intervals,
+          [action.packageName]: {
+            ...(state.intervals[action.packageName] || {}),
             [state.interval]:
-              p.history.downloads ? groupDates(p.history.downloads, state.interval) : [],
-          } : p)),
+              state.history[action.packageName] && state.history[action.packageName].downloads ?
+                groupDates(state.history[action.packageName].downloads, state.interval) : [],
+          },
+        },
       };
-    case ActionTypes.NPM_RETRIEVE_HISTORY:
-      return {
-        ...state,
-        packages:
-          state.packages.map(p =>
-            (p.name === action.packageName ? {
-              ...p,
-              history: action.data && !action.data.error ? action.data : [],
-            } : p)),
-      };
+
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Box, Heading, Stack } from 'grommet';
+import { Box, Heading } from 'grommet';
 import { ThemeContext } from 'grommet/contexts';
 import { StyledCard, StyledCardContent, StyledFlipCard } from './StyledCard';
 
@@ -71,25 +71,15 @@ class Card extends Component {
               onMouseOver={flipOnHover ? () => this.onHover(true) : undefined}
               onMouseLeave={flipOnHover ? () => this.onHover(false) : undefined}
             >
-              <Stack>
-                <StyledFlipCard
-                  align={align}
-                  gap={gap}
-                  show={!flipped}
-                  flipDuration={flipDuration}
-                >
-                  {children}
-                </StyledFlipCard>
-                {backContent && (
-                  <StyledFlipCard
-                    style={{ overflow: 'auto' }}
-                    show={flipped}
-                    flipDuration={flipDuration}
-                  >
-                    {backContent}
-                  </StyledFlipCard>
-                )}
-              </Stack>
+              <StyledFlipCard
+                fill={true}
+                align={align}
+                gap={gap}
+                show={!flipped}
+                flipDuration={flipDuration}
+              >
+                {children}
+              </StyledFlipCard>
             </StyledCardContent>
           </StyledCard>
         )}
@@ -130,7 +120,7 @@ CardWrapper.CardTitle = ({
 );
 
 CardWrapper.CardContent = ({ children, pad = 'small', ...rest }) => (
-  <Box pad={pad} fill='horizontal' {...rest} >
+  <Box pad={pad} fill={true} flex={true} {...rest} >
     {children}
   </Box>
 );

@@ -2,11 +2,11 @@ import React from 'react';
 import { Box, Grid } from 'grommet';
 import SiteLayout from '../components/layouts/SiteLayout';
 import connect from '../redux';
-import PackageSelector from '../components/PackageSelector';
-import NPMStats from '../components/NPMStats';
+import PackageSelector from '../components/npm/PackageSelector';
+import NPMStats from '../components/npm/NPMStats';
 import DonutChart from '../components/charts/NPMPopularityChart';
 import LineChart from '../components/charts/NPMTrendsChart';
-import DistributionCard from '../components/Distribution';
+import DistributionCard from '../components/npm/Distribution';
 import Title from '../components/layouts/Title';
 
 class Home extends React.Component {
@@ -22,7 +22,7 @@ class Home extends React.Component {
           <LineChart />
           <DistributionCard pName='downloadsCount' title='Downloads' />
           <Grid columns='medium' gap='medium'>
-            {packages.map((pckg, index) => <NPMStats key={`npm-stats-${pckg.name}`} pckg={pckg} index={index} />)}
+            {packages.map((name, index) => <NPMStats key={`npm-stats-${name}`} name={name} index={index} />)}
           </Grid>
           <Grid columns='medium' gap='medium'>
             <DonutChart pName='dependentsCount' title='Dependents' />

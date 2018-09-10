@@ -6,8 +6,9 @@ import 'isomorphic-unfetch';
 import { Box, Text, Paragraph, TextInput } from 'grommet';
 import { Tags } from 'grommet-controls';
 import { colorFromIndex } from 'grommet-controls/utils/colors';
-import { npmSetPackages } from '../redux/npm/actions';
-import connect from '../redux';
+import PackageAnchor from './PackageAnchor';
+import { npmSetPackages } from '../../redux/npm/actions';
+import connect from '../../redux/index';
 
 
 class PackageSelector extends React.Component {
@@ -56,11 +57,10 @@ class PackageSelector extends React.Component {
 
   onSelect = ({ suggestion }) => {
     const { onChange, packages, router } = this.props;
-    console.log(packages.find(p => p.name === suggestion.value), packages);
-    if (!packages.find(p => p.name === suggestion.value)) {
+    if (!packages.find(p => p === suggestion.value)) {
       const selected = suggestion.value;
       this.setState({ search: '', searchResults: undefined });
-      const packagesPath = [...packages.map(p => p.name), selected].join(',');
+      const packagesPath = [...packages, selected].join(',');
       const path = {
         pathname: router.pathname,
         query: { ...router.query, packages: packagesPath },
@@ -73,8 +73,7 @@ class PackageSelector extends React.Component {
   };
   onRemovePackage = (selected) => {
     const { packages, router } = this.props;
-    const packagesPath = packages.filter(p => p.name !== selected.label)
-      .map(p => p.name)
+    const packagesPath = packages.filter(p => p !== selected.package)
       .join(',');
     const path = { pathname: router.pathname, query: { ...router.query, packages: packagesPath } };
     router.replace(path, path, { shallow: true });
@@ -117,7 +116,11 @@ class PackageSelector extends React.Component {
     let tags = [];
     if (packages) {
       tags = packages.map((p, i) =>
-        ({ label: p.name, background: colorFromIndex(i) }));
+        ({
+          label: (<PackageAnchor packageName={p}>{p}</PackageAnchor>),
+          package: p,
+          background: colorFromIndex(i),
+        }));
     }
     return (
       <Box gap='medium'>

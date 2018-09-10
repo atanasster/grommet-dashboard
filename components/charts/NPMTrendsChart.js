@@ -18,16 +18,17 @@ class NPMTrendsChart extends React.Component {
 
   render() {
     const {
-      packages, interval, period,
+      packages, intervals, interval, period,
     } = this.props;
     const data = {
       datasets: [],
     };
 
-    packages.forEach((npm) => {
-      if (npm[interval]) {
+    packages.forEach((name) => {
+      const npm = intervals[name];
+      if (npm && npm[interval]) {
         data.datasets.push({
-          label: npm.name,
+          label: name,
           data: npm[interval].map(d => ({ x: d.day, y: d.downloads })),
           fill: false,
         });
@@ -99,6 +100,7 @@ const mapDispatchToProps = dispatch =>
 
 const mapStateToProps = state => ({
   packages: state.npm.packages,
+  intervals: state.npm.intervals,
   interval: state.npm.interval,
   period: state.npm.period,
 
