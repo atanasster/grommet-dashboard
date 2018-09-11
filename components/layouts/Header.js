@@ -12,11 +12,10 @@ import AlertsMenu from '../AlertsMenu/AlertsMenu';
 import MenuBar from '../MenuBar/MenuBar';
 import connect from '../../redux/index';
 import RoutedButton from '../RoutedButton';
-import RoutedAnchor from '../RoutedAnchor';
 import { npmSetPackages } from '../../redux/npm/actions';
 import { selectTheme } from '../../redux/themes/actions';
 import Avatar from '../profiles/Avatar';
-
+import MenuVertical from '../MenuVertical/MenuVertical';
 
 const trendingNPM = [
   [
@@ -169,13 +168,12 @@ class Header extends React.Component {
       if (this.state.activeMenu) {
         menu = (
           <Layer plain={true} onEsc={this.onCloseMenu} position='left' onClickOverlay={this.onCloseMenu}>
-            <Box background='brand' gap='small' style={{ height: '100vh' }} pad={{ vertical: 'small' }} align='start'>
+            <Box background='brand' gap='small' pad={{ vertical: 'small' }} align='start' flex={true}>
               <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
-              <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small'>
-                {themeSelector}
-                {toolbarItems.map(item => (
-                  <RoutedAnchor key={`menu_${item.path || item.label}`} primary={true} {...item} />
-                ))}
+              <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small' basis='medium' flex={true}>
+                <MenuVertical
+                  items={toolbarItems}
+                />
               </Box>
             </Box>
           </Layer>

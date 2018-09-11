@@ -5,14 +5,14 @@ import {
   Document, Cubes,
 } from 'grommet-icons';
 
-import { Sidebar } from '../components/Sidebar/SideBar';
+import SideMenu from '../components/SideMenu/SideMenu';
 import SiteLayout from '../components/layouts/SiteLayout';
 
 export default class ProfilePage extends React.Component {
   render() {
     return (
       <SiteLayout title='Profile'>
-        <Sidebar
+        <SideMenu
           title='Inbox'
           items={[
       { path: '/', label: 'home', icon: <Home size='xsmall' /> },
@@ -50,7 +50,7 @@ export default class ProfilePage extends React.Component {
           <Box pad='medium' flex={false} full='horizontal'>
             inbox
           </Box>
-        </Sidebar>
+        </SideMenu>
       </SiteLayout>
     );
   }

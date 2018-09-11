@@ -25,6 +25,7 @@
     "start-server": "NODE_ENV=production PORT=8333 node --experimental-modules server/server.mjs"
   },
   "dependencies": {
+    "@octokit/rest": "^15.11.1",
     "apollo-client-preset": "^1.0.8",
     "babel-plugin-module-resolver": "^3.1.0",
     "babel-plugin-styled-components": "^1.5.1",

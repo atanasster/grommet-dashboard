@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Anchor, Box, Button, Keyboard, Text } from 'grommet';
+import { Box, Keyboard, Text } from 'grommet';
 import { FormDown, FormNext } from 'grommet-icons';
+import RoutedButton from '../nextjs/RoutedButton';
 
 const getExpandedItems = children =>
   children.reduce((expandedItems, item) => {
@@ -58,46 +59,13 @@ const getChildrenById = (children, id) => {
 };
 
 export default class MenuVertical extends Component {
-  static getDerivedStateFromProps(nextProps, prevState = {}) {
-    const { items, expandAll } = nextProps;
-    const { originalExpandAll, items: stateItems = [] } = prevState;
-
-    if (items !== undefined &&
-      (items.toString() !== stateItems.toString() ||
-      expandAll !== originalExpandAll)
-    ) {
-      const collapsibleItems = getCollapsibleItems(items);
-      let expandedItems;
-      if (typeof expandAll !== 'undefined') {
-        expandedItems = expandAll ? collapsibleItems : [];
-      } else {
-        expandedItems = getExpandedItems(items);
-      }
-
-      const allExpanded =
-        typeof expandAll !== 'undefined'
-          ? expandAll
-          : collapsibleItems.length === expandedItems.length;
-      return {
-        expandedItems,
-        items,
-        collapsibleItems,
-        allExpanded,
-        expandAll,
-        originalExpandAll: expandAll,
-      };
-    }
-
-    return null;
-  }
-  state = {};
+  state = { expandedItems: [] };
   buttonRefs = {};
   onMenuChange = (id, expanded) => {
     const { items } = this.props;
-    const { collapsibleItems, expandedItems } = this.state;
+    const { expandedItems } = this.state;
 
     let newExpandedItems = [...expandedItems];
-
     if (expanded) {
       const toBeCollapsed = [
         id,
@@ -112,17 +80,16 @@ export default class MenuVertical extends Component {
 
     this.setState({
       expandedItems: newExpandedItems,
-      expandAll: undefined,
-      allExpanded: collapsibleItems.length === newExpandedItems.length,
     });
   };
   renderItem = (item, level = 1) => {
     const { activeItem, onSelect } = this.props;
-    const { expandAll, expandedItems } = this.state;
-    const { items, id, label } = item;
+    const { expandedItems } = this.state;
+    const {
+      items, id, label, widget, icon, ...rest
+    } = item;
     const itemId = id || label;
     const isExpanded = expandedItems.includes(itemId);
-    const open = typeof expandAll !== 'undefined' ? expandAll : isExpanded;
 
     const itemKey = `item_${itemId}_${level}`;
 
@@ -132,34 +99,42 @@ export default class MenuVertical extends Component {
         background: 'rgba(61,19,141,0.1)',
       };
     }
-
     const content = (
-      <Button
+      <RoutedButton
+
         style={activeStyle}
         ref={(ref) => { this.buttonRefs[id] = ref; }}
-        onClick={() =>
-          (items ? this.onMenuChange(itemId, open) : onSelect(item))
+        onClick={(!rest.route && !rest.path) ? () =>
+          (items ? this.onMenuChange(itemId, isExpanded) : (onSelect && onSelect(item)))
+          : undefined
         }
-        hoverIndicator={{ color: 'neutral-1', opacity: 'weak' }}
+        hoverIndicator={{ color: 'active' }}
+        {...rest}
       >
         <Box
           direction='row'
           align='center'
-          pad='xsmall'
+          pad='small'
           style={{
             marginLeft: items ? `${12 * level}px` : `${16 * level}px`,
           }}
         >
           {items &&
-            (open ? <FormDown /> : <FormNext />)}
-          <Text size='small'>
-            {items ? <strong>{label}</strong> : label}
-          </Text>
+            (isExpanded ? <FormDown /> : <FormNext />)}
+          <Box direction='row' justify='between' fill='horizontal' align='center'>
+            <Box direction='row' align='center' gap='small'>
+              {icon}
+              <Text>
+                {items ? <strong>{label}</strong> : label}
+              </Text>
+            </Box>
+            {widget}
+          </Box>
         </Box>
-      </Button>
+      </RoutedButton>
     );
     return (
-      <Fragment key={itemKey}>
+      <Box key={itemKey}>
         {items ? (
           <Keyboard
             onDown={() => this.onMenuChange(itemId, false, false)}
@@ -173,34 +148,14 @@ export default class MenuVertical extends Component {
           content
         )}
         {items &&
-          (open && items.map(child => this.renderItem(child, level + 1)))}
-      </Fragment>
+          (isExpanded && items.map(child => this.renderItem(child, level + 1)))}
+      </Box>
     );
   };
   render() {
     const { items } = this.props;
-    const { allExpanded } = this.state;
     return (
       <Fragment>
-        <Box pad={{ horizontal: 'small' }} align='end'>
-          <Anchor
-            href='#'
-            onClick={(event) => {
-              event.preventDefault();
-              this.setState({
-                expandAll: !allExpanded,
-                allExpanded: !allExpanded,
-                expandedItems: (
-                  allExpanded || !Array.isArray(items)) ? []
-                  : items.map(({ id, label }) => (id || label)),
-              });
-            }}
-          >
-            <Text color='brand' size='small'>
-              {allExpanded ? 'Collapse All' : 'Expand All'}
-            </Text>
-          </Anchor>
-        </Box>
         {items && items.map(item => this.renderItem(item, 1))}
       </Fragment>
     );

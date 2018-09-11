@@ -1,31 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, Heading } from 'grommet';
-import MenuVertical from '../MenuVertical/MenuVertical';
 
 // eslint-disable-next-line import/prefer-default-export
-export class Sidebar extends Component {
-  render() {
-    const { children, title, items } = this.props;
-    return (
-      <Box direction='row'>
-        <Box width='medium'>
-          <Box
-            flex={false}
-            tag='header'
-            pad={{ horizontal: 'small' }}
-          >
-            <Heading margin='none' level={3}>{title}</Heading>
-          </Box>
-          <Box flex={true} overflow='auto'>
-            <Box flex={false}>
-              <MenuVertical
-                items={items}
-              />
-            </Box>
-          </Box>
+const Sidebar = ({
+  title, width, children, ...rest
+}) => (
+  <Box direction='row'>
+    <Box width={width}>
+      {title && (
+        <Box
+          flex={false}
+          tag='header'
+          pad={{ horizontal: 'small' }}
+          {...rest}
+        >
+          <Heading margin='none' level={3}>{title}</Heading>
         </Box>
-        {children}
-      </Box>
-    );
-  }
-}
+      )}
+      {children}
+    </Box>
+  </Box>
+);
+
+Sidebar.defaultProps = {
+  title: undefined,
+  width: 'medium',
+};
+
+Sidebar.propTypes = {
+  title: PropTypes.node,
+  width: PropTypes.string,
+};
+
+export default Sidebar;
