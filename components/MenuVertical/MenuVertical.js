@@ -126,7 +126,10 @@ export default class MenuVertical extends Component {
 
     let background;
     if (activeItem && activeItem.id === id) {
-      background = 'focus';
+      background = {
+        color: 'focus',
+        opacity: 'weak',
+      };
     }
 
     const content = (
