@@ -26,28 +26,28 @@ const Badge = ({ label, background = 'light-3' }) => (
 );
 class InboxPage extends React.Component {
   state = {
-    emails: [],
-    filtered: [],
+    selected: undefined,
   };
-  static getDerivedStateFromProps(nextProps, prevState = {}) {
-    const { router: { query: { kind = 'all' } } } = nextProps;
+  static getInitialProps({ query: { kind = 'all' } }) {
     const emails = inboxData().sort((a, b) => (b.sentDate - a.sentDate));
     const filtered = emails.filter(emailFilters[kind]);
-    if (prevState.selected !== undefined) {
-      return null;
-    }
     return {
       emails,
       filtered,
       kind,
-      selected: filtered.length > 0 ? filtered[0] : undefined,
-
     };
   }
+  static getDerivedStateFromProps(nextProps, prevState = {}) {
+    if (prevState.selected === undefined && nextProps.filtered && nextProps.filtered.length > 0) {
+      return {
+        selected: nextProps.filtered[0],
+      };
+    }
+    return null;
+  }
   render() {
-    const {
-      emails, filtered, kind, selected,
-    } = this.state;
+    const { emails, filtered, kind } = this.props;
+    const { selected } = this.state;
     return (
       <SiteLayout title='Inbox'>
         <Box direction='row-responsive' gap='medium' flex={false} full='horizontal'>

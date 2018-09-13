@@ -2,6 +2,7 @@ const { IgnorePlugin } = require('webpack');
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const withTM = require('next-plugin-transpile-modules');
+const withTypescript = require('@zeit/next-typescript');
 
 const initExport = {
   // eslint-disable-next-line no-unused-vars
@@ -32,4 +33,4 @@ const initExport = {
   transpileModules: ['grommet-controls', 'grommet', 'grommet-icons'],
 };
 
-module.exports = withTM(initExport);
+module.exports = withTypescript(withTM(initExport));
