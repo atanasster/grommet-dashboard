@@ -16,12 +16,15 @@ const positionToFull = (position) => {
 };
 
 const Modal = ({
-  title, content, position, onClose,
+  title, content, position, onClose, ...rest
 }) => (
   <Layer
     position={position}
     full={positionToFull(position)}
     onEsc={onClose}
+    onClickOutside={onClose}
+    responsive={false}
+    {...rest}
   >
     <Box pad={{ horizontal: 'medium' }}>
       <Heading level={2} margin='medium'>{title}</Heading>

@@ -1,57 +1,202 @@
 import React from 'react';
-import { Box } from 'grommet';
+import { withRouter } from 'next/router';
+import moment from 'moment';
+import { Box, Button, Text, Paragraph, InfiniteScroll, Heading, Anchor } from 'grommet';
+import { ImageStamp } from 'grommet-controls';
 import {
-  Grommet as GrommetIcon, Home, TextAlignCenter,
-  Document, Cubes,
+  Inbox, Send, Star, Document,
+  Tag, Trash, Flag,
 } from 'grommet-icons';
 
 import SideMenu from '../components/SideMenu/SideMenu';
 import SiteLayout from '../components/layouts/SiteLayout';
+import inboxData, { emailFilters } from '../data/inbox';
 
-export default class ProfilePage extends React.Component {
+const Badge = ({ label, background = 'light-3' }) => (
+  <Box
+    background={background}
+    pad={{ horizontal: 'small' }}
+    border='all'
+    style={{ borderRadius: '20%' }}
+  >
+    <Text size='small'>
+      {label}
+    </Text>
+  </Box>
+);
+class InboxPage extends React.Component {
+  state = {
+    emails: [],
+    filtered: [],
+  };
+  static getDerivedStateFromProps(nextProps, prevState = {}) {
+    const { router: { query: { kind = 'all' } } } = nextProps;
+    const emails = inboxData().sort((a, b) => (b.sentDate - a.sentDate));
+    const filtered = emails.filter(emailFilters[kind]);
+    if (prevState.selected !== undefined) {
+      return null;
+    }
+    return {
+      emails,
+      filtered,
+      kind,
+      selected: filtered.length > 0 ? filtered[0] : undefined,
+
+    };
+  }
   render() {
+    const {
+      emails, filtered, kind, selected,
+    } = this.state;
     return (
-      <SiteLayout title='Profile'>
-        <SideMenu
-          title='Inbox'
-          items={[
-      { path: '/', label: 'home', icon: <Home size='xsmall' /> },
-      { path: '/typography', label: 'typography', icon: <TextAlignCenter size='xsmall' /> },
-      { path: '/icons', label: 'icons', icon: <GrommetIcon size='xsmall' /> },
-      {
-        label: 'interface',
-        icon: <Cubes size='xsmall' />,
-        items: [
-          { path: '/profile', label: 'Profile' },
-          { path: '/blog', label: 'Blog' },
-          { path: '/maps', label: 'Maps' },
-          { path: '/tables', label: 'Tables' },
-          { path: '/charts', label: 'Charts' },
-          { path: '/notifications', label: 'Notifications' },
-        ],
-      },
-      {
-        label: 'pages',
-        icon: <Document size='xsmall' />,
-        items: [
-          { path: '/login', label: 'Login' },
-          { path: '/register', label: 'Register' },
-          { path: '/reset_password', label: 'Recover password' },
-          { path: '/400', label: '400 error' },
-          { path: '/401', label: '401 error' },
-          { path: '/403', label: '403 error' },
-          { path: '/404', label: '404 error' },
-          { path: '/500', label: '500 error' },
-          { path: '/503', label: '503 error' },
-        ],
-      },
-    ]}
-        >
-          <Box pad='medium' flex={false} full='horizontal'>
-            inbox
+      <SiteLayout title='Inbox'>
+        {console.log(emails)}
+        <Box direction='row-responsive' gap='medium' flex={false} full='horizontal'>
+          <SideMenu
+            activeItem={{ id: kind }}
+            width='250px'
+            title='Inbox'
+            items={[
+              {
+                id: 'inbox',
+                label: 'Inbox',
+                icon: <Inbox />,
+                expanded: true,
+                items: [
+                  {
+                    id: 'all',
+                    path: '/inbox/all',
+                    label: 'All',
+                    widget: <Badge label={emails.filter(emailFilters.all).length} />,
+                  },
+                  {
+                    id: 'gmail',
+                    path: '/inbox/gmail',
+                    label: 'GMail',
+                    widget: <Badge label={emails.filter(emailFilters.gmail).length} />,
+                  },
+                  {
+                    id: 'work',
+                    path: '/inbox/work',
+                    label: 'Work',
+                    widget: <Badge label={emails.filter(emailFilters.work).length} />,
+                  },
+                  {
+                    id: 'amazon',
+                    path: '/inbox/amazon',
+                    label: 'Amazon',
+                    widget: <Badge label={emails.filter(emailFilters.amazon).length} />,
+                  },
+                ],
+              },
+              {
+                id: 'sent',
+                path: '/inbox/sent',
+                label: 'Sent',
+                icon: <Send />,
+              },
+              {
+                id: 'flagged',
+                path: '/inbox/flagged',
+                label: 'Flagged',
+                icon: <Flag />,
+                widget: <Badge label={emails.filter(emailFilters.sent).length} background='accent-1' />,
+              },
+              {
+                id: 'starred',
+                path: '/inbox/starred',
+                label: 'Starred',
+                icon: <Star />,
+              },
+              {
+                id: 'drafts',
+                path: '/inbox/drafts',
+                label: 'Drafts',
+                icon: <Document />,
+              },
+              {
+               id: 'tagged',
+                path: '/inbox/tagged',
+                label: 'Tagged',
+                icon: <Tag />,
+              },
+              {
+               id: 'trash',
+                path: '/inbox/trash',
+                label: 'Trash',
+                icon: <Trash />,
+              },
+            ]}
+          >
+            <Box pad='medium' flex={false} full='horizontal'>
+              <Button
+                primary={true}
+                label='Compose new email'
+                onClick={() => alert('New email')}
+              />
+            </Box>
+          </SideMenu>
+          <Box flex={true} >
+            <Heading level={3} margin='none'>
+              {kind}
+            </Heading>
+            <InfiniteScroll items={filtered} step={10} onMore={() => console.log('!!! onMore')}>
+              {(item, index) => (
+                <Box
+                  key={index}
+                  pad='small'
+                >
+                  <Box border='bottom' gap='medium' pad={{ bottom: 'medium' }}>
+                    <Anchor onClick={() => this.setState({ selected: item })}>
+                      <Box direction='row' justify='between' align='center'>
+                        <Text weight='bold' truncate={true}>{`${item.name} (${item.email})`}</Text>
+                        <Text>{moment(item.sentDate).fromNow()}</Text>
+                      </Box>
+                    </Anchor>
+                    <Box direction='row' gap='medium' justify='between' align='center'>
+                      <Text truncate={true} weight={500}>{item.subject}</Text>
+                      <Text>{item.box}</Text>
+                    </Box>
+                    <Paragraph
+                      margin='none'
+                      size='small'
+                      style={{ maxWidth: '100%' }}
+                    >
+                      {item.content.split('\n \r')[0]}
+                    </Paragraph>
+                  </Box>
+                </Box>
+              )}
+            </InfiniteScroll>
           </Box>
-        </SideMenu>
+          {selected && (
+            <Box basis='medium'>
+              <Box direction='row' justify='between' background='light-3' pad='small' gap='medium'>
+                <Box basis='small'>
+                  <Box direction='row' justify='between'>
+                    <Text weight='bold' truncate={true}>{selected.name}</Text>
+                    <Text size='small'>{selected.box}</Text>
+                  </Box>
+                  <Text size='small' truncate={true}>{moment(selected.sentDate).format('LLL')}</Text>
+                  <Text truncate={true}>{selected.subject}</Text>
+                </Box>
+                <Box>
+                  <ImageStamp
+                    size='large'
+                    round='full'
+                    src={selected.avatar}
+                  />
+                </Box>
+              </Box>
+              <Paragraph margin='small'>
+                {selected.content}
+              </Paragraph>
+            </Box>
+          )}
+        </Box>
       </SiteLayout>
     );
   }
 }
+
+export default withRouter(InboxPage);

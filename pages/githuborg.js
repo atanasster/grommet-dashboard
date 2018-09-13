@@ -1,11 +1,8 @@
 import React from 'react';
 import { withRouter } from 'next/router';
-import { bindActionCreators } from 'redux';
 import { Box } from 'grommet';
 import SiteLayout from '../components/layouts/SiteLayout';
-import connect from '../redux';
 import Title from '../components/layouts/Title';
-import { npmRetrieveStats } from '../redux/npm/actions';
 import SideMenu from '../components/SideMenu/SideMenu';
 import GithubOrgStats from '../components/github/GithubOrgStats';
 
@@ -46,14 +43,5 @@ class Home extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({
-    npmRetrieveStats,
-  }, dispatch);
 
-const mapStateToProps = (state, props) => ({
-  stats: state.npm.stats[props.router.query.name],
-});
-
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
+export default withRouter(Home);

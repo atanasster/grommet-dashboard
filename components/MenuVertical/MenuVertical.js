@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Box, Keyboard, Text } from 'grommet';
 import { FormDown, FormNext } from 'grommet-icons';
-import RoutedButton from '../nextjs/RoutedButton';
+import RoutedButton from '../RoutedButton';
 
 const getExpandedItems = children =>
   children.reduce((expandedItems, item) => {
@@ -61,6 +61,38 @@ const getChildrenById = (children, id) => {
 export default class MenuVertical extends Component {
   state = { expandedItems: [] };
   buttonRefs = {};
+  static getDerivedStateFromProps(nextProps, prevState = {}) {
+    const { items, expandAll } = nextProps;
+    const { originalExpandAll, items: stateItems = [] } = prevState;
+
+    if (
+      items.toString() !== stateItems.toString() ||
+      expandAll !== originalExpandAll
+    ) {
+      const collapsibleItems = getCollapsibleItems(items);
+      let expandedItems;
+      if (typeof expandAll !== 'undefined') {
+        expandedItems = expandAll ? collapsibleItems : [];
+      } else {
+        expandedItems = getExpandedItems(items);
+      }
+
+      const allExpanded =
+        typeof expandAll !== 'undefined'
+          ? expandAll
+          : collapsibleItems.length === expandedItems.length;
+      return {
+        expandedItems,
+        items,
+        collapsibleItems,
+        allExpanded,
+        expandAll,
+        originalExpandAll: expandAll,
+      };
+    }
+
+    return null;
+  }
   onMenuChange = (id, expanded) => {
     const { items } = this.props;
     const { expandedItems } = this.state;
@@ -93,45 +125,46 @@ export default class MenuVertical extends Component {
 
     const itemKey = `item_${itemId}_${level}`;
 
-    let activeStyle;
+    let background;
     if (activeItem && activeItem.id === id) {
-      activeStyle = {
-        background: 'rgba(61,19,141,0.1)',
-      };
+      background = 'focus';
     }
-    const content = (
-      <RoutedButton
 
-        style={activeStyle}
-        ref={(ref) => { this.buttonRefs[id] = ref; }}
-        onClick={(!rest.route && !rest.path) ? () =>
-          (items ? this.onMenuChange(itemId, isExpanded) : (onSelect && onSelect(item)))
-          : undefined
-        }
-        hoverIndicator={{ color: 'active' }}
-        {...rest}
+    const content = (
+      <Box
+        background={background}
       >
-        <Box
-          direction='row'
-          align='center'
-          pad='small'
-          style={{
-            marginLeft: items ? `${12 * level}px` : `${16 * level}px`,
-          }}
+        <RoutedButton
+          ref={(ref) => { this.buttonRefs[id] = ref; }}
+          onClick={(!rest.route && !rest.path) ? () =>
+            (items ? this.onMenuChange(itemId, isExpanded) : (onSelect && onSelect(item)))
+            : undefined
+          }
+          hoverIndicator={{ color: 'active' }}
+          {...rest}
         >
-          {items &&
-            (isExpanded ? <FormDown /> : <FormNext />)}
-          <Box direction='row' justify='between' fill='horizontal' align='center'>
-            <Box direction='row' align='center' gap='small'>
-              {icon}
-              <Text>
-                {items ? <strong>{label}</strong> : label}
-              </Text>
+          <Box
+            direction='row'
+            align='center'
+            pad='small'
+            style={{
+              marginLeft: items ? `${12 * level}px` : `${16 * level}px`,
+            }}
+          >
+            {items &&
+              (isExpanded ? <FormDown /> : <FormNext />)}
+            <Box direction='row' justify='between' fill='horizontal' align='center'>
+              <Box direction='row' align='center' gap='small'>
+                {icon}
+                <Text>
+                  {items ? <strong>{label}</strong> : label}
+                </Text>
+              </Box>
+              {widget}
             </Box>
-            {widget}
           </Box>
-        </Box>
-      </RoutedButton>
+        </RoutedButton>
+      </Box>
     );
     return (
       <Box key={itemKey}>
@@ -155,9 +188,9 @@ export default class MenuVertical extends Component {
   render() {
     const { items } = this.props;
     return (
-      <Fragment>
+      <React.Fragment>
         {items && items.map(item => this.renderItem(item, 1))}
-      </Fragment>
+      </React.Fragment>
     );
   }
 }

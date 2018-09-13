@@ -5,7 +5,7 @@ import SideBar from '../Sidebar/SideBar';
 import MenuVertical from '../MenuVertical/MenuVertical';
 
 const SideMenu = ({
-  title, items, onSelect, children, ...rest
+  title, items, onSelect, activeItem, children, ...rest
 }) => (
   <SideBar
     title={title}
@@ -14,6 +14,7 @@ const SideMenu = ({
     <Box flex={true} overflow='auto'>
       <MenuVertical
         items={items}
+        activeItem={activeItem}
         onSelect={onSelect}
       />
     </Box>

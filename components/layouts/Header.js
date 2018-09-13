@@ -84,7 +84,7 @@ class Header extends React.Component {
   routeProps = (path) => {
     const { router } = this.props;
     return {
-      href: path,
+      route: path,
       onClick: (e) => {
         e.preventDefault();
         routerPush(router, path);
@@ -167,13 +167,23 @@ class Header extends React.Component {
     if (isNarrow) {
       if (this.state.activeMenu) {
         menu = (
-          <Layer plain={true} onEsc={this.onCloseMenu} position='left' onClickOverlay={this.onCloseMenu}>
-            <Box background='brand' gap='small' pad={{ vertical: 'small' }} align='start' flex={true}>
-              <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
-              <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small' basis='medium' flex={true}>
-                <MenuVertical
-                  items={toolbarItems}
-                />
+          <Layer
+            full='vertical'
+            modal={true}
+            responsive={false}
+            onEsc={this.onCloseMenu}
+            position='left'
+            onClickOutside={this.onCloseMenu}
+          >
+            <Box direction='row'>
+              <Box background='brand' gap='small' pad={{ vertical: 'small' }} width='medium' align='start'>
+                <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
+                <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small' flex={true}>
+                  <MenuVertical
+                    basis='small'
+                    items={toolbarItems}
+                  />
+                </Box>
               </Box>
             </Box>
           </Layer>
