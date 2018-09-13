@@ -10,6 +10,7 @@ import Footer from './Footer';
 import Notifications from './Notifications';
 import connect from '../../redux/index';
 import { selectTheme } from '../../redux/themes/actions';
+import { initGA, logPageView } from '../ga/analytics';
 
 class SiteLayout extends React.Component {
   constructor(props, context) {
@@ -29,6 +30,13 @@ class SiteLayout extends React.Component {
      router.replace(path, path, { shallow: true });
    };
 
+   componentDidMount() {
+     if (!window.GA_INITIALIZED) {
+       initGA();
+       window.GA_INITIALIZED = true;
+     }
+     logPageView();
+   }
 
    componentWillReceiveProps(nextProps) {
      if (nextProps.router.query.theme !== this.theme) {
