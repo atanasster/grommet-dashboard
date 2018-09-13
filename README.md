@@ -1,4 +1,4 @@
-# Grammet dashboard template
+# Grommet dashboard template
 
 **Live site**: https://grommet-dashboard.herokuapp.com
 
