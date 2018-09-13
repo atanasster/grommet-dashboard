@@ -50,7 +50,6 @@ class InboxPage extends React.Component {
     } = this.state;
     return (
       <SiteLayout title='Inbox'>
-        {console.log(emails)}
         <Box direction='row-responsive' gap='medium' flex={false} full='horizontal'>
           <SideMenu
             activeItem={{ id: kind }}
