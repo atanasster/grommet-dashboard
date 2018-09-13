@@ -6,20 +6,18 @@ import { Box, Heading } from 'grommet';
 const Sidebar = ({
   title, width, children, ...rest
 }) => (
-  <Box direction='row'>
-    <Box width={width}>
-      {title && (
-        <Box
-          flex={false}
-          tag='header'
-          pad={{ horizontal: 'small' }}
-          {...rest}
-        >
-          <Heading margin='none' level={3}>{title}</Heading>
-        </Box>
-      )}
-      {children}
-    </Box>
+  <Box width={width}>
+    {title && (
+      <Box
+        flex={false}
+        tag='header'
+        pad={{ horizontal: 'small' }}
+        {...rest}
+      >
+        <Heading margin='none' level={3}>{title}</Heading>
+      </Box>
+    )}
+    {children}
   </Box>
 );
 

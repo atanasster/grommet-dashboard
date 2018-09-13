@@ -11,7 +11,7 @@ const SideMenu = ({
     title={title}
     {...rest}
   >
-    <Box flex={true} overflow='auto'>
+    <Box overflow='auto'>
       <MenuVertical
         items={items}
         activeItem={activeItem}

@@ -99,12 +99,12 @@ class Header extends React.Component {
     const isNarrow = size === 'narrow';
     const isWide = size === 'wide';
     const toolbarItems = [
-      { path: '/', label: 'home', icon: <Home size='xsmall' /> },
-      { path: '/typography', label: 'typography', icon: <TextAlignCenter size='xsmall' /> },
-      { path: '/icons', label: 'icons', icon: <GrommetIcon size='xsmall' /> },
+      { path: '/', label: 'home', icon: <Home size='small' /> },
+      { path: '/typography', label: 'typography', icon: <TextAlignCenter size='small' /> },
+      { path: '/icons', label: 'icons', icon: <GrommetIcon size='small' /> },
       {
         label: 'interface',
-        icon: <Cubes size='xsmall' />,
+        icon: <Cubes size='small' />,
         items: [
           { path: '/profile', label: 'Profile' },
           { path: '/blog', label: 'Blog' },
@@ -116,7 +116,7 @@ class Header extends React.Component {
       },
       {
         label: 'pages',
-        icon: <Document size='xsmall' />,
+        icon: <Document size='small' />,
         items: [
           { path: '/login', label: 'Login' },
           { path: '/register', label: 'Register' },

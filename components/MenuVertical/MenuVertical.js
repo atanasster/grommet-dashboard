@@ -60,7 +60,6 @@ const getChildrenById = (children, id) => {
 
 export default class MenuVertical extends Component {
   state = { expandedItems: [] };
-  buttonRefs = {};
   static getDerivedStateFromProps(nextProps, prevState = {}) {
     const { items, expandAll } = nextProps;
     const { originalExpandAll, items: stateItems = [] } = prevState;
@@ -135,7 +134,6 @@ export default class MenuVertical extends Component {
         background={background}
       >
         <RoutedButton
-          ref={(ref) => { this.buttonRefs[id] = ref; }}
           onClick={(!rest.route && !rest.path) ? () =>
             (items ? this.onMenuChange(itemId, isExpanded) : (onSelect && onSelect(item)))
             : undefined
