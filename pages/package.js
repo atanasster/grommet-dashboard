@@ -23,7 +23,6 @@ class Home extends React.Component {
   }
   render() {
     const { stats, router: { query: { name } } } = this.props;
-    console.log(stats);
     return (
       <SiteLayout title={name}>
         <Box>
