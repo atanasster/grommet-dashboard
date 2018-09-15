@@ -25,6 +25,13 @@ const baseSpacing = 16;
 
 const lightTheme = {
   global: {
+    breakpoints: {
+      small: 576,
+      narrow: 699,
+      medium: 768,
+      large: 992,
+      xlarge: 1200,
+    },
     colors,
     font: {
       family: "'Montserrat', sans-serif;",

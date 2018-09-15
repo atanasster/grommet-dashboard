@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import moment from 'moment';
 import { Box, Button, Text, Paragraph, InfiniteScroll, Heading, Anchor } from 'grommet';
+import { ResponsiveContext } from 'grommet/contexts';
 import { ImageStamp } from 'grommet-controls';
 import {
   Inbox, Send, Star, Document,
@@ -50,149 +51,158 @@ class InboxPage extends React.Component {
     const { selected } = this.state;
     return (
       <SiteLayout title='Inbox'>
-        <Box direction='row-responsive' gap='medium' flex={false} full='horizontal'>
-          <SideMenu
-            activeItem={{ id: kind }}
-            width='250px'
-            title='Inbox'
-            items={[
-              {
-                id: 'inbox',
-                label: 'Inbox',
-                icon: <Inbox />,
-                expanded: true,
-                items: [
+        <ResponsiveContext.Consumer>
+          {size => (
+            <Box
+              direction={size !== 'wide' ? 'column' : 'row'}
+              gap='medium'
+              flex={false}
+              full='horizontal'
+            >
+              <SideMenu
+                activeItem={{ id: kind }}
+                width='250px'
+                title='Inbox'
+                items={[
                   {
-                    id: 'all',
-                    path: '/inbox/all',
-                    label: 'All',
-                    widget: <Badge label={emails.filter(emailFilters.all).length} />,
+                    id: 'inbox',
+                    label: 'Inbox',
+                    icon: <Inbox />,
+                    expanded: true,
+                    items: [
+                      {
+                        id: 'all',
+                        path: '/inbox/all',
+                        label: 'All',
+                        widget: <Badge label={emails.filter(emailFilters.all).length} />,
+                      },
+                      {
+                        id: 'gmail',
+                        path: '/inbox/gmail',
+                        label: 'GMail',
+                        widget: <Badge label={emails.filter(emailFilters.gmail).length} />,
+                      },
+                      {
+                        id: 'work',
+                        path: '/inbox/work',
+                        label: 'Work',
+                        widget: <Badge label={emails.filter(emailFilters.work).length} />,
+                      },
+                      {
+                        id: 'amazon',
+                        path: '/inbox/amazon',
+                        label: 'Amazon',
+                        widget: <Badge label={emails.filter(emailFilters.amazon).length} />,
+                      },
+                    ],
                   },
                   {
-                    id: 'gmail',
-                    path: '/inbox/gmail',
-                    label: 'GMail',
-                    widget: <Badge label={emails.filter(emailFilters.gmail).length} />,
+                    id: 'sent',
+                    path: '/inbox/sent',
+                    label: 'Sent',
+                    icon: <Send />,
                   },
                   {
-                    id: 'work',
-                    path: '/inbox/work',
-                    label: 'Work',
-                    widget: <Badge label={emails.filter(emailFilters.work).length} />,
+                    id: 'flagged',
+                    path: '/inbox/flagged',
+                    label: 'Flagged',
+                    icon: <Flag />,
+                    widget: <Badge label={emails.filter(emailFilters.sent).length} background='accent-1' />,
                   },
                   {
-                    id: 'amazon',
-                    path: '/inbox/amazon',
-                    label: 'Amazon',
-                    widget: <Badge label={emails.filter(emailFilters.amazon).length} />,
+                    id: 'starred',
+                    path: '/inbox/starred',
+                    label: 'Starred',
+                    icon: <Star />,
                   },
-                ],
-              },
-              {
-                id: 'sent',
-                path: '/inbox/sent',
-                label: 'Sent',
-                icon: <Send />,
-              },
-              {
-                id: 'flagged',
-                path: '/inbox/flagged',
-                label: 'Flagged',
-                icon: <Flag />,
-                widget: <Badge label={emails.filter(emailFilters.sent).length} background='accent-1' />,
-              },
-              {
-                id: 'starred',
-                path: '/inbox/starred',
-                label: 'Starred',
-                icon: <Star />,
-              },
-              {
-                id: 'drafts',
-                path: '/inbox/drafts',
-                label: 'Drafts',
-                icon: <Document />,
-              },
-              {
-               id: 'tagged',
-                path: '/inbox/tagged',
-                label: 'Tagged',
-                icon: <Tag />,
-              },
-              {
-               id: 'trash',
-                path: '/inbox/trash',
-                label: 'Trash',
-                icon: <Trash />,
-              },
-            ]}
-          >
-            <Box pad='medium' flex={false} full='horizontal'>
-              <Button
-                primary={true}
-                label='Compose new email'
-                onClick={() => alert('New email')}
-              />
-            </Box>
-          </SideMenu>
-          <Box flex={true} >
-            <Heading level={3} margin='none'>
-              {kind}
-            </Heading>
-            <InfiniteScroll items={filtered} step={10} onMore={() => console.log('!!! onMore')}>
-              {(item, index) => (
-                <Box
-                  key={index}
-                  pad='small'
-                >
-                  <Box border='bottom' gap='medium' pad={{ bottom: 'medium' }}>
-                    <Anchor onClick={() => this.setState({ selected: item })}>
-                      <Box direction='row' justify='between' align='center'>
-                        <Text weight='bold' truncate={true}>{`${item.name} (${item.email})`}</Text>
-                        <Text>{moment(item.sentDate).fromNow()}</Text>
-                      </Box>
-                    </Anchor>
-                    <Box direction='row' gap='medium' justify='between' align='center'>
-                      <Text truncate={true} weight={500}>{item.subject}</Text>
-                      <Text>{item.box}</Text>
-                    </Box>
-                    <Paragraph
-                      margin='none'
-                      size='small'
-                      style={{ maxWidth: '100%' }}
-                    >
-                      {item.content.split('\n \r')[0]}
-                    </Paragraph>
-                  </Box>
-                </Box>
-              )}
-            </InfiniteScroll>
-          </Box>
-          {selected && (
-            <Box basis='medium'>
-              <Box direction='row' justify='between' background='light-3' pad='small' gap='medium'>
-                <Box basis='small'>
-                  <Box direction='row' justify='between'>
-                    <Text weight='bold' truncate={true}>{selected.name}</Text>
-                    <Text size='small'>{selected.box}</Text>
-                  </Box>
-                  <Text size='small' truncate={true}>{moment(selected.sentDate).format('LLL')}</Text>
-                  <Text truncate={true}>{selected.subject}</Text>
-                </Box>
-                <Box>
-                  <ImageStamp
-                    size='large'
-                    round='full'
-                    src={selected.avatar}
+                  {
+                    id: 'drafts',
+                    path: '/inbox/drafts',
+                    label: 'Drafts',
+                    icon: <Document />,
+                  },
+                  {
+                   id: 'tagged',
+                    path: '/inbox/tagged',
+                    label: 'Tagged',
+                    icon: <Tag />,
+                  },
+                  {
+                   id: 'trash',
+                    path: '/inbox/trash',
+                    label: 'Trash',
+                    icon: <Trash />,
+                  },
+                ]}
+              >
+                <Box pad='medium' flex={false} full='horizontal'>
+                  <Button
+                    primary={true}
+                    label='Compose new email'
+                    onClick={() => alert('New email')}
                   />
                 </Box>
+              </SideMenu>
+              <Box flex={true} >
+                <Heading level={3} margin='none'>
+                  {kind}
+                </Heading>
+                <InfiniteScroll items={filtered} step={10} onMore={() => console.log('!!! onMore')}>
+                  {(item, index) => (
+                    <Box
+                      key={index}
+                      pad='small'
+                    >
+                      <Box border='bottom' gap='medium' pad={{ bottom: 'medium' }}>
+                        <Anchor onClick={() => this.setState({ selected: item })}>
+                          <Box direction='row' justify='between' align='center'>
+                            <Text weight='bold' truncate={true}>{`${item.name} (${item.email})`}</Text>
+                            <Text>{moment(item.sentDate).fromNow()}</Text>
+                          </Box>
+                        </Anchor>
+                        <Box direction='row' gap='medium' justify='between' align='center'>
+                          <Text truncate={true} weight={500}>{item.subject}</Text>
+                          <Text>{item.box}</Text>
+                        </Box>
+                        <Paragraph
+                          margin='none'
+                          size='small'
+                          style={{ maxWidth: '100%' }}
+                        >
+                          {item.content.split('\n \r')[0]}
+                        </Paragraph>
+                      </Box>
+                    </Box>
+                  )}
+                </InfiniteScroll>
               </Box>
-              <Paragraph margin='small'>
-                {selected.content}
-              </Paragraph>
+              {selected && (
+                <Box basis={size === 'wide' ? 'medium' : undefined} >
+                  <Box direction='row' justify='between' background='light-3' pad='small' gap='medium'>
+                    <Box basis='small'>
+                      <Box direction='row' justify='between'>
+                        <Text weight='bold' truncate={true}>{selected.name}</Text>
+                        <Text size='small'>{selected.box}</Text>
+                      </Box>
+                      <Text size='small' truncate={true}>{moment(selected.sentDate).format('LLL')}</Text>
+                      <Text truncate={true}>{selected.subject}</Text>
+                    </Box>
+                    <Box>
+                      <ImageStamp
+                        size='large'
+                        round='full'
+                        src={selected.avatar}
+                      />
+                    </Box>
+                  </Box>
+                  <Paragraph margin='small'>
+                    {selected.content}
+                  </Paragraph>
+                </Box>
+              )}
             </Box>
           )}
-        </Box>
+        </ResponsiveContext.Consumer>
       </SiteLayout>
     );
   }
