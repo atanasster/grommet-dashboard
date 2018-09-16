@@ -89,6 +89,7 @@ const lightTheme = {
   },
   heading: {
     font: false,
+    weight: 500,
   },
   icon: {
     size: {
