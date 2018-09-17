@@ -22,7 +22,6 @@ steal John's prized car and kill the puppy that was a last gift from his wife,
 John unleashes the remorseless killing machine within and seeks vengeance.
       `,
     }}
-    basis='large'
     title='Profile'
     submitLabel='Save profile'
   >
