@@ -41,6 +41,7 @@ export default [
   }, {
     Header: 'Algo',
     accessor: 'algorithm.name',
+    responsiveHide: ['narrow', 'medium', 'large'],
     id: 'algorithm',
     filterable: true,
     Filter: ({ onChange, filter }) => (
@@ -63,6 +64,7 @@ export default [
     Header: 'Proof',
     id: 'proofType',
     accessor: 'proofType.name',
+    responsiveHide: ['narrow', 'medium', 'large'],
     filterable: true,
     Filter: ({ onChange, filter }) => (
       <Box direction='row'>
