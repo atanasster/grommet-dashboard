@@ -13,7 +13,7 @@ export default () => (
       last_name: 'Wick',
       address: '4066 Sunflower str',
       city: 'Cupertino',
-      zip_code: 95350,
+      zip_code: '95350',
       country: 'USA',
       bio: `
 Legendary assassin retired from his violent career after marrying the love of his life.
