@@ -41,7 +41,7 @@ export default [
   }, {
     Header: 'Algo',
     accessor: 'algorithm.name',
-    responsiveHide: ['narrow', 'medium', 'large'],
+    responsiveHide: ['narrow', 'screenMedium', 'screenLarge'],
     id: 'algorithm',
     filterable: true,
     Filter: ({ onChange, filter }) => (
@@ -64,7 +64,7 @@ export default [
     Header: 'Proof',
     id: 'proofType',
     accessor: 'proofType.name',
-    responsiveHide: ['narrow', 'medium', 'large'],
+    responsiveHide: ['narrow', 'screenMedium', 'screenLarge'],
     filterable: true,
     Filter: ({ onChange, filter }) => (
       <Box direction='row'>
