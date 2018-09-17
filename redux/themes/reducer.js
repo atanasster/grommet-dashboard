@@ -1,6 +1,5 @@
-// eslint-disable-next-line camelcase
-import { black, materiallight, materialdark, metro } from 'grommet-controls/themes';
-import { dark, grommet } from 'grommet/themes';
+import { deepMerge, deepFreeze } from 'grommet/utils';
+import { black, materiallight, materialdark, metro, dark, grommet, base } from 'grommet-controls/themes';
 import * as ActionTypes from './constants';
 
 
@@ -23,7 +22,7 @@ const colors = {
 
 const baseSpacing = 16;
 
-const lightTheme = {
+const lightTheme = deepFreeze(deepMerge(base, {
   global: {
     breakpoints: {
       narrow: 699,
@@ -138,7 +137,7 @@ const lightTheme = {
       // checked: undefined,
     },
   },
-};
+}));
 
 const initialState = {
   themes: {

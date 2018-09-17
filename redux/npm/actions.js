@@ -71,8 +71,11 @@ export const npmChangePeriod = period => (dispatch) => {
   dispatch(packagesGetAllData(period));
 };
 
-export const npmChangeInterval = interval => (dispatch) => {
+export const npmChangeInterval = interval => (dispatch, getState) => {
   dispatch({ type: ActionTypes.NPM_CHANGE_INTERVAL, interval });
-  dispatch(npmUpdateIntervalData());
+  const { packages } = getState().npm;
+  packages.forEach((packageName) => {
+    dispatch(npmUpdateIntervalData(packageName));
+  });
 };
 

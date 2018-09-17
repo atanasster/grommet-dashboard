@@ -97,7 +97,7 @@ class Header extends React.Component {
       title: pageTitle, themes: { themes, selected: theme }, size,
     } = this.props;
     const isNarrow = size === 'narrow';
-    const isWide = size === 'wide';
+    const isWide = size !== 'narrow';
     const toolbarItems = [
       { path: '/', label: 'home', icon: <Home size='small' /> },
       { path: '/typography', label: 'typography', icon: <TextAlignCenter size='small' /> },
