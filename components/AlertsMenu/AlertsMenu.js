@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Menu, Stack } from 'grommet';
 import { ThemeContext } from 'grommet/contexts';
-import { colorForName, getRGBA } from 'grommet/utils/colors';
+import { colorForName, getRGBA } from 'grommet/utils';
 import { Notification } from 'grommet-icons';
 
 export default ({ alerts }) => (
