@@ -1,35 +1,51 @@
 import React from 'react';
-import TableCard from './TableCard';
+import { Box, Text } from 'grommet';
+import { Value } from 'grommet-controls';
+import { Card } from '../Card';
+import Title from '../layouts/Title';
+import PackageAnchor from './PackageAnchor';
 
 export default ({ dependencies, title, ...rest }) => (
-  <TableCard
-    title={title}
-    columns={[
-      {
-        accessor: 'package',
-        Header: 'package',
-      },
-      {
-        accessor: 'required',
-        Header: 'required',
-      },
-      {
-        accessor: 'stable',
-        Header: 'stable',
-      },
-      {
-        accessor: 'latest',
-        Header: 'latest',
-      },
-    ]}
-    data={dependencies ? Object.keys(dependencies)
-      .map(key => ({
-        package: key,
-        required: dependencies[key].required,
-        stable: dependencies[key].stable,
-        latest: dependencies[key].latest,
-      })) : []}
-    defaultSorted={[{ id: 'package', desc: false }]}
-    {...rest}
-  />
+  <Box>
+    <Title label={title} />
+    <Box direction='row' wrap={true}>
+      {dependencies && Object.keys(dependencies)
+        .sort()
+        .map(key => (
+          <Card
+            background='status-error'
+            margin='small'
+            pad='small'
+            basis='medium'
+            gap='medium'
+            key={`${title}_${key}`}
+            {...rest}
+          >
+            <Box>
+              <PackageAnchor packageName={key}>
+                <Text size='large'>
+                  {key}
+                </Text>
+              </PackageAnchor>
+
+            </Box>
+            <Box direction='row' justify='between' fill='horizontal'>
+              <Value
+                value={dependencies[key].required}
+                label='required'
+              />
+              <Value
+                value={dependencies[key].stable}
+                label='stable'
+              />
+              <Value
+                value={dependencies[key].latest}
+                label='latest'
+              />
+            </Box>
+          </Card>
+          ))
+      }
+    </Box>
+  </Box>
 );

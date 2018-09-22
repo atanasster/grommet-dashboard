@@ -12,6 +12,7 @@
     "codeFrame": false
   },
   "globals": {
+    "atob": true,
     "it": true,
     "expect": true,
     "describe": true,

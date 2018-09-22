@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RoutedAnchor from '../RoutedAnchor';
 
-const PackageAnchor = ({ packageName, children }) => (
+const PackageAnchor = ({ packageName, version, children }) => (
   <RoutedAnchor
     route='package'
     params={{
         name: packageName,
+        version,
       }}
   >
     {children}

@@ -4,7 +4,7 @@ import { Box } from 'grommet';
 import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';
 import SideMenu from '../components/SideMenu/SideMenu';
-import GithubOrgStats from '../components/github/GithubOrgStats';
+import GithubStats from '../components/github/GithubStats';
 
 class Home extends React.Component {
   state = {
@@ -14,8 +14,8 @@ class Home extends React.Component {
 
   componentDidMount() {
     const { router: { query: { name } } } = this.props;
-    const github = new GithubOrgStats(process.env.GITHUB_TOKEN, name);
-    github.get()
+    const github = new GithubStats();
+    github.getOrgStats(name)
       .then((stats) => {
         this.setState({ stats, selected: stats.repos ? stats.repos[0].name : undefined });
       });

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Box, Heading } from 'grommet';
 import { ThemeContext } from 'grommet/contexts';
-import { StyledCard, StyledCardContent, StyledFlipCard } from './StyledCard';
-
+import { StyledCard } from './StyledCard';
 
 class Card extends Component {
   static defaultProps = {
@@ -51,11 +50,9 @@ class Card extends Component {
   };
   render() {
     const {
-      align, gap, children, flipCard,
-      backContent, flipDuration, flipOnHover,
+      align, gap, children,
       ...rest
     } = this.props;
-    const { flipped } = this.state;
     return (
       <ThemeContext.Consumer>
         {theme => (
@@ -64,23 +61,14 @@ class Card extends Component {
             overflow='hidden'
             {...rest}
           >
-            <StyledCardContent
+            <Box
               fill='horizontal'
-              flex={true}
-              onFocus={() => {}}
-              onMouseOver={flipOnHover ? () => this.onHover(true) : undefined}
-              onMouseLeave={flipOnHover ? () => this.onHover(false) : undefined}
+              flex={false}
+              align={align}
+              gap={gap}
             >
-              <StyledFlipCard
-                fill={true}
-                align={align}
-                gap={gap}
-                show={!flipped}
-                flipDuration={flipDuration}
-              >
-                {children}
-              </StyledFlipCard>
-            </StyledCardContent>
+              {children}
+            </Box>
           </StyledCard>
         )}
       </ThemeContext.Consumer>

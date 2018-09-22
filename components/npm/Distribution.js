@@ -4,12 +4,12 @@ import { ThemeContext } from 'grommet/contexts';
 import { colorForName } from 'grommet/utils';
 import { Value } from 'grommet-controls';
 import { colorFromIndex } from 'grommet-controls/utils/colors';
-import { Box, Distribution } from 'grommet';
+import { Box, Distribution as GrommetDistribution } from 'grommet';
 import PackageAnchor from './PackageAnchor';
 import { Card } from '../Card/index';
 import connect from '../../redux/index';
 
-class DistributionCard extends Component {
+class Distribution extends Component {
   render() {
     const {
       packages, stats, pName, title,
@@ -37,7 +37,7 @@ class DistributionCard extends Component {
           <Card.CardContent fill={true} flex={true}>
             <ThemeContext.Consumer>
               {theme => (
-                <Distribution
+                <GrommetDistribution
                   values={data(theme)}
                   style={{ height: '100%' }}
                 >
@@ -62,7 +62,7 @@ class DistributionCard extends Component {
                       </Box>
                     </Box>
                     )}
-                </Distribution>
+                </GrommetDistribution>
                 )}
             </ThemeContext.Consumer>
           </Card.CardContent>
@@ -72,7 +72,7 @@ class DistributionCard extends Component {
   }
 }
 
-DistributionCard.propTypes = {
+Distribution.propTypes = {
   pName: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
@@ -82,5 +82,5 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(DistributionCard);
+export default connect(mapStateToProps)(Distribution);
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Box, Heading, Select } from 'grommet';
 import { LineChart } from 'grommet-controls';
@@ -9,36 +10,39 @@ import { npmChangePeriod, npmChangeInterval } from '../../redux/npm/actions';
 
 class NPMTrendsChart extends React.Component {
   onChangeInterval = (interval) => {
-    this.props.npmChangeInterval(interval);
+    const { packages } = this.props;
+    this.props.npmChangeInterval(interval, packages);
   };
 
   onChangePeriod = (period) => {
-    this.props.npmChangePeriod(period);
+    const { packages } = this.props;
+    this.props.npmChangePeriod(period, packages);
   };
 
   render() {
     const {
-      packages, intervals, interval, period,
+      packages, intervals, interval, period, title, yAxis, xAxis, basis,
     } = this.props;
     const data = {
       datasets: [],
     };
-
-    packages.forEach((name) => {
-      const npm = intervals[name];
-      if (npm && npm[interval]) {
-        data.datasets.push({
-          label: name,
-          data: npm[interval].map(d => ({ x: d.day, y: d.downloads })),
-          fill: false,
-        });
-      }
-    });
+    if (packages) {
+      packages.forEach((name) => {
+        const npm = intervals[name];
+        if (npm && npm[interval]) {
+          data.datasets.push({
+            label: name,
+            data: npm[interval].map(d => ({ x: d.day, y: d.downloads })),
+            fill: false,
+          });
+        }
+      });
+    }
     return (
       <Card>
         <Card.CardTitle>
           <Box direction='row' justify='between' align='center' fill='horizontal'>
-            <Heading level={4} margin='none'>NPM trends</Heading>
+            <Heading level={4} margin='none'>{title}</Heading>
             <Box direction='row' gap='small'>
               <Select
                 value={period}
@@ -53,7 +57,7 @@ class NPMTrendsChart extends React.Component {
             </Box>
           </Box>
         </Card.CardTitle>
-        <Card.CardContent basis='medium'>
+        <Card.CardContent basis={basis}>
           <LineChart
             data={data}
             options={{
@@ -61,8 +65,12 @@ class NPMTrendsChart extends React.Component {
                 mode: 'index',
                 intersect: true,
               },
+              legend: {
+                display: packages && packages.length > 1,
+              },
               scales: {
                 xAxes: [{
+                  display: xAxis,
                   type: 'time',
                   time: {
                     tooltipFormat: 'llll',
@@ -81,6 +89,7 @@ class NPMTrendsChart extends React.Component {
                   },
                 }],
                 yAxes: [{
+                  display: yAxis,
                   scaleLabel: {
                     display: true,
                     labelString: 'downloads',
@@ -99,13 +108,26 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ npmChangePeriod, npmChangeInterval }, dispatch);
 
 const mapStateToProps = state => ({
-  packages: state.npm.packages,
   intervals: state.npm.intervals,
   interval: state.npm.interval,
   period: state.npm.period,
 
 });
+NPMTrendsChart.defaultProps = {
+  packages: undefined,
+  title: 'NPM trends',
+  yAxis: true,
+  xAxis: true,
+  basis: 'medium',
+};
 
+NPMTrendsChart.propTypes = {
+  packages: PropTypes.arrayOf(PropTypes.string),
+  title: PropTypes.string,
+  basis: PropTypes.string,
+  yAxis: PropTypes.bool,
+  xAxis: PropTypes.bool,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NPMTrendsChart);
 

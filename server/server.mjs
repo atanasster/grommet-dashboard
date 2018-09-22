@@ -3,6 +3,8 @@ import LRUCache from 'lru-cache';
 import fs from 'fs';
 import nextjs from 'next';
 import compression from 'compression';
+import requestProxy from 'express-request-proxy';
+
 import logger from './logger';
 import routes from './routes';
 
@@ -65,6 +67,26 @@ app.prepare()
     if (!dev) {
       server.use(compression({ threshold: 0 }));
     }
+    server.get(
+      '/api/registry/:package',
+      requestProxy({
+        url: 'https://registry.npmjs.org/:package',
+      })
+    );
+    server.get('/api/dependents/:package', (req, res, next) => {
+      const proxy = requestProxy({
+        url: 'https://skimdb.npmjs.com/registry/_design/app/_view/dependedUpon',
+        query:
+            {
+              group_level: 3,
+              startkey: `["${req.params.package}"]`,
+              endkey: `["${req.params.package}", {}]`,
+              skip: 0,
+              limit: 10000,
+            },
+      });
+      proxy(req, res, next);
+    });
     server.get('/sw.js', (req, res) => {
       res.setHeader('content-type', 'text/javascript');
       fs.createReadStream('./public/serviceWorker.js').pipe(res);

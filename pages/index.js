@@ -19,7 +19,7 @@ class Home extends React.Component {
           <Title label='Dashboard' />
         </Box>
         <Box gap='medium'>
-          <LineChart />
+          <LineChart packages={packages} />
           <DistributionCard pName='downloadsCount' title='Downloads' />
           <Grid columns='medium' gap='medium'>
             {packages.map((name, index) => <NPMStats key={`npm-stats-${name}`} name={name} index={index} />)}

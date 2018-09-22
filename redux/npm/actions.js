@@ -15,10 +15,11 @@ export const npmRetrieveStats = packageName => (dispatch, getState) => {
   }
 };
 
+
 const npmUpdateIntervalData = packageName =>
   ({ type: ActionTypes.NPM_UPDATE_INTERVAL_DATA, packageName });
 
-const npmRetrieveHistory = (packageName, period) => (dispatch, getState) => {
+export const npmRetrieveHistory = (packageName, period) => (dispatch, getState) => {
   const startDate = moment();
   const {
     period: oldPeriod, interval, history, intervals,
@@ -58,7 +59,6 @@ const packagesGetAllData = period => (dispatch, getState) => {
     dispatch(npmRetrieveStats(packageName));
     dispatch(npmRetrieveHistory(packageName, period));
   });
-  dispatch({ type: ActionTypes.NPM_CHANGE_PERIOD, period });
 };
 
 export const npmSetPackages = packageNames => (dispatch, getState) => {
@@ -67,13 +67,16 @@ export const npmSetPackages = packageNames => (dispatch, getState) => {
   dispatch(packagesGetAllData(period));
 };
 
-export const npmChangePeriod = period => (dispatch) => {
-  dispatch(packagesGetAllData(period));
+export const npmChangePeriod = (period, packages) => (dispatch) => {
+  packages.forEach((packageName) => {
+    dispatch(npmRetrieveHistory(packageName, period));
+  });
+  dispatch({ type: ActionTypes.NPM_CHANGE_PERIOD, period });
 };
 
-export const npmChangeInterval = interval => (dispatch, getState) => {
+
+export const npmChangeInterval = (interval, packages) => (dispatch) => {
   dispatch({ type: ActionTypes.NPM_CHANGE_INTERVAL, interval });
-  const { packages } = getState().npm;
   packages.forEach((packageName) => {
     dispatch(npmUpdateIntervalData(packageName));
   });
