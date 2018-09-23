@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Github from '@octokit/rest';
 
 export default class GithubStats {
@@ -25,8 +26,12 @@ export default class GithubStats {
 
   repoPullRequests = ({ owner, repo, ...rest }) =>
     this.github.pullRequests.getAll({ owner, repo, ...rest });
-  repoIssues = ({ owner, repo, ...rest }) =>
-    this.github.issues.getForRepo({ owner, repo, ...rest });
+  repoIssues = ({
+    owner, repo, per_page = 100, ...rest
+  }) =>
+    this.github.issues.getForRepo({
+      owner, repo, per_page, ...rest,
+    });
   repoCollaborators = ({ owner, repo, ...rest }) =>
     this.github.repos.getCollaborators({ owner, repo, ...rest });
   userInfo = ({ username, ...rest }) =>

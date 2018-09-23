@@ -1,8 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import { Box, Anchor, Text } from 'grommet';
-import { Value, ImageStamp } from 'grommet-controls';
+import { Value } from 'grommet-controls';
 import NPMTrendsChart from '../charts/NPMTrendsChart';
+import GithubUser from './GithubUser';
 
 const extractHostName = (url) => {
   let hostname;
@@ -94,9 +95,7 @@ class PackageInfo extends React.Component {
           <Box direction='row' wrap={true}>
             {Object.keys(collaborators).sort().map(user => (
               <Box key={`git_user_${user} `} pad='xxsmall' direction='row'>
-                <Anchor target='_blank' href={collaborators[user].html_url}>
-                  <ImageStamp size='medium' src={collaborators[user].avatar_url} />
-                </Anchor>
+                <GithubUser user={collaborators[user]} />
               </Box>
             ))}
           </Box>

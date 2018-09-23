@@ -4,24 +4,11 @@ import {
   BarChart, LineChart, HorizontalBarChart, RadarChart, ScatterChart,
   DoughnutChart, PieChart, PolarChart,
 } from 'grommet-controls';
-
 import { colorFromIndex } from 'grommet-controls/utils/colors';
-import { Card } from '../components/Card';
 import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';
+import ChartCard from '../components/charts/ChartCard';
 import { rndRange, rndDatasets, rndDatasets2d, daysAfter, timeFormat, rndTimeSerie, daysAfterStr } from '../components/charts/data';
-
-
-const ChartCard = ({ title, children }) => (
-  <Card>
-    <Card.CardTitle>
-      {title}
-    </Card.CardTitle>
-    <Card.CardContent basis='medium'>
-      {children}
-    </Card.CardContent>
-  </Card>
-);
 
 
 export default () => (
