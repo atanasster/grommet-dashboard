@@ -35,8 +35,6 @@ const Statuses = {
 };
 export default ({ issues }) => (
   <Box gap='large'>
-
-    {console.log(issues)}
     <Box>
       <Title label={`${issues ? issues.length : ''} open issues`} />
       <Grid columns='medium' gap='medium'>
