@@ -54,7 +54,7 @@ class InboxPage extends React.Component {
         <ResponsiveContext.Consumer>
           {size => (
             <Box
-              direction={size !== 'wide' ? 'column' : 'row'}
+              direction={size === 'wide' ? 'row' : 'column'}
               gap='medium'
               flex={false}
               full='horizontal'
