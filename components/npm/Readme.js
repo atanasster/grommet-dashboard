@@ -1,6 +1,6 @@
 import React from 'react';
 import 'isomorphic-unfetch';
-import { Markdown } from 'grommet';
+import ReactMarkdown from 'react-markdown';
 import GitHubStats from '../github/GithubStats';
 
 class Readme extends React.Component {
@@ -41,9 +41,7 @@ class Readme extends React.Component {
     return (
       <React.Fragment>
         {content && (
-          <Markdown>
-            {content}
-          </Markdown>
+          <ReactMarkdown source={content} />
         )}
       </React.Fragment>
     );
