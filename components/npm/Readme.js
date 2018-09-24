@@ -19,7 +19,8 @@ class Readme extends React.Component {
         github.readMeForRepo({
           owner: gitProps.owner,
           repo: gitProps.name,
-        }).then(p => this.mounted && p.data && this.setState({ content: atob(p.data.content) }));
+        }).then(p => this.mounted && p && p.data &&
+          this.setState({ content: atob(p.data.content) }));
       }
     }
   }

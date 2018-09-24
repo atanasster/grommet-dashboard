@@ -11,14 +11,17 @@ function delay(ms) {
 export const deleteNotification = id => ({ type: ActionTypes.REMOVE_NOTIFICATION, id });
 
 export function addStatus(message, status) {
-  return (dispatch) => {
-    notificationId += 1;
-    const id = notificationId;
-    dispatch({
-      type: ActionTypes.ADD_NOTIFICATION,
-      notification: { id, message, status },
-    });
-    delay(5000).then(() => dispatch(deleteNotification(id)));
+  return (dispatch, getState) => {
+    const { notifications } = getState();
+    if (!notifications.find(n => (n.message === message && n.status === status))) {
+      notificationId += 1;
+      const id = notificationId;
+      dispatch({
+        type: ActionTypes.ADD_NOTIFICATION,
+        notification: { id, message, status },
+      });
+      delay(5000).then(() => dispatch(deleteNotification(id)));
+    }
   };
 }
 

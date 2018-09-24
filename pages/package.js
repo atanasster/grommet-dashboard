@@ -54,17 +54,17 @@ class Home extends React.Component {
             github.repoPullRequests({
               owner: gitProps.owner,
               repo: gitProps.name,
-            }).then(p => this.mounted && p.data && this.setState({ pullRequests: p.data }));
+            }).then(p => this.mounted && p && p.data && this.setState({ pullRequests: p.data }));
             github.repoIssues({
               owner: gitProps.owner,
               repo: gitProps.name,
-            }).then(p => this.mounted && p.data && this.setState({ issues: p.data }));
+            }).then(p => this.mounted && p && p.data && this.setState({ issues: p.data }));
             if (version && version.maintainers) {
               version.maintainers.forEach(user =>
                 github.userInfo({
                   username: user.name,
                 })
-                  .then(p => this.mounted && p.data && this.setState({
+                  .then(p => this.mounted && p && p.data && this.setState({
                     collaborators:
                       { ...this.state.collaborators, [user.name]: p.data },
                   })));
