@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Box, Heading, Select, Layer, Button, Menu } from 'grommet';
 import {
   Menu as MenuIcon, Grommet as GrommetIcon, Home, TextAlignCenter,
-  Document, Cubes, UserSettings as UserIcon,
+  Document, Cubes, UserSettings as UserIcon, Paint,
 } from 'grommet-icons';
 import routerPush from '../Router';
 import AlertsMenu from '../AlertsMenu/AlertsMenu';
@@ -101,6 +101,7 @@ class Header extends React.Component {
     const toolbarItems = [
       { path: '/', label: 'home', icon: <Home size='small' /> },
       { path: '/typography', label: 'typography', icon: <TextAlignCenter size='small' /> },
+      { path: '/colors', label: 'colors', icon: <Paint size='small' /> },
       { path: '/icons', label: 'icons', icon: <GrommetIcon size='small' /> },
       {
         label: 'interface',

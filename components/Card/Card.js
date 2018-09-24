@@ -58,17 +58,12 @@ class Card extends Component {
         {theme => (
           <StyledCard
             theme={theme}
+            align={align}
+            gap={gap}
             overflow='hidden'
             {...rest}
           >
-            <Box
-              fill='horizontal'
-              flex={false}
-              align={align}
-              gap={gap}
-            >
-              {children}
-            </Box>
+            {children}
           </StyledCard>
         )}
       </ThemeContext.Consumer>
@@ -91,7 +86,7 @@ CardWrapper.CardActions = ({ children, pad = 'small', ...rest }) => (
 CardWrapper.CardTitle = ({
   children, color, textAlign, truncate, level = 4, pad = 'small', strong = false, responsive, ...rest
 }) => (
-  <Box responsive={responsive} direction='row' fill={true} pad={pad} border='bottom' gap='small' flex={false} {...rest} >
+  <Box responsive={responsive} direction='row' fill='horizontal' pad={pad} border='bottom' gap='small' flex={false} {...rest} >
     {typeof children !== 'string' ? children : (
       <Heading
         level={level}
