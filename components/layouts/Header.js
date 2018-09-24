@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Box, Heading, Select, Layer, Button, Menu } from 'grommet';
 import {
   Menu as MenuIcon, Grommet as GrommetIcon, Home, TextAlignCenter,
-  Document, Cubes,
+  Document, Cubes, UserSettings as UserIcon,
 } from 'grommet-icons';
 import routerPush from '../Router';
 import AlertsMenu from '../AlertsMenu/AlertsMenu';
@@ -146,15 +146,15 @@ class Header extends React.Component {
         </Box>
       </Box>
     );
+    const userMenus = [
+      { ...this.routeProps('/edit_profile'), label: 'Edit profile' },
+      { ...this.routeProps('/subscriptions'), label: 'Subscriptions' },
+      { ...this.routeProps('/inbox'), label: 'Inbox' },
+    ];
     const avatar = (
       <Menu
         dropAlign={{ top: 'bottom', right: 'right' }}
-        items={[
-          { ...this.routeProps('/edit_profile'), label: 'Edit profile' },
-          { ...this.routeProps('/settings'), label: 'Settings' },
-          { ...this.routeProps('/subscriptions'), label: 'Subscriptions' },
-          { ...this.routeProps('/inbox'), label: 'Inbox' },
-        ]}
+        items={userMenus}
       >
         <Avatar
           image='//v2.grommet.io/assets/Wilderpeople_Ricky.jpg'
@@ -178,10 +178,17 @@ class Header extends React.Component {
             <Box direction='row'>
               <Box background='brand' gap='small' pad={{ vertical: 'small' }} width='medium' align='start'>
                 <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
-                <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small' flex={true}>
+                <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small' flex={true} fill='horizontal'>
                   <MenuVertical
                     basis='small'
-                    items={toolbarItems}
+                    items={[
+                      {
+                        label: 'John Wick',
+                        icon: <UserIcon size='small' />,
+                        items: userMenus,
+                      },
+                      ...toolbarItems,
+                    ]}
                   />
                 </Box>
               </Box>
