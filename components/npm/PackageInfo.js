@@ -6,6 +6,9 @@ import NPMTrendsChart from '../charts/NPMTrendsChart';
 import GithubUser from './GithubUser';
 
 const extractHostName = (url) => {
+  if (!url) {
+    return null;
+  }
   let hostname;
   if (url.indexOf('//') > -1) {
     [, , hostname] = url.split('/');
