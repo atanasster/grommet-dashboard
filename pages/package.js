@@ -183,7 +183,7 @@ class Home extends React.Component {
                 />}
               >
                 {issues && (
-                  <Box pad='medium' gap='large' fill='horizontal'>
+                  <Box pad='medium' fill='horizontal'>
                     <Issues issues={issues} />
                   </Box>
                 )}
@@ -195,7 +195,9 @@ class Home extends React.Component {
                   color='neutral-2'
                 />}
               >
-                pull requests
+                <Box pad='medium' fill='horizontal' align='center'>
+                  <Text size='large'>Pull requests - not yet implemented</Text>
+                </Box>
               </Tab>
               <Tab
                 title={<TabTitle
@@ -203,7 +205,9 @@ class Home extends React.Component {
                   color='neutral-1'
                 />}
               >
-                collaborators
+                <Box pad='medium' fill='horizontal' align='center'>
+                  <Text size='large'>Collaborators - not yet implemented</Text>
+                </Box>
               </Tab>
             </Tabs>
           </Box>
