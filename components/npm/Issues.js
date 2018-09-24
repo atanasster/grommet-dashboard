@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import moment from 'moment';
-import { Box, Grid, Text, Anchor, Markdown, Paragraph } from 'grommet';
+import { Box, Grid, Text, Anchor } from 'grommet';
+import ReactMarkdown from 'react-markdown';
 import { Clock, Close, ShareOption } from 'grommet-icons';
 import { Tags, Tag } from 'grommet-controls';
 import { Card } from '../Card';
@@ -10,10 +10,6 @@ import GithubUser from './GithubUser';
 import IssuesByLabel from './IssuesByLabel';
 import IssuesByUser from './IssuesByUser';
 import IssuesByAssignee from './IssuesByAssignee';
-
-const MarkdownParagraph = styled(Paragraph)`
-  max-width: 350px;
-`;
 
 const Statuses = {
   open: {
@@ -45,15 +41,13 @@ export default ({ issues }) => (
     </Box>
     <Box>
       <Title label='List of issues' />
-      <Box direction='row' wrap={true}>
+      <Grid columns='medium' rows='medium' gap='medium'>
         {issues && issues
           .map((issue) => {
             const assignedTo = issue.assignees || (issue.assignee ? [issue.assignee] : []);
             return (
               <Card
-                margin='small'
                 pad='small'
-                basis='medium'
                 key={`issue_${issue.number}`}
               >
                 <Box fill='horizontal' basis='xsmall' justify='between' pad={{ vertical: 'small' }} border='bottom'>
@@ -81,7 +75,7 @@ export default ({ issues }) => (
                   </Box>
                 </Box>
                 {issue.labels.length > 0 && (
-                  <Box align='start' fill='horizontal' border='bottom'>
+                  <Box basis='xsmall' align='start' fill='horizontal' border='bottom'>
                     <Tags
                       pad={{ vertical: null }}
                       placeholder='No labels assigned'
@@ -105,22 +99,17 @@ export default ({ issues }) => (
                   </Box>
                 )}
                 {issue.body && (
-                  <Box gap='medium' fill={true} pad='small'>
-                    <Markdown
-                      style={{ overflow: 'auto', height: '300px' }}
-                      components={{
-                        p: { component: MarkdownParagraph, props: { size: 'small' } },
-                      }}
-                    >
-                      {issue.body}
-                    </Markdown>
+                  <Box gap='medium' fill={true} pad='small' style={{ overflow: 'auto', height: '100%' }}>
+                    <ReactMarkdown
+                      source={issue.body}
+                    />
                   </Box>
                 )}
               </Card>
             );
           })
         }
-      </Box>
+      </Grid>
     </Box>
   </Box>
 );
