@@ -21,7 +21,7 @@ export default ({ issues }) => {
   });
 
   return (
-    <ChartCard title='Issues by author'>
+    <ChartCard title='Issues by author' basis={labels.length > 30 ? 'large' : undefined}>
       <HorizontalBarChart
         data={{
           labels,

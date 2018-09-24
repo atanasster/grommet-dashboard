@@ -104,16 +104,18 @@ export default ({ issues }) => (
                     </Box>
                   </Box>
                 )}
-                <Box gap='medium' fill={true} pad='small'>
-                  <Markdown
-                    style={{ overflow: 'auto', height: '300px' }}
-                    components={{
-                      p: { component: MarkdownParagraph, props: { size: 'small' } },
-                    }}
-                  >
-                    {issue.body}
-                  </Markdown>
-                </Box>
+                {issue.body && (
+                  <Box gap='medium' fill={true} pad='small'>
+                    <Markdown
+                      style={{ overflow: 'auto', height: '300px' }}
+                      components={{
+                        p: { component: MarkdownParagraph, props: { size: 'small' } },
+                      }}
+                    >
+                      {issue.body}
+                    </Markdown>
+                  </Box>
+                )}
               </Card>
             );
           })
