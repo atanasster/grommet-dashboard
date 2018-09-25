@@ -2,6 +2,7 @@ import ReactGA from 'react-ga';
 
 
 export const initGA = () => {
+  console.log('ENV', process.env.GOOGLE_ANALYTICS, process.env);
   if (process.env.GOOGLE_ANALYTICS) {
     ReactGA.initialize(process.env.GOOGLE_ANALYTICS);
   }
