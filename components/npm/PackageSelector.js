@@ -5,7 +5,7 @@ import { withRouter } from 'next/router';
 import 'isomorphic-unfetch';
 import { Box, Text, Paragraph, TextInput } from 'grommet';
 import { Tags } from 'grommet-controls';
-import { colorFromIndex } from 'grommet-controls/utils/colors';
+import { colorFromIndex } from 'grommet-controls/utils';
 import PackageAnchor from './PackageAnchor';
 import { npmSetPackages } from '../../redux/npm/actions';
 import connect from '../../redux/index';

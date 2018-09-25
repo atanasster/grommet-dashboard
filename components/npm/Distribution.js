@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ThemeContext } from 'grommet/contexts';
 import { colorForName } from 'grommet/utils';
 import { Value } from 'grommet-controls';
-import { colorFromIndex } from 'grommet-controls/utils/colors';
+import { colorFromIndex } from 'grommet-controls/utils';
 import { Box, Distribution as GrommetDistribution } from 'grommet';
 import PackageAnchor from './PackageAnchor';
 import { Card } from '../Card/index';
@@ -18,7 +18,7 @@ class Distribution extends Component {
       const result = [];
       packages.forEach((name, index) => {
         const npm = stats[name];
-        if (npm) {
+        if (npm && npm.evaluation) {
           result.push({
             name,
             value: parseInt(npm.evaluation.popularity[pName].toFixed(0), 10),

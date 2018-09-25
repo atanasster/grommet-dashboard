@@ -17,7 +17,7 @@ class NPMPopularityChart extends React.Component {
 
     packages.forEach((name) => {
       const npm = stats[name];
-      if (npm && !npm.error) {
+      if (npm && !npm.error && npm.evaluation) {
         data.labels.push(name);
         data.datasets[0].data.push(npm.evaluation.popularity[pName].toFixed(0));
       }

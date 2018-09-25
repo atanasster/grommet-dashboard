@@ -4,7 +4,7 @@ import {
   BarChart, LineChart, HorizontalBarChart, RadarChart, ScatterChart,
   DoughnutChart, PieChart, PolarChart,
 } from 'grommet-controls';
-import { colorFromIndex } from 'grommet-controls/utils/colors';
+import { colorFromIndex } from 'grommet-controls/utils';
 import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';
 import ChartCard from '../components/charts/ChartCard';

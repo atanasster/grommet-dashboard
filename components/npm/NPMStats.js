@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Anchor } from 'grommet';
 import { Github } from 'grommet-icons';
 import { Value, Spinning } from 'grommet-controls';
-import { colorFromIndex } from 'grommet-controls/utils/colors';
+import { colorFromIndex } from 'grommet-controls/utils';
 import connect from '../../redux/index';
 import { Card } from '../Card/index';
 import PackageAnchor from './PackageAnchor';
@@ -20,13 +20,15 @@ const NPMStats = ({ name, stats, index }) => {
     } else {
       content = (
         <Box justify='between' fill={true} pad='small' flex='grow'>
-          <Card.CardTitle>
-            <Box direction='row' fill={true} justify='between'>
-              <Value size='medium' value={stats.evaluation.popularity.downloadsCount.toFixed(0)} label='downloads' />
-              <Value size='medium' value={stats.evaluation.popularity.dependentsCount.toFixed(0)} label='dependents' />
-              <Value size='medium' value={stats.evaluation.popularity.communityInterest.toFixed(0)} label='interest' />
-            </Box>
-          </Card.CardTitle>
+          {stats.evaluation && (
+            <Card.CardTitle>
+              <Box direction='row' fill={true} justify='between'>
+                <Value size='medium' value={stats.evaluation.popularity.downloadsCount.toFixed(0)} label='downloads' />
+                <Value size='medium' value={stats.evaluation.popularity.dependentsCount.toFixed(0)} label='dependents' />
+                <Value size='medium' value={stats.evaluation.popularity.communityInterest.toFixed(0)} label='interest' />
+              </Box>
+            </Card.CardTitle>
+          )}
           <Card.CardContent align='center' justify='center'>
             <Box direction='row' align='center' pad={{ vertical: 'large' }}>
               <PackageAnchor
