@@ -9,7 +9,7 @@ const getRGB = (color) => {
     const [red, green, blue] = color.match(/[A-Za-z0-9]{2}/g).map(v => parseInt(v, 16));
     return `rgb(${red}, ${green}, ${blue})`;
   }
-  return color;
+  return `err: ${color}`;
 };
 
 const ColorsBox = ({ colors, prefix }) => (
