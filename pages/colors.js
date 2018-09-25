@@ -21,7 +21,7 @@ const ColorsBox = ({ colors, prefix }) => (
       {Object.keys(colors)
         .filter(key => key.startsWith(prefix))
         .map(key => (
-          <Card background='white' gap={null}>
+          <Card key={key} background='white' gap={null}>
             <Card.CardTitle>
               {key}
             </Card.CardTitle>
