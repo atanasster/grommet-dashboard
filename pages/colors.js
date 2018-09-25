@@ -5,8 +5,11 @@ import SiteLayout from '../components/layouts/SiteLayout';
 import { Card } from '../components/Card';
 
 const getRGB = (color) => {
-  const [red, green, blue] = color.match(/[A-Za-z0-9]{2}/g).map(v => parseInt(v, 16));
-  return `rgb(${red}, ${green}, ${blue})`;
+  if (typeof color.match === 'function') {
+    const [red, green, blue] = color.match(/[A-Za-z0-9]{2}/g).map(v => parseInt(v, 16));
+    return `rgb(${red}, ${green}, ${blue})`;
+  }
+  return color;
 };
 
 const ColorsBox = ({ colors, prefix }) => (
