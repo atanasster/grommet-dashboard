@@ -2,29 +2,22 @@ import ReactGA from 'react-ga';
 
 
 export const initGA = () => {
-  console.log('ENV', process.env.GOOGLE_ANALYTICS, process.env);
-  if (process.env.GOOGLE_ANALYTICS) {
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS);
-  }
+  ReactGA.initialize('UA-118001856-2');
 };
 
 export const logPageView = () => {
-  if (process.env.GOOGLE_ANALYTICS) {
-    ReactGA.set({ page: window.location.pathname });
-    ReactGA.pageview(window.location.pathname);
-  }
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
 };
 
 export const logEvent = (category = '', action = '') => {
-  if (process.env.GOOGLE_ANALYTICS) {
-    if (category && action) {
-      ReactGA.event({ category, action });
-    }
+  if (category && action) {
+    ReactGA.event({ category, action });
   }
 };
 
 export const logException = (description = '', fatal = false) => {
-  if (process.env.GOOGLE_ANALYTICS && description) {
+  if (description) {
     ReactGA.exception({ description, fatal });
   }
 };
