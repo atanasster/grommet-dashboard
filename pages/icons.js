@@ -22,6 +22,7 @@ export default class IconsPage extends React.Component {
         (metadata[icon] || []).some(synonym =>
           synonym.substr(0, search.length).toLowerCase() === search.toLowerCase())
       ))
+      .sort()
       .map(icon => ({
         name: icon,
         Icon: Icons[icon],
