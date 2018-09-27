@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, WorldMap } from 'grommet';
 import GoogleMap from 'google-map-react';
+import { Card } from 'grommet-controls';
 import SiteLayout from '../components/layouts/SiteLayout';
-import { Card } from '../components/Card';
 import Title from '../components/layouts/Title';
 
 export default () => (

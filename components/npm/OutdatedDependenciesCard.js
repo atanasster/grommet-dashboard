@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Text } from 'grommet';
-import { Value } from 'grommet-controls';
-import { Card } from '../Card';
+import { Value, Card } from 'grommet-controls';
 import Title from '../layouts/Title';
 import PackageAnchor from './PackageAnchor';
 

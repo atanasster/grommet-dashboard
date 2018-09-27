@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Heading, Paragraph, Image } from 'grommet';
 import { Favorite } from 'grommet-icons';
+import { Card } from 'grommet-controls';
 import RoutedAnchor from '../RoutedAnchor';
-import { Card } from '../Card';
 import IconButton from '../IconButton/IconButton';
 import Avatar from '../profiles/Avatar';
 

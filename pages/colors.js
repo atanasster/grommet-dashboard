@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Grid, Text } from 'grommet';
 import { ThemeContext } from 'grommet/contexts';
+import { Card } from 'grommet-controls';
 import SiteLayout from '../components/layouts/SiteLayout';
-import { Card } from '../components/Card';
 
 const getRGB = (color) => {
   if (typeof color.match === 'function') {

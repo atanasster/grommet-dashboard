@@ -1,8 +1,7 @@
 import React from 'react';
 import { Box, Heading, Paragraph, Image, Button } from 'grommet';
 import { Twitter } from 'grommet-icons';
-import { ImageStamp } from 'grommet-controls';
-import { Card } from '../Card';
+import { ImageStamp, Card } from 'grommet-controls';
 
 export default ({
   background, avatar, name, bio, twitterURL,

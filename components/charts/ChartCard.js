@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from '../Card';
+import { Card } from 'grommet-controls';
 
 const ChartCard = ({ title, children, basis }) => (
   <Card>

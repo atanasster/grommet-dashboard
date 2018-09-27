@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DoughnutChart } from 'grommet-controls';
-import { Card } from '../Card/index';
+import { DoughnutChart, Card } from 'grommet-controls';
 import connect from '../../redux/index';
 
 
@@ -23,7 +22,7 @@ class NPMPopularityChart extends React.Component {
       }
     });
     return (
-      <Card>
+      <Card background='brand'>
         <Card.CardTitle>
           {title}
         </Card.CardTitle>

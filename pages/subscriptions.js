@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Heading, Button } from 'grommet';
 import { ResponsiveContext } from 'grommet/contexts';
 import { FormClose, FormCheckmark } from 'grommet-icons';
-import { Card } from '../components/Card';
+import { Card } from 'grommet-controls';
 import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';
 

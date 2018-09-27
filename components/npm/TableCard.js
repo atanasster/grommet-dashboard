@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PagingTable } from 'grommet-controls';
-import { Card } from '../Card';
+import { PagingTable, Card } from 'grommet-controls';
 
 const TableCard = ({
   data, title, columns, defaultSorted, ...rest

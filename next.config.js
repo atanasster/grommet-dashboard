@@ -25,6 +25,9 @@ const initExport = {
         loader: 'babel-loader',
         test: /\.js(\?[^?]*)?$/,
         include: [path.resolve(__dirname, '../grommet-controls/src/js')],
+        options: {
+          presets: ['next/babel'],
+        },
       });
     }
     return config;

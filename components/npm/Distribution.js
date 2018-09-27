@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeContext } from 'grommet/contexts';
 import { colorForName } from 'grommet/utils';
-import { Value } from 'grommet-controls';
+import { Value, Card } from 'grommet-controls';
 import { colorFromIndex } from 'grommet-controls/utils';
 import { Box, Distribution as GrommetDistribution } from 'grommet';
 import PackageAnchor from './PackageAnchor';
-import { Card } from '../Card/index';
 import connect from '../../redux/index';
 
 class Distribution extends Component {

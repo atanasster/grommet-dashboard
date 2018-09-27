@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button } from 'grommet';
-import { Form } from 'grommet-controls';
-import { Card } from '../Card';
+import { Form, Card } from 'grommet-controls';
 
 const CardForm = ({
   title, children, footer, actions, submitLabel, onSubmit, object,

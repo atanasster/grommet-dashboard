@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Anchor } from 'grommet';
 import { Github } from 'grommet-icons';
-import { Value, Spinning } from 'grommet-controls';
+import { Value, Spinning, Card } from 'grommet-controls';
 import { colorFromIndex } from 'grommet-controls/utils';
 import connect from '../../redux/index';
-import { Card } from '../Card/index';
 import PackageAnchor from './PackageAnchor';
 
 const NPMStats = ({ name, stats, index }) => {
