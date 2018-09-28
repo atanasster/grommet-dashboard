@@ -117,7 +117,7 @@ export default () => (
             title='Starter'
             price='$9.90'
             items={items('starter')}
-            action={{ primary: true, onClick: () => alert('Starter') }}
+            action={{ onClick: () => alert('Starter') }}
           />
           <PriceCard
             basis={responsiveBasis(size)}
@@ -125,7 +125,7 @@ export default () => (
             price='$99.90'
             items={items('pro')}
             color='status-ok'
-            action={{ onClick: () => alert('Pro') }}
+            action={{ primary: true, onClick: () => alert('Pro') }}
           />
           <PriceCard
             basis={responsiveBasis(size)}

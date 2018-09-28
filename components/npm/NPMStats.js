@@ -71,7 +71,7 @@ const NPMStats = ({ name, stats, index }) => {
     <Card
       background={colorFromIndex(index)}
     >
-      <Box fill='horizontal' basis='medium'>
+      <Box fill='horizontal'>
         {content}
       </Box>
     </Card>

@@ -13,7 +13,6 @@ import { rndRange, rndDatasets, rndDatasets2d, daysAfter, timeFormat, rndTimeSer
 
 export default () => (
   <SiteLayout title='Charts'>
-    <Title label='Charts' />
     <Box margin={{ bottom: 'large' }}>
       <Title label='Bar charts' />
       <Grid columns='medium' gap='medium'>

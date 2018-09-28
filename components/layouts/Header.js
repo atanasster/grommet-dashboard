@@ -177,7 +177,7 @@ class Header extends React.Component {
             onClickOutside={this.onCloseMenu}
           >
             <Box direction='row'>
-              <Box background='brand' gap='small' pad={{ vertical: 'small' }} width='medium' align='start'>
+              <Box background='brand' gap='small' pad='small' width='medium' align='start'>
                 <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
                 <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small' flex={true} fill='horizontal'>
                   <MenuVertical
@@ -220,7 +220,7 @@ class Header extends React.Component {
           border='bottom'
           pad={{ horizontal: !isNarrow ? 'xlarge' : undefined, vertical: 'small' }}
         >
-          <Box direction='row' align='center'gap='small' >
+          <Box direction='row' align='center' gap='small' pad={{ horizontal: 'small' }}>
             {isNarrow && (
               <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
             )}
