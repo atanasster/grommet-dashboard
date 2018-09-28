@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from 'grommet';
-import SideBar from '../Sidebar/SideBar';
+import { Sidebar } from 'grommet-controls';
 import MenuVertical from '../MenuVertical/MenuVertical';
 
 const SideMenu = ({
   title, items, onSelect, activeItem, children, ...rest
 }) => (
-  <SideBar
+  <Sidebar
     title={title}
     {...rest}
   >
@@ -19,7 +19,7 @@ const SideMenu = ({
       />
     </Box>
     {children}
-  </SideBar>
+  </Sidebar>
 );
 
 SideMenu.defaultProps = {
