@@ -7,6 +7,7 @@ import {
   Menu as MenuIcon, Grommet as GrommetIcon, Home, TextAlignCenter,
   Document, Cubes, UserSettings as UserIcon, Paint,
 } from 'grommet-icons';
+import { VerticalMenu } from 'grommet-controls';
 import routerPush from '../Router';
 import AlertsMenu from '../AlertsMenu/AlertsMenu';
 import MenuBar from '../MenuBar/MenuBar';
@@ -15,7 +16,6 @@ import RoutedButton from '../RoutedButton';
 import { npmSetPackages } from '../../redux/npm/actions';
 import { selectTheme } from '../../redux/themes/actions';
 import Avatar from '../profiles/Avatar';
-import MenuVertical from '../MenuVertical/MenuVertical';
 
 const trendingNPM = [
   [
@@ -180,7 +180,8 @@ class Header extends React.Component {
               <Box background='brand' gap='small' pad='small' width='medium' align='start'>
                 <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
                 <Box pad={{ vertical: 'small', horizontal: 'medium' }} gap='small' flex={true} fill='horizontal'>
-                  <MenuVertical
+                  <VerticalMenu
+                    buttonClass={RoutedButton}
                     basis='small'
                     items={[
                       {

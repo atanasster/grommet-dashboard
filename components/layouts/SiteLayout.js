@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import Head from 'next/head';
 import { Grommet, Box } from 'grommet';
 import { ResponsiveContext } from 'grommet/contexts';
+import { queryParams } from '../nextjs/urlParams';
 import Header from './Header';
 import Footer from './Footer';
 import Notifications from './Notifications';
@@ -25,7 +26,7 @@ class SiteLayout extends React.Component {
 
    onChangeTheme = (theme) => {
      const { router } = this.props;
-     const path = { pathname: router.pathname, query: { ...router.query, theme } };
+     const path = { pathname: queryParams(router), query: { theme } };
      this.changeTheme(theme);
      router.replace(path, path, { shallow: true });
    };

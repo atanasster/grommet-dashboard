@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from 'grommet';
-import { Sidebar } from 'grommet-controls';
-import MenuVertical from '../MenuVertical/MenuVertical';
+import { Sidebar, VerticalMenu } from 'grommet-controls';
+import RoutedButton from '../RoutedButton';
 
 const SideMenu = ({
   title, items, onSelect, activeItem, children, ...rest
@@ -12,7 +12,8 @@ const SideMenu = ({
     {...rest}
   >
     <Box overflow='auto'>
-      <MenuVertical
+      <VerticalMenu
+        buttonClass={RoutedButton}
         items={items}
         activeItem={activeItem}
         onSelect={onSelect}
