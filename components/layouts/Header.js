@@ -8,7 +8,7 @@ import {
   Document, Cubes, UserSettings as UserIcon, Paint,
 } from 'grommet-icons';
 import { VerticalMenu } from 'grommet-controls';
-import routerPush from '../Router';
+import routerPush from '../PushRoute';
 import AlertsMenu from '../AlertsMenu/AlertsMenu';
 import MenuBar from '../MenuBar/MenuBar';
 import connect from '../../redux/index';
@@ -101,33 +101,23 @@ class Header extends React.Component {
     const toolbarItems = [
       { path: '/', label: 'home', icon: <Home size='small' /> },
       { path: '/typography', label: 'typography', icon: <TextAlignCenter size='small' /> },
+      { path: '/components', label: 'components', icon: <Cubes size='small' /> },
       { path: '/colors', label: 'colors', icon: <Paint size='small' /> },
       { path: '/icons', label: 'icons', icon: <GrommetIcon size='small' /> },
       {
         label: 'interface',
-        icon: <Cubes size='small' />,
+        icon: <Document size='small' />,
         items: [
           { path: '/profile', label: 'Profile' },
+          { path: '/login', label: 'Login' },
+          { path: '/register', label: 'Register' },
+          { path: '/reset_password', label: 'Recover password' },
+          { path: '/400', label: '400 error' },
           { path: '/blog', label: 'Blog' },
           { path: '/maps', label: 'Maps' },
           { path: '/tables', label: 'Tables' },
           { path: '/charts', label: 'Charts' },
           { path: '/notifications', label: 'Notifications' },
-        ],
-      },
-      {
-        label: 'pages',
-        icon: <Document size='small' />,
-        items: [
-          { path: '/login', label: 'Login' },
-          { path: '/register', label: 'Register' },
-          { path: '/reset_password', label: 'Recover password' },
-          { path: '/400', label: '400 error' },
-          { path: '/401', label: '401 error' },
-          { path: '/403', label: '403 error' },
-          { path: '/404', label: '404 error' },
-          { path: '/500', label: '500 error' },
-          { path: '/503', label: '503 error' },
         ],
       },
     ];

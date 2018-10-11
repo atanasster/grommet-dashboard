@@ -7,12 +7,12 @@
     ["transform-imports", {
       "grommet-controls": {
         "transform": "grommet-controls/es6/components/${member}",
-        "preventFullImport": true,
+        "preventFullImport": false,
         "skipDefaultConversion": true
       },
       "grommet-controls/themes": {
         "transform": "grommet-controls/es6/themes/${member}",
-        "preventFullImport": true
+        "preventFullImport": false
       },
       "grommet-controls/utils": {
         "transform": "grommet-controls/es6/utils",
@@ -21,7 +21,7 @@
       },
       "grommet": {
         "transform": "grommet/es6/components/${member}",
-        "preventFullImport": true,
+        "preventFullImport": false,
         "skipDefaultConversion": true
       },
       "grommet/contexts": {
@@ -31,7 +31,7 @@
       },
       "grommet/themes": {
         "transform": "grommet/es6/themes/${member}",
-        "preventFullImport": true,
+        "preventFullImport": false,
         "skipDefaultConversion": true
       },
       "grommet/components/hocs": {

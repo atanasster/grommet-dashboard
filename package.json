@@ -59,6 +59,7 @@
     "react-chartjs-2": "^2.7.4",
     "react-dom": "16.4.1",
     "react-ga": "^2.5.3",
+    "react-live": "^1.11.0",
     "react-markdown": "^3.6.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",

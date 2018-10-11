@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import { Box, Menu, Anchor, Text } from 'grommet';
 import RoutedAnchor from '../RoutedAnchor';
-import routerPush from '../Router';
+import routerPush from '../PushRoute';
 
 export default withRouter(({ items, router, ...rest }) => (
   <Box
