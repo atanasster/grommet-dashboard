@@ -15,7 +15,7 @@ export default class AddOns extends React.Component {
     const { examples } = this.props;
     return (
       <SiteLayout title='components'>
-        <Box pad={{ horizontal: 'large' }}>
+        <Box>
           <ComponentsGroup examples={examples} group='Layout' />
           <ComponentsGroup examples={examples} group='Type' />
           <ComponentsGroup examples={examples} group='Controls' />
