@@ -17,7 +17,7 @@ import * as Grommet from 'grommet';
 import * as Themes from 'grommet-controls/themes';
 import * as GrommetControls from 'grommet-controls';
 import SiteLayout from '../components/layouts/SiteLayout';
-import pushRoute from '../components/PushRoute';
+import RoutedButton from '../components/RoutedButton';
 
 const scope = {
   ...Grommet, ...GrommetControls, Icons, Themes, styled, css,
@@ -60,6 +60,9 @@ class Examples extends React.Component {
             component: key,
             code: example.examples[item],
             id: `${example.package}_${key}_${item}`,
+            route: 'examples',
+            params: { group: key, example: item },
+
           })),
       };
     });
@@ -122,18 +125,10 @@ class Examples extends React.Component {
             </Box>
             <Box overflow='auto'>
               <VerticalMenu
+                buttonClass={RoutedButton}
                 items={grouped}
                 activeItem={{ id: `${pckg}_${group}_${example}` }}
                 search={search}
-                onSelect={(item) => {
-                  pushRoute({
-                    route: 'examples',
-                    params: { group: item.component, example: item.label },
-                  });
-                  this.setState({
- pckg: item.package, code: item.code, group: item.component, example: item.label,
-});
-                }}
               />
             </Box>
           </Sidebar>

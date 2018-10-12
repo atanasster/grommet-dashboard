@@ -28,7 +28,7 @@ class SiteLayout extends React.Component {
 
    onChangeTheme = (theme) => {
      const { router } = this.props;
-     pushRoute({ route: router.route, params: { theme } });
+     pushRoute({ route: router.asPath.split('?')[0], params: { theme } });
    };
 
    componentDidMount() {
