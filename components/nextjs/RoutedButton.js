@@ -10,19 +10,16 @@ class RoutedButton extends React.Component {
       path, preserveParams, route, router, params, ...rest
     } = this.props;
     const query = queryParams(router, preserveParams);
-    const btn = <Button {...rest} />;
-    if (rest.onClick !== undefined) {
-      return btn;
-    }
     return (
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <Link
         route={route}
-        params={{ ...query, ...params }}
         href={{ pathname: path, query }}
+        params={{ ...query, ...params }}
         passHref={true}
       >
-        {btn}
+
+        <Button {...rest} />
       </Link>
     );
   }

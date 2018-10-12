@@ -78,19 +78,16 @@ class Header extends React.Component {
     onChangeTheme(theme);
   };
   onSetPackages = (packages) => {
-    const { router } = this.props;
-    routerPush(router, '/', { packages: packages.join(',') });
+    routerPush({ route: '/', params: { packages: packages.join(',') } });
   };
-  routeProps = (path) => {
-    const { router } = this.props;
-    return {
-      route: path,
-      onClick: (e) => {
-        e.preventDefault();
-        routerPush(router, path);
-      },
-    };
-  };
+
+  routeProps = path => ({
+    route: path,
+    onClick: (e) => {
+      e.preventDefault();
+      routerPush({ route: path });
+    },
+  });
 
   render() {
     const {

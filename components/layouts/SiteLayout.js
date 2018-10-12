@@ -5,13 +5,13 @@ import { bindActionCreators } from 'redux';
 import Head from 'next/head';
 import { Grommet, Box } from 'grommet';
 import { ResponsiveContext } from 'grommet/contexts';
-import { queryParams } from '../nextjs/urlParams';
 import Header from './Header';
 import Footer from './Footer';
 import Notifications from './Notifications';
 import connect from '../../redux/index';
 import { selectTheme } from '../../redux/themes/actions';
 import { initGA, logPageView } from '../ga/analytics';
+import pushRoute from '../PushRoute';
 
 class SiteLayout extends React.Component {
   constructor(props, context) {
@@ -20,15 +20,15 @@ class SiteLayout extends React.Component {
   }
 
   changeTheme(theme) {
-    this.theme = theme;
-    this.props.selectTheme(theme);
+    if (this.theme !== theme) {
+      this.theme = theme;
+      this.props.selectTheme(theme);
+    }
   }
 
    onChangeTheme = (theme) => {
      const { router } = this.props;
-     const path = { pathname: queryParams(router), query: { theme } };
-     this.changeTheme(theme);
-     router.replace(path, path, { shallow: true });
+     pushRoute({ route: router.route, params: { theme } });
    };
 
    componentDidMount() {
@@ -41,7 +41,7 @@ class SiteLayout extends React.Component {
 
    componentWillReceiveProps(nextProps) {
      if (nextProps.router.query.theme !== this.theme) {
-       this.props.selectTheme(nextProps.router.query.theme);
+       this.changeTheme(nextProps.router.query.theme);
      }
    }
 

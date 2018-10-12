@@ -26,7 +26,7 @@ class PackageSelector extends React.Component {
   updatePackages = (props) => {
     if (props.router.query.packages !== this.packages) {
       let { packages } = props.router.query;
-      if (packages) {
+      if (typeof packages === 'string') {
         packages = packages.split(',');
       }
       this.props.npmSetPackages(packages);

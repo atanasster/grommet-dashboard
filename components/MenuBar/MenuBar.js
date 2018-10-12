@@ -25,7 +25,7 @@ export default withRouter(({ items, router, ...rest }) => (
           href: p.path,
           onClick: (e) => {
             e.preventDefault();
-            routerPush(router, p.path);
+            routerPush({ route: p.path });
           },
         }))}
       >
