@@ -29,6 +29,9 @@ const StyledEditor = styled(LiveEditor)`
 class Examples extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { ...this.selectedExampleToState(props), search: '' };
+  }
+  selectedExampleToState = (props) => {
     const { group = 'Box', example = '_starter' } = props.router.query;
     let pckg = 'grommet';
     let code = '';
@@ -40,9 +43,15 @@ class Examples extends React.Component {
         ({ code } = exmpl);
       }
     }
-    this.state = {
-      code, group, example, pckg, search: '',
+    return {
+      code, group, example, pckg,
     };
+  };
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.router.query.group !== this.state.group
+        || nextProps.router.query.example !== this.state.example) {
+      this.setState(this.selectedExampleToState(nextProps));
+    }
   }
   static async getInitialProps() {
     const res = await fetch('https://grommet-nextjs.herokuapp.com/api/examples');
