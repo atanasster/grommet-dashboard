@@ -17,7 +17,7 @@ export default ({ examples, group, search }) => {
     return null;
   }
   return (
-    <Section name={group}>
+    <Section name={`${group} (${filtered.length})`}>
       {filtered.sort().map(item => (
         <Card background='brand' key={`${group}_${item}`} basis='medium' margin='xsmall'>
           <Card.CardTitle justify='between'>
