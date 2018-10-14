@@ -40,6 +40,7 @@ export default class AddOns extends React.Component {
         <Box>
           <ComponentsGroup examples={examples} search={search} group='Layout' />
           <ComponentsGroup examples={examples} search={search} group='Type' />
+          <ComponentsGroup examples={examples} search={search} group='Navigation' />
           <ComponentsGroup examples={examples} search={search} group='Controls' />
           <ComponentsGroup examples={examples} search={search} group='Input' />
           <ComponentsGroup examples={examples} search={search} group='Validation' />
