@@ -72,7 +72,7 @@ class SiteLayout extends React.Component {
                <Box style={{ height: 'auto', minHeight: '100vh' }}>
                  <Header title={pageTitle} onChangeTheme={this.onChangeTheme} size={size} />
                  <Notifications />
-                 <Box flex={true} background='light-1' pad={{ horizontal: size === 'narrow' ? 'small' : 'xlarge', vertical: 'large' }}>
+                 <Box flex={true} background='light-1' pad={{ horizontal: size === 'small' ? 'small' : 'xlarge', vertical: 'large' }}>
                    {children}
                  </Box>
                  <Footer />

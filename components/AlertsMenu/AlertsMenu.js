@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Menu, Stack } from 'grommet';
 import { ThemeContext } from 'grommet/contexts';
-import { colorForName, getRGBA } from 'grommet/utils';
+import { getRGBA } from 'grommet/utils';
 import { Notification } from 'grommet-icons';
 
 export default ({ alerts }) => (
@@ -16,7 +16,7 @@ export default ({ alerts }) => (
           <Box
             direction='row'
             align='center'
-            background={getRGBA(colorForName('status-error', theme), 0.9)}
+            background={getRGBA(theme.global.colors['status-error'], 0.9)}
             pad='xsmall'
             style={{
               borderRadius: '50%',

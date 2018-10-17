@@ -87,13 +87,11 @@ const items = level => ([
 ]);
 const responsiveBasis = (size) => {
   switch (size) {
-    case 'narrow':
+    case 'small':
       return 'full';
     case 'medium':
-    case 'large':
-    case 'xlarge':
       return '1/2';
-    case 'wide':
+    case 'large':
       return '1/4';
     default:
       return 'full';
