@@ -20,7 +20,7 @@ const ColorsBox = ({ colors, prefix }) => (
     <Grid columns='small' rows='small' gap='small'>
       {Object.keys(colors)
         .filter(key => key.startsWith(prefix))
-        .map(key => (
+        .map(key => colors[key] && (
           <Card key={key} background='white' gap={null}>
             <Card.CardTitle>
               {key}
