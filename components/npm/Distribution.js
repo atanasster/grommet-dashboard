@@ -36,6 +36,7 @@ class Distribution extends Component {
             <ThemeContext.Consumer>
               {theme => (
                 <GrommetDistribution
+                  basis='medium'
                   values={data(theme)}
                   style={{ height: '100%' }}
                 >

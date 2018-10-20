@@ -1,4 +1,9 @@
-import { black, materiallight, materialdark, metro, dark, grommet, light } from 'grommet-controls/themes';
+import { black, materiallight, materialdark, metro, light } from 'grommet-controls/themes';
+import { grommet, dark } from 'grommet/themes';
+import { aruba } from 'grommet-theme-aruba';
+import { dxc } from 'grommet-theme-dxc';
+import { hp } from 'grommet-theme-hp';
+import { hpe } from 'grommet-theme-hpe';
 import * as ActionTypes from './constants';
 
 
@@ -8,9 +13,13 @@ const defaultTheme = 'light';
 const initialState = {
   themes: {
     light,
-    grommet,
-    dark,
+    aruba,
     black,
+    dark,
+    dxc,
+    grommet,
+    hp,
+    hpe,
     materiallight,
     materialdark,
     metro,
