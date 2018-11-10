@@ -8,7 +8,7 @@ import Example from './Example';
 
 export default ({ examples, group, search }) => {
   const filtered = Object.keys(examples).filter((key) => {
-    if (search && search.length > 0 && !key.toLowerCase().match(search.toLowerCase())) {
+    if (search && search.length > 0 && !key.toLowerCase().match(search)) {
       return false;
     }
     return examples[key].category === group;

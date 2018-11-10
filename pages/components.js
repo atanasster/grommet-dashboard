@@ -19,6 +19,7 @@ export default class AddOns extends React.Component {
   render() {
     const { examples } = this.props;
     const { search } = this.state;
+    const searchRegularized = search.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&').toLowerCase();
     return (
       <SiteLayout title='components'>
         <Title label='Components'>
@@ -38,14 +39,14 @@ export default class AddOns extends React.Component {
           </Box>
         </Title>
         <Box>
-          <ComponentsGroup examples={examples} search={search} group='Layout' />
-          <ComponentsGroup examples={examples} search={search} group='Type' />
-          <ComponentsGroup examples={examples} search={search} group='Navigation' />
-          <ComponentsGroup examples={examples} search={search} group='Controls' />
-          <ComponentsGroup examples={examples} search={search} group='Input' />
-          <ComponentsGroup examples={examples} search={search} group='Validation' />
-          <ComponentsGroup examples={examples} search={search} group='Visualizations' />
-          <ComponentsGroup examples={examples} search={search} group='Media' />
+          <ComponentsGroup examples={examples} search={searchRegularized} group='Layout' />
+          <ComponentsGroup examples={examples} search={searchRegularized} group='Type' />
+          <ComponentsGroup examples={examples} search={searchRegularized} group='Navigation' />
+          <ComponentsGroup examples={examples} search={searchRegularized} group='Controls' />
+          <ComponentsGroup examples={examples} search={searchRegularized} group='Input' />
+          <ComponentsGroup examples={examples} search={searchRegularized} group='Validation' />
+          <ComponentsGroup examples={examples} search={searchRegularized} group='Visualizations' />
+          <ComponentsGroup examples={examples} search={searchRegularized} group='Media' />
         </Box>
       </SiteLayout>
     );
