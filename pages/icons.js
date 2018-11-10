@@ -16,9 +16,10 @@ export default class IconsPage extends React.Component {
   render() {
     const { small } = this.props;
     const { search } = this.state;
+    const searchRegularized = search.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&').toLowerCase();
     const icons = iconKeys
       .filter(icon => (
-        icon.toLowerCase().match(search.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&').toLowerCase()) ||
+        icon.toLowerCase().match(searchRegularized) ||
         (metadata[icon] || []).some(synonym =>
           synonym.substr(0, search.length).toLowerCase() === search.toLowerCase())
       ))
