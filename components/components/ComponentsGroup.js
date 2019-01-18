@@ -7,45 +7,45 @@ import Section from './Section';
 import Example from './Example';
 
 export default ({ examples, group, search }) => {
-  const filtered = Object.keys(examples).filter((key) => {
-    if (search && search.length > 0 && !key.toLowerCase().match(search)) {
+  const filtered = examples.filter((exampple) => {
+    if (search && search.length > 0 && !exampple.name.toLowerCase().match(search)) {
       return false;
     }
-    return examples[key].category === group;
+    return exampple.category === group;
   });
   if (filtered.length === 0) {
     return null;
   }
   return (
     <Section name={`${group} (${filtered.length})`}>
-      {filtered.sort().map(item => (
-        <Card background='brand' key={`${group}_${item}`} basis='medium' margin='xsmall'>
+      {filtered.sort().map(example => (
+        <Card background='brand' key={`${example.package}_${group}_${example.name}`} basis='medium' margin='xsmall'>
           <Card.CardTitle justify='between'>
             <Box gap='small' fill='horizontal'>
               <Box direction='row' justify='between'>
-                <RoutedButton route='documentation' params={{ component: item }}>
+                <RoutedButton route='documentation' params={{ library: example.package, component: example.name }}>
                   <Heading margin='none' level={3}>
-                    {item}
+                    {example.name}
                   </Heading>
                 </RoutedButton>
                 <Text size='small'>
-                  {examples[item].package}
+                  {example.package}
                 </Text>
               </Box>
               <Text size='small' truncate={true}>
-                {examples[item].doc && examples[item].doc.description}
+                {example.doc && example.doc.description}
               </Text>
             </Box>
 
           </Card.CardTitle>
           <Card.CardContent flex={false} basis='220px' align='center' justify='center'>
-            <Example code={examples[item].examples._starter} />
+            <Example code={example.examples._starter} />
           </Card.CardContent>
           <Card.CardActions>
             <Box direction='row' justify='between' fill='horizontal'>
               <RoutedButton
                 route='documentation'
-                params={{ component: item }}
+                params={{ library: example.package, component: example.name }}
               >
                 <Box direction='row' gap='xsmall' pad='xsmall'>
                   <Document />
@@ -55,7 +55,7 @@ export default ({ examples, group, search }) => {
 
               <RoutedButton
                 route='examples'
-                params={{ group: item, example: '_starter' }}
+                params={{ library: example.package, group: example.name, example: '_starter' }}
               >
                 <Box direction='row' gap='xsmall' pad='xsmall'>
                   <Code />

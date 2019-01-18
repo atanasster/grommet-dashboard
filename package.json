@@ -43,7 +43,7 @@
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "grommet": "https://github.com/grommet/grommet/tarball/stable",
-    "grommet-controls": "^1.0.2",
+    "grommet-controls": "^1.0.10",
     "grommet-icons": "^4.1.0",
     "grommet-theme-aruba": "latest",
     "grommet-theme-dxc": "latest",

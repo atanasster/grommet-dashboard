@@ -12,12 +12,13 @@ class Doc extends React.Component {
     documentation: {},
   };
   componentDidMount() {
-    const { router: { query: { component } } } = this.props;
+    const { router: { query: { component, library } } } = this.props;
     window.scrollTo(0, 0);
-    fetch(`https://grommet-nextjs.herokuapp.com/api/examples/grommet/${component}`)
+    fetch(`https://grommet-nextjs.herokuapp.com/api/examples/${library}/${component}`)
       .then(res => (res ? res.json() : res))
       .catch(() => this.setState({ documentation: {} }))
-      .then(res => res && this.setState({ documentation: res }));
+      .then(res => res && res.length &&
+        this.setState({ documentation: res.length > 0 ? res[0] : res }));
   }
   render() {
     const { router: { query: { component } } } = this.props;

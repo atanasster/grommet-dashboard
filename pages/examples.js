@@ -14,13 +14,14 @@ import {
 import styled, { css } from 'styled-components';
 import * as Icons from 'grommet-icons';
 import * as Grommet from 'grommet';
+import { Form as GrommetForm, MaskedInput as GrommetMaskedInput } from 'grommet';
 import * as Themes from 'grommet-controls/themes';
 import * as GrommetControls from 'grommet-controls';
 import SiteLayout from '../components/layouts/SiteLayout';
 import RoutedButton from '../components/RoutedButton';
 
 const scope = {
-  ...Grommet, ...GrommetControls, Icons, Themes, styled, css,
+  ...Grommet, GrommetForm, GrommetMaskedInput, ...GrommetControls, Icons, Themes, styled, css,
 };
 
 const StyledEditor = styled(LiveEditor)`
@@ -32,49 +33,46 @@ class Examples extends React.Component {
     this.state = { ...this.selectedExampleToState(props), search: '' };
   }
   selectedExampleToState = (props) => {
-    const { group = 'Box', example = '_starter' } = props.router.query;
-    let pckg = 'grommet';
+    const { group = 'Box', library = 'grommet', example = '_starter' } = props.router.query;
     let code = '';
-    const item = props.examples.find(e => e.label === group);
+    const item = props.examples.find(e => e.label === group && e.package === library);
     if (item) {
-      pckg = item.package;
       const exmpl = item.items.find(e => e.label === example);
       if (exmpl) {
         ({ code } = exmpl);
       }
     }
     return {
-      code, group, example, pckg,
+      code, group, example, library,
     };
   };
   componentWillReceiveProps(nextProps) {
-    if (nextProps.router.query.group !== this.state.group
-        || nextProps.router.query.example !== this.state.example) {
+    if (nextProps.router.query.library !== this.state.library ||
+      nextProps.router.query.group !== this.state.group ||
+      nextProps.router.query.example !== this.state.example) {
       this.setState(this.selectedExampleToState(nextProps));
     }
   }
   static async getInitialProps() {
     const res = await fetch('https://grommet-nextjs.herokuapp.com/api/examples');
     const allExamples = await res.json();
-    const examples = Object.keys(allExamples).sort().map((key) => {
-      const example = allExamples[key];
-      return {
-        label: key,
-        package: example.package,
-        category: example.category,
-        items: Object.keys(example.examples)
-          .sort()
-          .map(item => ({
-            label: item,
-            component: key,
-            code: example.examples[item],
-            id: `${example.package}_${key}_${item}`,
-            route: 'examples',
-            params: { group: key, example: item },
+    const examples = allExamples.map(example => ({
+      label: example.name,
+      package: example.package,
+      category: example.category,
+      items: Object.keys(example.examples)
+        .sort()
+        .map(item => ({
+          label: item,
+          library: example.package,
+          component: example.name,
+          code: example.examples[item],
+          id: `${example.package}_${example.name}_${item}`,
+          route: 'examples',
+          params: { library: example.package, group: example.name, example: item },
 
-          })),
-      };
-    });
+        })),
+    }));
     const byPackage = examples.reduce((acc, item) => {
       if (!acc[item.package]) {
         acc[item.package] = [];
@@ -107,7 +105,7 @@ class Examples extends React.Component {
   render() {
     const { grouped } = this.props;
     const {
-      pckg, group, example, code, search,
+      library, group, example, code, search,
     } = this.state;
     return (
       <SiteLayout title='Component editor'>
@@ -136,7 +134,7 @@ class Examples extends React.Component {
               <VerticalMenu
                 buttonClass={RoutedButton}
                 items={grouped}
-                activeItem={{ id: `${pckg}_${group}_${example}` }}
+                activeItem={{ id: `${library}_${group}_${example}` }}
                 search={search}
               />
             </Box>

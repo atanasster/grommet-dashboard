@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -7,12 +8,13 @@ import {
 } from 'react-live';
 import * as Icons from 'grommet-icons';
 import * as Grommet from 'grommet';
+import { Form as GrommetForm, MaskedInput as GrommetMaskedInput } from 'grommet';
 import * as Themes from 'grommet-controls/themes';
 import * as GrommetControls from 'grommet-controls';
 import RoutedButton from '../RoutedButton';
 
 const scope = {
-  ...Grommet, ...GrommetControls, Icons, Themes,
+  ...Grommet, GrommetForm, GrommetMaskedInput, ...GrommetControls, Icons, Themes,
 };
 
 const StyledProvider = styled(LiveProvider)`
