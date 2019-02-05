@@ -7,7 +7,7 @@ import {
   Menu as MenuIcon, Grommet as GrommetIcon, Home, TextAlignCenter,
   Document, Cubes, UserSettings as UserIcon, Paint,
 } from 'grommet-icons';
-import { VerticalMenu } from 'grommet-controls';
+import { VerticalMenu, Avatar } from 'grommet-controls';
 import routerPush from '../PushRoute';
 import AlertsMenu from '../AlertsMenu/AlertsMenu';
 import MenuBar from '../MenuBar/MenuBar';
@@ -15,7 +15,6 @@ import connect from '../../redux/index';
 import RoutedButton from '../RoutedButton';
 import { npmSetPackages } from '../../redux/npm/actions';
 import { selectTheme } from '../../redux/themes/actions';
-import Avatar from '../profiles/Avatar';
 
 const trendingNPM = [
   [
@@ -146,8 +145,8 @@ class Header extends React.Component {
       >
         <Avatar
           image='//v2.grommet.io/assets/Wilderpeople_Ricky.jpg'
-          name='John Wick'
-          description='Assassin'
+          title='John Wick'
+          subTitle='Assassin'
         />
       </Menu>
     );

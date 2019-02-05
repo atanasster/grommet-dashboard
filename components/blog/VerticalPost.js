@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Heading, Paragraph, Image } from 'grommet';
 import { Favorite } from 'grommet-icons';
-import { Card } from 'grommet-controls';
+import { Card, Avatar, IconButton } from 'grommet-controls';
 import RoutedAnchor from '../RoutedAnchor';
-import IconButton from '../IconButton/IconButton';
-import Avatar from '../profiles/Avatar';
 
 const VerticalPost = ({
   image, title, authorName, authorImage, authorDescription, path, excerpt, icons = [],
@@ -41,8 +39,8 @@ const VerticalPost = ({
       <Box direction='row' justify='between' pad={{ vertical: 'small', horizontal: 'medium' }} fill='horizontal'>
         <Avatar
           image={authorImage}
-          name={authorName}
-          description={authorDescription}
+          title={authorName}
+          subTitle={authorDescription}
         />
         {icons.map((icon, idx) => (
           <IconButton key={`title_${idx}`} {...icon} />

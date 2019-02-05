@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Heading, Text } from 'grommet';
-import { ImageStamp, Card } from 'grommet-controls';
-import IconButton from '../IconButton/IconButton';
+import { ImageStamp, Card, IconButton } from 'grommet-controls';
 
 export default ({
   avatar, name, description, icons,
