@@ -17,11 +17,20 @@ import * as Grommet from 'grommet';
 import { Form as GrommetForm, MaskedInput as GrommetMaskedInput } from 'grommet';
 import * as Themes from 'grommet-controls/themes';
 import * as GrommetControls from 'grommet-controls';
+import * as GrommetCharts from 'grommet-controls/chartjs';
 import SiteLayout from '../components/layouts/SiteLayout';
 import RoutedButton from '../components/RoutedButton';
 
 const scope = {
-  ...Grommet, GrommetForm, GrommetMaskedInput, ...GrommetControls, Icons, Themes, styled, css,
+  ...Grommet,
+  GrommetForm,
+  GrommetMaskedInput,
+  ...GrommetControls,
+  ...GrommetCharts,
+  Icons,
+  Themes,
+  styled,
+  css,
 };
 
 const StyledEditor = styled(LiveEditor)`
