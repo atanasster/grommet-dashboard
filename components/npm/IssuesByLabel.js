@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
-import { HorizontalBarChart } from 'grommet-controls';
+import { HorizontalBarChart } from 'grommet-controls/chartjs';
 import ChartCard from '../charts/ChartCard';
 
 export default ({ issues }) => {

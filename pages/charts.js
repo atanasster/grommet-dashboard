@@ -3,7 +3,7 @@ import { Box, Grid } from 'grommet';
 import {
   BarChart, LineChart, HorizontalBarChart, RadarChart, ScatterChart,
   DoughnutChart, PieChart, PolarChart,
-} from 'grommet-controls';
+} from 'grommet-controls/chartjs';
 import { colorFromIndex } from 'grommet-controls/utils';
 import SiteLayout from '../components/layouts/SiteLayout';
 import Title from '../components/layouts/Title';

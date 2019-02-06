@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Box, Heading, Select } from 'grommet';
-import { LineChart, Card } from 'grommet-controls';
+import { Card } from 'grommet-controls';
+import { LineChart } from 'grommet-controls/chartjs';
 import connect from '../../redux/index';
 import { npmChangePeriod, npmChangeInterval } from '../../redux/npm/actions';
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DoughnutChart, Card } from 'grommet-controls';
+import { Card } from 'grommet-controls';
+import { DoughnutChart } from 'grommet-controls/chartjs';
 import connect from '../../redux/index';
 
 
