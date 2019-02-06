@@ -7,7 +7,7 @@ import {
   Menu as MenuIcon, Grommet as GrommetIcon, Home, TextAlignCenter,
   Document, Cubes, UserSettings as UserIcon, Paint,
 } from 'grommet-icons';
-import { VerticalMenu, Avatar } from 'grommet-controls';
+import { VerticalMenu, Avatar, Header } from 'grommet-controls';
 import routerPush from '../PushRoute';
 import AlertsMenu from '../AlertsMenu/AlertsMenu';
 import MenuBar from '../MenuBar/MenuBar';
@@ -59,7 +59,7 @@ const trendingNPM = [
     'react-monaco-editor',
   ],
 ];
-class Header extends React.Component {
+class AppBar extends React.Component {
   state = {
     activeMenu: false,
   };
@@ -198,42 +198,35 @@ class Header extends React.Component {
       );
     }
     return (
-      <Box background='brand'>
-        <Box
-          tag='header'
-          direction='row-responsive'
-          justify='between'
-          align='center'
-          border='bottom'
-          pad={{ horizontal: !isNarrow ? 'xlarge' : undefined, vertical: 'small' }}
-        >
-          <Box direction='row' align='center' gap='small' pad={{ horizontal: 'small' }}>
-            {isNarrow && (
-              <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
-            )}
-            <Heading level='3' margin='none'>
-              <RoutedButton path='/'>
-                  grommet dashboard
-              </RoutedButton>
-            </Heading>
-          </Box>
-          {menu}
+      <Header
+        position='sticky'
+      >
+        <Box direction='row' align='center' gap='small' pad={{ horizontal: 'small' }}>
+          {isNarrow && (
+            <Button icon={<MenuIcon />} onClick={this.onResponsiveMenu} />
+          )}
+          <Heading level='3' margin='none'>
+            <RoutedButton path='/'>
+                grommet dashboard
+            </RoutedButton>
+          </Heading>
         </Box>
         {!isNarrow && (
           <MenuBar
             items={toolbarItems}
           />
         )}
-      </Box>
+        {menu}
+      </Header>
     );
   }
 }
 
-Header.defaultProps = {
+AppBar.defaultProps = {
   size: undefined,
 };
 
-Header.propTypes = {
+AppBar.propTypes = {
   title: PropTypes.string.isRequired,
   onChangeTheme: PropTypes.func.isRequired,
   size: PropTypes.string,
@@ -247,5 +240,5 @@ const mapStateToProps = state => ({
 });
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppBar));
 

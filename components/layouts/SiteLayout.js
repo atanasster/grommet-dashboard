@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Head from 'next/head';
 import { Grommet, Box } from 'grommet';
 import { ResponsiveContext } from 'grommet/contexts';
-import Header from './Header';
+import AppBar from './AppBar';
 import Footer from './Footer';
 import Notifications from './Notifications';
 import connect from '../../redux/index';
@@ -70,7 +70,7 @@ class SiteLayout extends React.Component {
            <ResponsiveContext.Consumer >
              {size => (
                <Box style={{ height: 'auto', minHeight: '100vh' }}>
-                 <Header title={pageTitle} onChangeTheme={this.onChangeTheme} size={size} />
+                 <AppBar title={pageTitle} onChangeTheme={this.onChangeTheme} size={size} />
                  <Notifications />
                  <Box flex={true} background='light-1' pad={{ horizontal: size === 'small' ? 'small' : 'xlarge', vertical: 'large' }}>
                    {children}
