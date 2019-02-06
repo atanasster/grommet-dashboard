@@ -16,7 +16,7 @@
       },
       "grommet-controls/chartjs": {
         "transform": "grommet-controls/es6/chartjs/${member}",
-        "preventFullImport": true,
+        "preventFullImport": false,
         "skipDefaultConversion": true
       },
       "grommet-controls/utils": {
