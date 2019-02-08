@@ -43,7 +43,7 @@
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "grommet": "^2.4.0",
-    "grommet-controls": "^1.1.5",
+    "grommet-controls": "^1.1.6",
     "grommet-icons": "^4.2.0",
     "grommet-theme-aruba": "latest",
     "grommet-theme-dxc": "latest",
