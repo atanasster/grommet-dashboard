@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeContext } from 'grommet/contexts';
+import { ThemeContext } from 'styled-components';
 import { Value, Card } from 'grommet-controls';
 import { colorFromIndex } from 'grommet-controls/utils';
 import { Box, Distribution as GrommetDistribution } from 'grommet';

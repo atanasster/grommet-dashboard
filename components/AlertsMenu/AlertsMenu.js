@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text, Menu, Stack } from 'grommet';
-import { ThemeContext } from 'grommet/contexts';
+import { ThemeContext } from 'styled-components';
 import { getRGBA } from 'grommet/utils';
 import { Notification } from 'grommet-icons';
 

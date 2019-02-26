@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Heading, Button } from 'grommet';
-import { ResponsiveContext } from 'grommet/contexts';
+import { Box, Heading, Button, ResponsiveContext } from 'grommet';
 import { FormClose, FormCheckmark } from 'grommet-icons';
 import { Card } from 'grommet-controls';
 import SiteLayout from '../components/layouts/SiteLayout';

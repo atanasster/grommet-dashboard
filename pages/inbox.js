@@ -1,8 +1,7 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import moment from 'moment';
-import { Box, Button, Text, Paragraph, InfiniteScroll, Heading, Anchor } from 'grommet';
-import { ResponsiveContext } from 'grommet/contexts';
+import { Box, Button, Text, Paragraph, InfiniteScroll, Heading, Anchor, ResponsiveContext } from 'grommet';
 import { ImageStamp } from 'grommet-controls';
 import {
   Inbox, Send, Star, Document,
