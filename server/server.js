@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import express from 'express';
 import LRUCache from 'lru-cache';
 import fs from 'fs';
@@ -5,8 +6,7 @@ import nextjs from 'next';
 import compression from 'compression';
 import requestProxy from 'express-request-proxy';
 
-import logger from './logger';
-import routes from './routes';
+import routes from './routes.js';
 
 
 const port = parseInt(process.env.PORT, 10) || 8333;
@@ -101,9 +101,9 @@ app.prepare()
     server.get('*', (req, res) => handle(req, res));
     server.listen(port, (err) => {
       if (err) {
-        return logger.error(err.message);
+        return console.error(err.message);
       }
-      return logger.appStarted(port, 'localhost');
+      return console.log(`app started on ${port}`);
     });
   });
 
